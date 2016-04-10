@@ -6,7 +6,9 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'benekastah/neomake'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'derekwyatt/vim-fswitch'
 Plug 'freeo/vim-kalisi'
+Plug 'godlygeek/tabular'
 Plug 'justmao945/vim-clang'
 Plug 'lervag/vimtex'
 Plug 'majutsushi/tagbar'
@@ -18,9 +20,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/swap-parameters'
-Plug 'altercation/vim-colors-solarized'
-Plug 'derekwyatt/vim-fswitch'
-Plug 'godlygeek/tabular.git'
 
 call plug#end()
 
@@ -115,10 +114,12 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#ctrlp#show_adjacent_modes = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#tabline#show_tab_nr = 1
 nmap <leader>bl :ls<CR>
-nmap <leader>bn :bnext<CR>          |" buffer next
-nmap <leader>bp :bprevious<CR>      |" buffer previous
+"nmap <leader>bn :bnext<CR>          |" buffer next
+"nmap <leader>bp :bprevious<CR>      |" buffer previous
 nmap <leader>bq :bn <BAR> bd #<CR>  |" close buffer
 nmap <leader>1 <Plug>AirlineSelectTab1
 nmap <leader>2 <Plug>AirlineSelectTab2
@@ -133,7 +134,7 @@ nmap <leader>- <Plug>AirlineSelectPrevTab
 nmap <leader>+ <Plug>AirlineSelectNextTab
 
 " CtrlP
-let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_root_markers = ['.project.vim']
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
