@@ -20,6 +20,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/swap-parameters'
+Plug 'easymotion/vim-easymotion'
 
 call plug#end()
 
@@ -152,6 +153,15 @@ nmap <leader>pt :CtrlPTag<CR>
 " clang
 let g:clang_c_options = '-std=c99'
 let g:clang_cpp_options = '-std=c++11'
+
+" easymotion
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+nmap <Leader>s <Plug>(easymotion-overwin-f2)
+map  <Leader>L <Plug>(easymotion-bd-jk)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " fswitch
 nmap <silent> <Leader>of :FSHere<CR>        |" Switch to the file and load it into the current window
