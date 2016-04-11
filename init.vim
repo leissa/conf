@@ -136,8 +136,11 @@ nmap <leader>- <Plug>AirlineSelectPrevTab
 nmap <leader>+ <Plug>AirlineSelectNextTab
 
 " CtrlP
+
+let g:ctrlp_clear_cache_on_exit = 1
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_open_multiple_files = 'i'
+let g:ctrlp_regexp = 0
 let g:ctrlp_root_markers = ['.project.vim']
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
@@ -153,15 +156,18 @@ nmap <leader>pt :CtrlPTag<CR>
 " clang
 let g:clang_c_options = '-std=c99'
 let g:clang_cpp_options = '-std=c++11'
+let g:clang_pwheight = 8
+let g:clang_verbose_pmenu = 1
+let g:clang_vim_exex = 'nvim'
 
 " easymotion
 map  <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
-nmap <Leader>s <Plug>(easymotion-overwin-f2)
-map  <Leader>L <Plug>(easymotion-bd-jk)
-nmap <Leader>L <Plug>(easymotion-overwin-line)
+"nmap <Leader>f <Plug>(easymotion-overwin-f)
+"nmap <Leader>s <Plug>(easymotion-overwin-f2)
+map  <Leader>l <Plug>(easymotion-bd-jk)
+"nmap <Leader>l <Plug>(easymotion-overwin-line)
 map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
+"nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " fswitch
 nmap <silent> <Leader>of :FSHere<CR>        |" Switch to the file and load it into the current window
