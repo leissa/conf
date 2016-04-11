@@ -7,6 +7,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'benekastah/neomake'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'derekwyatt/vim-fswitch'
+Plug 'easymotion/vim-easymotion'
 Plug 'freeo/vim-kalisi'
 Plug 'godlygeek/tabular'
 Plug 'justmao945/vim-clang'
@@ -20,7 +21,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/swap-parameters'
-Plug 'easymotion/vim-easymotion'
 
 call plug#end()
 
