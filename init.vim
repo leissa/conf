@@ -62,6 +62,7 @@ set nowrap
 " search
 set hlsearch
 set incsearch
+set ignorecase
 set smartcase
 if maparg('<C-L>', 'n') ==# ''      " Use <C-L> to clear the highlighting of :set hlsearch.
   nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
