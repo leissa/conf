@@ -174,10 +174,6 @@ nmap <silent> <Leader>of :FSHere<CR>        |" Switch to the file and load it in
 nmap <silent> <Leader>ol :FSSplitRight<CR>  |" Switch to the file and load it into a new window split on the right
 nmap <silent> <Leader>oh :FSSplitLeft<CR>   |" Switch to the file and load it into a new window split on the left
 
-" NERDCommenter
-let NERDDefaultNesting = 1
-let g:NERDShutUp=1
-
 " NERDTree
 nnoremap <silent> <F10> :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\.o$', '\.obj$', '\.bak$', '\.exe$', '\.aux$', '\.log$', '\.toc$', '\.backup$']
