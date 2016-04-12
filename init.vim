@@ -176,7 +176,7 @@ nmap <silent> <Leader>oh :FSSplitLeft<CR>   |" Switch to the file and load it in
 
 " NERDTree
 nnoremap <silent> <F10> :NERDTreeToggle<CR>
-let NERDTreeIgnore=['\.o$', '\.obj$', '\.bak$', '\.exe$', '\.aux$', '\.log$', '\.toc$', '\.backup$']
+let NERDTreeRespectWildIgnore = 1
 
 " tagbar
 map <silent> <F9> :TagbarToggle<CR>
