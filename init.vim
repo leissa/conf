@@ -77,7 +77,7 @@ let g:load_doxygen_syntax=1
 colorscheme kalisi
 hi Normal ctermbg=NONE
 hi NonText ctermbg=NONE
-hi MatchParen ctermbg=234 ctermfg=112
+hi MatchParen ctermbg=58 ctermfg=118
 
 "
 " maps/autocmd
