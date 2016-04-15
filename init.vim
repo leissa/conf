@@ -49,6 +49,7 @@ set completeopt=menu,menuone,longest,preview
 " indentation rules
 set expandtab
 set autoindent
+set smartindent
 set shiftround
 set ts=4
 set softtabstop=4
@@ -191,8 +192,8 @@ let g:tagbar_width=60
 
 " tex
 let g:tex_flavor='latex'
-let g:vimtex_indent_bib_enabled = 0
-let g:vimtex_indent_enabled = 0
+"let g:vimtex_indent_bib_enabled = 0
+"let g:vimtex_indent_enabled = 0
 let g:vimtex_index_show_help = 0
 let g:vimtex_index_split_width = 60
 let g:vimtex_latexmk_progname =  'nvr'
