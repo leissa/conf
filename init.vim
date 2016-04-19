@@ -49,6 +49,7 @@ set completeopt=menu,menuone,longest,preview
 " indentation rules
 set expandtab
 set autoindent
+set smartindent
 set shiftround
 set ts=4
 set softtabstop=4
@@ -74,9 +75,9 @@ set background=dark
 let g:kalisi_recolor_quickfixsigns = 1
 let g:load_doxygen_syntax=1
 colorscheme kalisi
-hi Normal ctermbg=NONE
-hi NonText ctermbg=NONE
-hi MatchParen ctermbg=234 ctermfg=112
+hi Normal  ctermbg=NONE guibg=NONE
+hi NonText ctermbg=NONE guibg=NONE
+hi MatchParen ctermbg=58 ctermfg=118 guibg=#5a5a00 guifg=#8fca24
 
 "
 " maps/autocmd
@@ -101,6 +102,7 @@ autocmd FileType c,cpp,java,php,tex autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " other
 map Y y$
+map Ä :vimgrep//gj **/*.{cpp,h}<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 "cabbrev help tab help
 
 "
@@ -119,10 +121,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
-nmap <leader>bl :ls<CR>
-"nmap <leader>bn :bnext<CR>          |" buffer next
-"nmap <leader>bp :bprevious<CR>      |" buffer previous
-nmap <leader>bq :bn <BAR> bd #<CR>  |" close buffer
+nmap <leader>x :bn <BAR> bd #<CR>  |" close buffer
 nmap <leader>1 <Plug>AirlineSelectTab1
 nmap <leader>2 <Plug>AirlineSelectTab2
 nmap <leader>3 <Plug>AirlineSelectTab3
@@ -187,8 +186,8 @@ let g:tagbar_width=60
 
 " tex
 let g:tex_flavor='latex'
-let g:vimtex_indent_bib_enabled = 0
-let g:vimtex_indent_enabled = 0
+"let g:vimtex_indent_bib_enabled = 0
+"let g:vimtex_indent_enabled = 0
 let g:vimtex_index_show_help = 0
 let g:vimtex_index_split_width = 60
 let g:vimtex_latexmk_progname =  'nvr'
