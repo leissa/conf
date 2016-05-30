@@ -37,7 +37,7 @@ set showcmd
 "set spelllang=en,de
 set textwidth=0
 set wildignore=*.acn,*.aux,*.backup,*.bak,*.bbl,*.bcf,*.blg,*.class,*.d,*.dll,*.dvi,*.exe,*.fdb_latexmk,*.fls,*.fls,
-              \*.idx,*.ilg,*.ind,*.ist,*.jpg,*.jpeg,*.loa,*.lof,*.lot,*.nav,*.o,*.obj,*.pdf,*.png,*.run.xml,
+              \*.idx,*.ilg,*.ind,*.ist,*.jpg,*.jpeg,*.loa,*.lof,*.lot,*.nav,*.o,*.obj,*.pdf,*.png,*.pyc,*.run.xml,
               \*.snm,*.synctex.gz,*.so,tags,*.tdo,*.tga,*.toc,*.vrb
 set wildmode=list:longest,full
 "set conceallevel=0
@@ -153,9 +153,9 @@ nmap <leader>pr :CtrlPMRU<CR>
 nmap <leader>pt :CtrlPTag<CR>
 
 " clang
-let g:clang_exec = '/usr/bin/clang'
 let g:clang_c_options = '-std=c99'
 let g:clang_cpp_options = '-std=c++11'
+let g:clang_exec = '/usr/bin/clang'
 let g:clang_pwheight = 8
 let g:clang_verbose_pmenu = 1
 let g:clang_vim_exec = 'nvim'
@@ -174,13 +174,9 @@ nmap <silent> <Leader>of :FSHere<CR>        |" Switch to the file and load it in
 nmap <silent> <Leader>ol :FSSplitRight<CR>  |" Switch to the file and load it into a new window split on the right
 nmap <silent> <Leader>oh :FSSplitLeft<CR>   |" Switch to the file and load it into a new window split on the left
 
-" NERDCommenter
-let NERDDefaultNesting = 1
-let g:NERDShutUp=1
-
 " NERDTree
 nnoremap <silent> <F10> :NERDTreeToggle<CR>
-let NERDTreeIgnore=['\.o$', '\.obj$', '\.bak$', '\.exe$', '\.aux$', '\.log$', '\.toc$', '\.backup$']
+let NERDTreeRespectWildIgnore = 1
 
 " tagbar
 map <silent> <F9> :TagbarToggle<CR>
