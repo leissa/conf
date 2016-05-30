@@ -36,7 +36,7 @@ set showcmd
 "set spelllang=en
 "set spelllang=en,de
 set textwidth=0
-set wildignore=*.acn,*.aux,*.backup,*.bak,*.bbl,*.bcf,*.blg,*.class,*.dll,*.dvi,*.exe,*.fdb_latexmk,*.fls,*.fls,
+set wildignore=*.acn,*.aux,*.backup,*.bak,*.bbl,*.bcf,*.blg,*.class,*.d,*.dll,*.dvi,*.exe,*.fdb_latexmk,*.fls,*.fls,
               \*.idx,*.ilg,*.ind,*.ist,*.jpg,*.jpeg,*.loa,*.lof,*.lot,*.nav,*.o,*.obj,*.pdf,*.png,*.run.xml,
               \*.snm,*.synctex.gz,*.so,tags,*.tdo,*.tga,*.toc,*.vrb
 set wildmode=list:longest,full
@@ -153,11 +153,12 @@ nmap <leader>pr :CtrlPMRU<CR>
 nmap <leader>pt :CtrlPTag<CR>
 
 " clang
+let g:clang_exec = '/usr/bin/clang'
 let g:clang_c_options = '-std=c99'
 let g:clang_cpp_options = '-std=c++11'
 let g:clang_pwheight = 8
 let g:clang_verbose_pmenu = 1
-let g:clang_vim_exex = 'nvim'
+let g:clang_vim_exec = 'nvim'
 
 " easymotion
 map  <Leader>f <Plug>(easymotion-bd-f)
