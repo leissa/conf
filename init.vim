@@ -36,8 +36,8 @@ set showcmd
 "set spelllang=en
 "set spelllang=en,de
 set textwidth=0
-set wildignore=*.acn,*.aux,*.backup,*.bak,*.bbl,*.bcf,*.blg,*.class,*.dll,*.dvi,*.exe,*.fdb_latexmk,*.fls,*.fls,
-              \*.idx,*.ilg,*.ind,*.ist,*.jpg,*.jpeg,*.loa,*.lof,*.lot,*.nav,*.o,*.obj,*.pdf,*.png,*.run.xml,
+set wildignore=*.acn,*.aux,*.backup,*.bak,*.bbl,*.bcf,*.blg,*.class,*.d,*.dll,*.dvi,*.exe,*.fdb_latexmk,*.fls,*.fls,
+              \*.idx,*.ilg,*.ind,*.ist,*.jpg,*.jpeg,*.loa,*.lof,*.lot,*.nav,*.o,*.obj,*.pdf,*.png,*.pyc,*.run.xml,
               \*.snm,*.synctex.gz,*.so,tags,*.tdo,*.tga,*.toc,*.vrb
 set wildmode=list:longest,full
 "set conceallevel=0
