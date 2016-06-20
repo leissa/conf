@@ -160,10 +160,10 @@ nmap <leader>pt :CtrlPTag<CR>
 " clang
 let g:clang_c_options = '-std=c99'
 let g:clang_cpp_options = '-std=c++11'
+let g:clang_exec = '/usr/bin/clang'
 let g:clang_pwheight = 8
 let g:clang_verbose_pmenu = 1
-let g:clang_vim_exex = 'nvim'
-let g:clang_exec = '/usr/bin/clang'
+let g:clang_vim_exec = 'nvim'
 
 " easymotion
 map  <Leader>f <Plug>(easymotion-bd-f)
