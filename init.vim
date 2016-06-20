@@ -144,7 +144,7 @@ nmap <leader>+ <Plug>AirlineSelectNextTab
 let g:ctrlp_clear_cache_on_exit = 1
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_open_multiple_files = 'i'
-let g:ctrlp_regexp = 0
+let g:ctrlp_regexp = 1
 let g:ctrlp_root_markers = ['.project.vim']
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
