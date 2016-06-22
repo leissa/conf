@@ -100,10 +100,6 @@ noremap <S-F11> :make!<CR>
 " remove trailing whitespaces
 autocmd FileType c,cpp,java,php,tex autocmd BufWritePre <buffer> :%s/\s\+$//e
 
-" keep selection after indenting
-vmap > >gv
-vmap < <gv
-
 " other
 map Y y$
 map Ä :vimgrep//gj **/*.{cpp,h}<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
