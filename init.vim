@@ -123,6 +123,7 @@ let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
 nmap <leader>x :bn <BAR> bd #<CR>  |" close buffer
+nmap <leader>wx :w<CR>:bn <BAR> bd #<CR>  |" close buffer
 nmap <leader>1 <Plug>AirlineSelectTab1
 nmap <leader>2 <Plug>AirlineSelectTab2
 nmap <leader>3 <Plug>AirlineSelectTab3
@@ -154,8 +155,8 @@ nmap <leader>pr :CtrlPMRU<CR>
 nmap <leader>pt :CtrlPTag<CR>
 
 " clang
-let g:clang_c_options = '-std=c99'
-let g:clang_cpp_options = '-std=c++11'
+let g:clang_c_options = '-std=c11'
+let g:clang_cpp_options = '-std=c++14'
 let g:clang_exec = '/usr/bin/clang'
 let g:clang_pwheight = 8
 let g:clang_verbose_pmenu = 1
