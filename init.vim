@@ -123,6 +123,7 @@ let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
 nmap <leader>x :bn <BAR> bd #<CR>  |" close buffer
+nmap <leader>wx :w<CR>:bn <BAR> bd #<CR>  |" close buffer
 nmap <leader>1 <Plug>AirlineSelectTab1
 nmap <leader>2 <Plug>AirlineSelectTab2
 nmap <leader>3 <Plug>AirlineSelectTab3
