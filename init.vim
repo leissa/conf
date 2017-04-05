@@ -4,6 +4,7 @@
 
 call plug#begin('~/.vim/plugged')
 
+"Plug 'Superbil/llvm.vim'
 Plug 'benekastah/neomake'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'derekwyatt/vim-fswitch'
@@ -21,6 +22,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/swap-parameters'
+
 
 call plug#end()
 
@@ -41,6 +43,15 @@ set wildignore=*.acn,*.aux,*.backup,*.bak,*.bbl,*.bcf,*.blg,*.class,*.d,*.dll,*.
               \*.snm,*.synctex.gz,*.so,tags,*.tdo,*.tga,*.toc,*.vrb
 set wildmode=list:longest,full
 "set conceallevel=0
+
+" colors
+set background=dark
+let g:kalisi_recolor_quickfixsigns = 1
+let g:load_doxygen_syntax=1
+colorscheme kalisi
+hi Normal  ctermbg=NONE guibg=NONE
+hi NonText ctermbg=NONE guibg=NONE
+hi MatchParen ctermbg=58 ctermfg=118 guibg=#5a5a00 guifg=#8fca24
 
 " completion
 autocmd CompleteDone * pclose " automatically close preview window
@@ -70,15 +81,6 @@ if maparg('<C-L>', 'n') ==# ''      " Use <C-L> to clear the highlighting of :se
   nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 endif
 
-" colors
-set background=dark
-let g:kalisi_recolor_quickfixsigns = 1
-let g:load_doxygen_syntax=1
-colorscheme kalisi
-hi Normal  ctermbg=NONE guibg=NONE
-hi NonText ctermbg=NONE guibg=NONE
-hi MatchParen ctermbg=58 ctermfg=118 guibg=#5a5a00 guifg=#8fca24
-
 "
 " maps/autocmd
 "
@@ -98,7 +100,7 @@ noremap <F11> :make! -j`cat /proc/cpuinfo \\| grep processor \\| echo \`wc -l\` 
 noremap <S-F11> :make!<CR>
 
 " remove trailing whitespaces
-autocmd FileType c,cpp,java,php,tex autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType c,cpp,java,php,tex,bib autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " other
 map Y y$
@@ -176,6 +178,12 @@ nmap <silent> <Leader>of :FSHere<CR>        |" Switch to the file and load it in
 nmap <silent> <Leader>ol :FSSplitRight<CR>  |" Switch to the file and load it into a new window split on the right
 nmap <silent> <Leader>oh :FSSplitLeft<CR>   |" Switch to the file and load it into a new window split on the left
 
+"
+augroup filetype
+    au! BufRead,BufNewFile *.td set filetype=tablegen
+    au! BufRead,BufNewFile *.ll set filetype=llvm
+augroup END
+
 " NERDTree
 nnoremap <silent> <F10> :NERDTreeToggle<CR>
 let NERDTreeRespectWildIgnore = 1
@@ -194,15 +202,23 @@ let g:tex_flavor='latex'
 let g:vimtex_index_show_help = 0
 let g:vimtex_index_split_width = 60
 let g:vimtex_latexmk_progname =  'nvr'
-let g:vimtex_quickfix_ignore_all_warnings = 1
+let g:vimtex_quickfix_warnings = {'default' : 0}
 let g:vimtex_view_general_options = '--unique @pdf\#src:@line@tex'
 let g:vimtex_view_general_options_latexmk = '--unique'
 let g:vimtex_view_general_viewer = 'okular'
-let g:vimtex_quickfix_ignored_warnings = [
-    \ 'Underfull',
-    \ 'Overfull',
-    \ 'specifier changed to',
-    \ ]
+let g:vimtex_quickfix_warnings = { 
+    \ 'default' : 0,
+    \ 'packages' : {
+    \   'default' : 0,
+    \ },
+    \}
+"let g:vimtex_quickfix_warnings = {
+    "\ 'overfull' : 0,
+    "\ 'underfull' : 0,
+    "\ 'packages' : {
+    "\   'default' : 0,
+    "\ },
+    "\}
 
 "
 " include custom settings - do this last
