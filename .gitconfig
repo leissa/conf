@@ -1,0 +1,31 @@
+[user]
+	name = Roland Leißa
+    email = leissa@cs.uni-saarland.de
+[core]
+    excludesfile = ~/.gitignore
+[push]
+    default = tracking
+[alias]
+    conflict = !"$EDITOR" -c '/^[<=|>]\\{7\\}' $(git ls-files --unmerged | cut -c 51- | uniq)
+    upbase = rebase @{u}
+    lg = log --decorate --graph --name-status
+    cat = cat-file -p
+    di = diff
+    st = status -s
+    co = checkout
+    da = diff HEAD
+    dx = diff --cached
+    adu = add -u
+    ada = add -A
+    ci = commit -a -v
+    cx = commit -v
+    get = fetch --all --recurse-submodules --tags
+	bvv = branch -vv
+    stat = diff --stat
+[color]
+	status = auto
+	branch = auto
+    ui = auto
+[merge]
+    #conflictstyle = diff3
+    defaultToUpstream = true
