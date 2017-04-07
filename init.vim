@@ -94,11 +94,12 @@ com Ctags !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --languag
 com CCtags !ctags -R --sort=yes --fields=+iaS --extra=+q
 
 " make
-noremap <F11> :make! -j`cat /proc/cpuinfo \\| grep processor \\| echo \`wc -l\` + 1 \\| bc`<CR>
+"noremap <F11> :make! -j`cat /proc/cpuinfo \\| grep processor \\| echo \`wc -l\` + 1 \\| bc`<CR>
+noremap <F11> :make! -j 4<CR>
 noremap <S-F11> :make!<CR>
 
 " remove trailing whitespaces
-autocmd FileType c,cpp,java,php,tex autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType c,cpp,java,php,py,tex autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " other
 map Y y$
