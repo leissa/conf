@@ -147,7 +147,7 @@ let g:ctrlp_regexp = 1
 let g:ctrlp_root_markers = ['.project.vim']
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
-  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+  \ 'file': '\v\.(exe|so|dll|class|png|prg|jpg|jpeg)$',
 \}
 nmap <leader>pb :CtrlPBuffer<CR>
 nmap <leader>pc :CtrlPChangeAll<CR>
