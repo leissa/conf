@@ -23,7 +23,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/swap-parameters'
 
-
 call plug#end()
 
 "
