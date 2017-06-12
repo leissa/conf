@@ -4,7 +4,6 @@
 
 call plug#begin('~/.vim/plugged')
 
-"Plug 'Superbil/llvm.vim'
 Plug 'benekastah/neomake'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'derekwyatt/vim-fswitch'
