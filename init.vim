@@ -100,7 +100,7 @@ noremap <F11> :make! -j 4<CR>
 noremap <S-F11> :make!<CR>
 
 " remove trailing whitespaces
-autocmd FileType acme,bib,c,cpp,java,php,py,tex autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType acme,bib,c,cpp,impala,java,php,py,tex autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " other
 map Y y$
