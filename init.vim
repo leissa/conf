@@ -22,6 +22,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/swap-parameters'
+Plug 'wincent/ferret'
 
 call plug#end()
 
