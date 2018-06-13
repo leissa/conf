@@ -21,7 +21,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/swap-parameters'
+"Plug 'vim-scripts/swap-parameters'
 Plug 'wincent/ferret'
 
 call plug#end()
@@ -101,7 +101,7 @@ noremap <F11> :make! -j 4<CR>
 noremap <S-F11> :make!<CR>
 
 " remove trailing whitespaces
-autocmd FileType acme,bib,c,cpp,impala,java,php,py,tex autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType acme,bib,c,cpp,impala,java,php,py,sh,tex,text autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " other
 map Y y$

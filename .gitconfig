@@ -29,3 +29,5 @@
 [merge]
     #conflictstyle = diff3
     defaultToUpstream = true
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
