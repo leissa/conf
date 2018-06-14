@@ -101,7 +101,7 @@ noremap <F11> :make! -j 4<CR>
 noremap <S-F11> :make!<CR>
 
 " remove trailing whitespaces
-autocmd FileType acme,bib,c,cpp,impala,java,php,py,tex autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType acme,asm,bib,c,cpp,impala,java,markdown,inc,php,py,s,tex,yml autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " other
 map Y y$
@@ -159,11 +159,13 @@ nmap <leader>pt :CtrlPTag<CR>
 
 " clang
 let g:clang_c_options = '-std=c11'
-let g:clang_cpp_options = '-std=c++14'
+let g:clang_cpp_options = '-std=c++1z'
 let g:clang_exec = '/usr/bin/clang'
 let g:clang_pwheight = 8
 let g:clang_verbose_pmenu = 1
 let g:clang_vim_exec = 'nvim'
+"let g:clang_diagsopt = ''   " <- disable diagnostics
+
 
 " easymotion
 map  <Leader>f <Plug>(easymotion-bd-f)
