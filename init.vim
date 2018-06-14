@@ -159,11 +159,7 @@ nmap <leader>pt :CtrlPTag<CR>
 
 " clang
 let g:clang_c_options = '-std=c11'
-<<<<<<< HEAD
-let g:clang_cpp_options = '-std=c++1z'
-=======
 let g:clang_cpp_options = '-std=c++17'
->>>>>>> 047703ed8d72c39e8a403a817ca867eb0c961baf
 let g:clang_exec = '/usr/bin/clang'
 let g:clang_pwheight = 8
 let g:clang_verbose_pmenu = 1
