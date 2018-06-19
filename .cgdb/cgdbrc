@@ -1,0 +1,10 @@
+set ts=4
+highlight SelectedLineNr cterm=bold ctermfg=Magenta ctermbg=DarkGray term=bold
+
+map c :continue<CR>
+map d :down<CR>
+map f :finish<CR>
+map x :next<CR>
+map r :run<CR>
+map s :step<CR>
+map u :up<CR>
