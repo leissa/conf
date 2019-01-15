@@ -32,6 +32,7 @@ call plug#end()
 "
 
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+set nojoinspaces
 set nostartofline
 set nottimeout
 set showcmd
@@ -102,7 +103,7 @@ noremap <F11> :make! -j 4<CR>
 noremap <S-F11> :make!<CR>
 
 " remove trailing whitespaces
-autocmd FileType acme,asm,bib,c,cpp,impala,java,markdown,inc,php,py,s,tex,yml autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType acme,asm,bib,c,cpp,impala,java,markdown,inc,php,python,s,tex,yml autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " other
 map Y y$
@@ -165,7 +166,7 @@ let g:clang_exec = '/usr/bin/clang'
 let g:clang_pwheight = 8
 let g:clang_verbose_pmenu = 1
 let g:clang_vim_exec = 'nvim'
-"let g:clang_diagsopt = ''   " <- disable diagnostics
+let g:clang_diagsopt = ''   " <- disable diagnostics
 
 
 " easymotion
