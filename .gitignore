@@ -1,2 +1,3 @@
 .cgdb/logs/
 .cgdb/readline_history.txt
+.project.vim
