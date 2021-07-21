@@ -1,6 +1,6 @@
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 "
@@ -9,6 +9,8 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'DavidEGx/ctrlp-smarttabs'
+Plug 'antiagainst/vim-tablegen'
 Plug 'benekastah/neomake'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'derekwyatt/vim-fswitch'
@@ -42,6 +44,7 @@ set nojoinspaces
 set nostartofline
 set nottimeout
 set showcmd
+set switchbuf+=usetab,newtab
 "set spell
 "set spelllang=en
 "set spelllang=en,de
@@ -104,8 +107,7 @@ com Ctags !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --languag
 com CCtags !ctags -R --sort=yes --fields=+iaS --extra=+q
 
 " make
-"noremap <F11> :make! -j`cat /proc/cpuinfo \\| grep processor \\| echo \`wc -l\` + 1 \\| bc`<CR>
-noremap <F11> :make! -j 4<CR>
+noremap <F11> :make! -j `$(nproc)`<CR>
 noremap <S-F11> :make!<CR>
 
 " remove trailing whitespaces
@@ -115,7 +117,8 @@ autocmd FileType acme,asm,bib,c,cpp,impala,java,markdown,inc,php,python,s,tex,ym
 map Y y$
 map Ä :vimgrep//gj **/*.{cpp,h}<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 map Q @q
-"cabbrev help tab help
+cabbrev h tab help
+cabbrev help tab help
 
 " builtin macros
 runtime macros/matchit.vim
@@ -125,43 +128,34 @@ runtime macros/shellmenu.vim
 " setup plugins
 "
 
-" airline/tabline
-set autowrite
-set confirm
-set hidden
-set laststatus=2
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#ctrlp#show_adjacent_modes = 1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
-let g:airline#extensions#tagbar#enabled = 1
-let g:airline#extensions#tabline#show_tab_nr = 1
-nmap <leader>x :bn <BAR> bd #<CR>  |" close buffer
-nmap <leader>wx :w<CR>:bn <BAR> bd #<CR>  |" close buffer
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
-nmap <leader>- <Plug>AirlineSelectPrevTab
-nmap <leader>+ <Plug>AirlineSelectNextTab
+let g:airline_powerline_fonts = 1
+
+"let g:powerline_pycmd="py3"
+"
+"set autowrite
+"set confirm
+"set hidden
+"set laststatus=2
+"let g:powerline_pycmd="py3"
+"nmap <leader>x :tabclose<CR>  |" close buffer
+
+"nmap <leader>x :bn <BAR> bd #<CR>  |" close buffer
+"nmap <leader>wx :w<CR>:bn <BAR> bd #<CR>  |" close buffer
 
 " CtrlP
 
 let g:ctrlp_clear_cache_on_exit = 1
 let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_open_multiple_files = 'i'
+let g:ctrlp_open_multiple_files = 't'       " open in a new tab
+let g:ctrlp_open_new_file = 't'             " open in a new tab
 let g:ctrlp_regexp = 1
-let g:ctrlp_root_markers = ['.project.vim']
+let g:ctrlp_root_markers = ['.git']
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
-  \ 'file': '\v\.(exe|so|dll|class|png|prg|jpg|jpeg)$',
-\}
+    \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site|build)$',
+    \ 'file': '\v\.(exe|so|dll|class|png|prg|jpg|jpeg)$',
+\ }
+let g:ctrlp_extensions = ['smarttabs']
+
 nmap <leader>pb :CtrlPBuffer<CR>
 nmap <leader>pc :CtrlPChangeAll<CR>
 nmap <leader>pl :CtrlPLine<CR>
@@ -170,14 +164,16 @@ nmap <leader>pr :CtrlPMRU<CR>
 nmap <leader>pt :CtrlPTag<CR>
 
 " clang
+let g:clang_auto = 0
 let g:clang_c_options = '-std=c11'
-let g:clang_cpp_options = '-std=c++17'
-let g:clang_exec = '/usr/bin/clang'
-let g:clang_pwheight = 8
-let g:clang_verbose_pmenu = 1
-let g:clang_vim_exec = 'nvim'
+let g:clang_cpp_options = '-std=gnu++2a'
 let g:clang_diagsopt = ''   " <- disable diagnostics
-
+let g:clang_exec = '/usr/bin/clang'
+let g:clang_format_exec = '/usr/bin/clang-format'
+let g:clang_pwheight = 8
+let g:clang_sh_exec = 'bash'
+let g:clang_verbose_pmenu = 1
+let g:clang_vim_exec = 'vim'
 
 " easymotion
 map  <Leader>f <Plug>(easymotion-bd-f)
@@ -189,9 +185,9 @@ map  <Leader>w <Plug>(easymotion-bd-w)
 "nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " fswitch
-nmap <silent> <Leader>of :FSHere<CR>        |" Switch to the file and load it into the current window
-nmap <silent> <Leader>ol :FSSplitRight<CR>  |" Switch to the file and load it into a new window split on the right
-nmap <silent> <Leader>oh :FSSplitLeft<CR>   |" Switch to the file and load it into a new window split on the left
+nmap <silent> ö :FSSplitRight<CR>           |" Switch to the file and load it into a new window split on the right
+"nmap <silent> <Leader>ol :FSSplitRight<CR>  |" Switch to the file and load it into a new window split on the right
+"nmap <silent> <Leader>oh :FSSplitLeft<CR>   |" Switch to the file and load it into a new window split on the left
 
 "
 augroup filetype
@@ -213,9 +209,7 @@ let g:tagbar_width=60
 " tex
 let g:tex_flavor='latex'
 "let g:vimtex_index_show_help = 0
-let g:vimtex_index_split_width = 60
 let g:vimtex_compiler_progname = 'nvr'
-let g:vimtex_quickfix_latexlog = {'default' : 0}
 let g:vimtex_view_general_viewer = 'okular'
 let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 let g:vimtex_view_general_options_latexmk = '--unique'
