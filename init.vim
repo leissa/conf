@@ -15,23 +15,28 @@ Plug 'benekastah/neomake'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'derekwyatt/vim-fswitch'
 Plug 'easymotion/vim-easymotion'
-Plug 'freeo/vim-kalisi'
+Plug 'fneu/breezy'
 Plug 'godlygeek/tabular'
+Plug 'joshdick/onedark.vim'
 Plug 'justmao945/vim-clang'
 Plug 'leissa/vim-acme'
 Plug 'lervag/vimtex'
 Plug 'machakann/vim-swap'
 Plug 'majutsushi/tagbar'
+Plug 'morhetz/gruvbox'
 Plug 'mrtazz/DoxygenToolkit.vim'
+Plug 'condy0919/docom.vim'
 Plug 'rhysd/vim-grammarous'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
+Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'wincent/ferret'
+Plug 'condy0919/docom.vim'
 
 call plug#end()
 
@@ -39,6 +44,7 @@ call plug#end()
 " standard options
 "
 
+set encoding=utf-8
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set nojoinspaces
 set nostartofline
@@ -56,13 +62,12 @@ set wildmode=list:longest,full
 "set conceallevel=0
 
 " colors
+set termguicolors
 set background=dark
-let g:kalisi_recolor_quickfixsigns = 1
-let g:load_doxygen_syntax=1
-colorscheme kalisi
-hi Normal  ctermbg=NONE guibg=NONE
-hi NonText ctermbg=NONE guibg=NONE
-hi MatchParen ctermbg=58 ctermfg=118 guibg=#5a5a00 guifg=#8fca24
+let python_highlight_all=1
+colorscheme breezy
+" transparent bg
+hi Normal guibg=NONE guifg=#cfcfc2 gui=NONE
 
 " completion
 autocmd CompleteDone * pclose " automatically close preview window
@@ -91,6 +96,14 @@ set smartcase
 if maparg('<C-L>', 'n') ==# ''      " Use <C-L> to clear the highlighting of :set hlsearch.
   nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 endif
+
+set autowrite
+set confirm
+set hidden
+set laststatus=2
+nmap <leader>x :tabclose<CR>  |" close buffer
+"nmap <leader>x :bn <BAR> bd #<CR>  |" close buffer
+nmap <leader>wx :w<CR>:bn <BAR> bd #<CR>  |" close buffer
 
 "
 " maps/autocmd
@@ -129,18 +142,11 @@ runtime macros/shellmenu.vim
 "
 
 let g:airline_powerline_fonts = 1
-
-"let g:powerline_pycmd="py3"
-"
-"set autowrite
-"set confirm
-"set hidden
-"set laststatus=2
-"let g:powerline_pycmd="py3"
-"nmap <leader>x :tabclose<CR>  |" close buffer
-
-"nmap <leader>x :bn <BAR> bd #<CR>  |" close buffer
-"nmap <leader>wx :w<CR>:bn <BAR> bd #<CR>  |" close buffer
+let g:airline#extensions#whitespace#mixed_indent_algo = 1
+"let g:airline_theme='powerlineish'
+"let g:airline_theme='gruvbox'
+"let g:airline_theme='onedark'
+let g:airline_theme='breezy'
 
 " CtrlP
 
@@ -207,12 +213,14 @@ map <silent> <F9> :TagbarToggle<CR>
 let g:tagbar_width=60
 
 " tex
-let g:tex_flavor='latex'
+"let g:tex_flavor='latex'
 "let g:vimtex_index_show_help = 0
 let g:vimtex_compiler_progname = 'nvr'
 let g:vimtex_view_general_viewer = 'okular'
 let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 let g:vimtex_view_general_options_latexmk = '--unique'
+let g:vimtex_quickfix_open_on_warning = 0
+
 
 "
 " include custom settings - do this last
