@@ -3,6 +3,9 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+let g:FerretMap = 0 " don't import standard ferret mappings
+
+
 "
 " load plugins
 "
@@ -29,7 +32,7 @@ Plug 'condy0919/docom.vim'
 Plug 'rhysd/vim-grammarous'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree'
+"Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -63,7 +66,7 @@ set wildmode=list:longest,full
 
 " colors
 set termguicolors
-set background=dark
+set background=light
 let python_highlight_all=1
 colorscheme breezy
 " transparent bg
@@ -105,19 +108,10 @@ nmap <leader>x :tabclose<CR>  |" close buffer
 "nmap <leader>x :bn <BAR> bd #<CR>  |" close buffer
 nmap <leader>wx :w<CR>:bn <BAR> bd #<CR>  |" close buffer
 
-"
-" maps/autocmd
-"
 
 " leaders
 let mapleader=","
 let maplocalleader=" "
-
-" ctags
-"nmap ,t :tab tjump <C-R>=expand("<cword>")<CR><CR>
-nmap ,g     :tjump <C-R>=expand("<cword>")<CR><CR>
-com Ctags !ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++
-com CCtags !ctags -R --sort=yes --fields=+iaS --extra=+q
 
 " make
 noremap <F11> :make! -j `$(nproc)`<CR>
@@ -133,6 +127,11 @@ map Q @q
 cabbrev h tab help
 cabbrev help tab help
 
+"augroup filetype
+    "au! BufRead,BufNewFile *.td set filetype=tablegen
+    "au! BufRead,BufNewFile *.ll set filetype=llvm
+"augroup END
+
 " builtin macros
 runtime macros/matchit.vim
 runtime macros/shellmenu.vim
@@ -141,14 +140,24 @@ runtime macros/shellmenu.vim
 " setup plugins
 "
 
+" airline
+
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#whitespace#mixed_indent_algo = 1
+"let g:airline#extensions#whitespace#mixed_indent_algo = 1
 "let g:airline_theme='powerlineish'
 "let g:airline_theme='gruvbox'
 "let g:airline_theme='onedark'
 let g:airline_theme='breezy'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#tab_nr_type = 1 " just show tab number
 
-" CtrlP
+let g:airline#extensions#tmuxline#enabled = 1
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_symbols.colnr = ' ㏇:'
+
+" ctrlp
 
 let g:ctrlp_clear_cache_on_exit = 1
 let g:ctrlp_cmd = 'CtrlP'
@@ -162,12 +171,18 @@ let g:ctrlp_custom_ignore = {
 \ }
 let g:ctrlp_extensions = ['smarttabs']
 
-nmap <leader>pb :CtrlPBuffer<CR>
-nmap <leader>pc :CtrlPChangeAll<CR>
-nmap <leader>pl :CtrlPLine<CR>
-nmap <leader>pm :CtrlPMixed<CR>
-nmap <leader>pr :CtrlPMRU<CR>
-nmap <leader>pt :CtrlPTag<CR>
+" open in new tab instead of buffer
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<2-LeftMouse>'],
+    \ 'AcceptSelection("t")': ['<cr>'],
+    \ }
+
+"nmap <leader>pb :CtrlPBuffer<CR>
+"nmap <leader>pc :CtrlPChangeAll<CR>
+"nmap <leader>pl :CtrlPLine<CR>
+"nmap <leader>pm :CtrlPMixed<CR>
+"nmap <leader>pr :CtrlPMRU<CR>
+"nmap <leader>pt :CtrlPTag<CR>
 
 " clang
 let g:clang_auto = 0
@@ -182,30 +197,28 @@ let g:clang_verbose_pmenu = 1
 let g:clang_vim_exec = 'vim'
 
 " easymotion
-map  <Leader>f <Plug>(easymotion-bd-f)
+
+"map  <Leader>f <Plug>(easymotion-bd-f)
 "nmap <Leader>f <Plug>(easymotion-overwin-f)
 "nmap <Leader>s <Plug>(easymotion-overwin-f2)
-map  <Leader>l <Plug>(easymotion-bd-jk)
-"nmap <Leader>l <Plug>(easymotion-overwin-line)
-map  <Leader>w <Plug>(easymotion-bd-w)
+map  <Leader><Leader>l <Plug>(easymotion-bd-jk)
+nmap <Leader><Leader>l <Plug>(easymotion-overwin-line)
+"map  <Leader>w <Plug>(easymotion-bd-w)
 "nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " fswitch
+
 nmap <silent> ö :FSSplitRight<CR>           |" Switch to the file and load it into a new window split on the right
 "nmap <silent> <Leader>ol :FSSplitRight<CR>  |" Switch to the file and load it into a new window split on the right
 "nmap <silent> <Leader>oh :FSSplitLeft<CR>   |" Switch to the file and load it into a new window split on the left
 
-"
-augroup filetype
-    au! BufRead,BufNewFile *.td set filetype=tablegen
-    au! BufRead,BufNewFile *.ll set filetype=llvm
-augroup END
-
 " NERDTree
-nnoremap <silent> <F10> :NERDTreeToggle<CR>
-let NERDTreeRespectWildIgnore = 1
+
+"nnoremap <silent> <F10> :NERDTreeToggle<CR>
+"let NERDTreeRespectWildIgnore = 1
 
 " tagbar
+
 map <silent> <F9> :TagbarToggle<CR>
 "let g:tagbar_left = 1
 "let g:tagbar_autoclose = 1
@@ -213,6 +226,7 @@ map <silent> <F9> :TagbarToggle<CR>
 let g:tagbar_width=60
 
 " tex
+
 "let g:tex_flavor='latex'
 "let g:vimtex_index_show_help = 0
 let g:vimtex_compiler_progname = 'nvr'
@@ -222,9 +236,7 @@ let g:vimtex_view_general_options_latexmk = '--unique'
 let g:vimtex_quickfix_open_on_warning = 0
 
 
-"
 " include custom settings - do this last
-"
 
 if filereadable(".project.vim")
     source .project.vim
