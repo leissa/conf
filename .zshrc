@@ -5,8 +5,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-EDITOR=nvim
-export PATH="/home/roland/projects/cgdb/prefix/bin/:/usr/lib/ccache/bin/:$PATH"
+export EDITOR=nvim
+export VISUAL=nvim
+export PATH="/home/roland/.local/share/gem/ruby/3.0.0/bin:/usr/lib/ccache/bin/:$PATH"
 
 # autocomplete
 autoload -Uz compinit

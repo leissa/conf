@@ -34,3 +34,7 @@
     insteadOf = https://github.com/
 #[submodule]
     #recurse = true
+[init]
+	defaultBranch = master
+[pull]
+	rebase = true
