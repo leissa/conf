@@ -126,7 +126,7 @@ noremap <F11> :make! -j $(nproc)<CR>
 noremap <S-F11> :make!<CR>
 
 " remove trailing whitespaces
-autocmd FileType acme,asm,bib,c,cpp,impala,java,markdown,inc,php,python,s,tex,yml autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType acme,asm,bib,c,cpp,cmake,impala,java,markdown,inc,php,python,s,tex,yml autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " other
 map Y y$
@@ -247,6 +247,24 @@ nmap <silent> ö :FSSplitRight<CR>           |" Switch to the file and load it i
 
 " markdown
 
+" nvim-gdb
+let g:nvimgdb_config_override = {
+    \ 'key_next': '<Leader>dn',
+    \ 'key_step': '<Leader>ds',
+    \ 'key_finish': '<Leader>df',
+    \ 'key_continue': '<Leader>dc',
+    \ 'key_until': '<Leader>du',
+    \ 'key_breakpoint': '<Leader>db',
+    \ 'set_keymaps':    'function("lua", "NvimGdb.i().keymaps.set()")',
+    \ 'unset_keymaps':  'function("lua", "NvimGdb.i().keymaps.unset()")',
+    \ }
+
+"\ 'set_tkeymaps':   'function("lua", "NvimGdb.i().keymaps:set_t()")',
+let g:nvimgdb_use_find_executables = 1
+let g:nvimgdb_use_cmake_to_find_executables = 0
+
+" markdown
+
 let g:vim_markdown_folding_disabled = 1
 
 " NERDTree
@@ -289,7 +307,7 @@ vmap <Leader>a<Bar> :Tabularize /<Bar>\zs<CR>
 "let g:vimtex_index_show_help = 0
 let g:vimtex_view_general_viewer = 'okular'
 let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
-let g:vimtex_quickfix_open_on_warning = 0
+"let g:vimtex_quickfix_open_on_warning = 0
 " Disable custom warnings based on regexp
 let g:vimtex_quickfix_ignore_filters = [ 'Marginpar on page', 'Overfull']
 
