@@ -6,7 +6,7 @@
 [push]
     default = tracking
 [alias]
-    conflict = !"$EDITOR" -c '/^[<=|>]\\{7\\}' $(git ls-files --unmerged | cut -c 51- | uniq)
+    conflict = !"$EDITOR" -p -c '/^[<=|>]\\{7\\}' $(git ls-files --unmerged | cut -c 51- | uniq)
     upbase = rebase @{u}
     lg = log --decorate --graph --name-status
     cat = cat-file -p

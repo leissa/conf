@@ -12,15 +12,16 @@ let g:FerretMap = 0 " don't import standard ferret mappings
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'AnyDSL/vim-thorin2'
 Plug 'DavidEGx/ctrlp-smarttabs'
 Plug 'antiagainst/vim-tablegen'
 Plug 'benekastah/neomake'
+Plug 'condy0919/docom.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'derekwyatt/vim-fswitch'
 Plug 'easymotion/vim-easymotion'
 Plug 'fneu/breezy'
 Plug 'godlygeek/tabular'
-Plug 'preservim/vim-markdown'
 Plug 'joshdick/onedark.vim'
 Plug 'justmao945/vim-clang'
 Plug 'leissa/vim-acme'
@@ -29,7 +30,7 @@ Plug 'machakann/vim-swap'
 Plug 'majutsushi/tagbar'
 Plug 'morhetz/gruvbox'
 Plug 'mrtazz/DoxygenToolkit.vim'
-Plug 'condy0919/docom.vim'
+Plug 'preservim/vim-markdown'
 Plug 'rhysd/vim-grammarous'
 Plug 'rust-lang/rust.vim'
 Plug 'sakhnik/nvim-gdb'
@@ -40,8 +41,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-scripts/indentpython.vim'
 Plug 'wincent/ferret'
-Plug 'condy0919/docom.vim'
+"Plug 'Valloric/YouCompleteMe'
 
 call plug#end()
 
