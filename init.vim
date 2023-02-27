@@ -5,15 +5,16 @@ endif
 
 let g:FerretMap = 0 " don't import standard ferret mappings
 
-
 "
 " load plugins
 "
 
 call plug#begin('~/.vim/plugged')
 
+"Plug 'sheerun/vim-polyglot'
 Plug 'AnyDSL/vim-thorin2'
 Plug 'DavidEGx/ctrlp-smarttabs'
+Plug 'Valloric/YouCompleteMe'
 Plug 'antiagainst/vim-tablegen'
 Plug 'benekastah/neomake'
 Plug 'condy0919/docom.vim'
@@ -23,27 +24,25 @@ Plug 'easymotion/vim-easymotion'
 Plug 'fneu/breezy'
 Plug 'godlygeek/tabular'
 Plug 'joshdick/onedark.vim'
-Plug 'justmao945/vim-clang'
 Plug 'leissa/vim-acme'
 Plug 'lervag/vimtex'
 Plug 'machakann/vim-swap'
 Plug 'majutsushi/tagbar'
 Plug 'morhetz/gruvbox'
 Plug 'mrtazz/DoxygenToolkit.vim'
+Plug 'ms-jpq/chadtree'
 Plug 'preservim/vim-markdown'
 Plug 'rhysd/vim-grammarous'
 Plug 'rust-lang/rust.vim'
 Plug 'sakhnik/nvim-gdb'
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree'
-Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/indentpython.vim'
+Plug 'whonore/Coqtail'
 Plug 'wincent/ferret'
-"Plug 'Valloric/YouCompleteMe'
 
 call plug#end()
 
@@ -76,7 +75,7 @@ set termguicolors
 let python_highlight_all=1
 colorscheme breezy
 " transparent bg
-hi Normal guibg=NONE guifg=#cfcfc2 gui=NONE
+"hi Normal guibg=NONE guifg=#cfcfc2 gui=NONE
 
 " completion
 autocmd CompleteDone * pclose " automatically close preview window
@@ -130,15 +129,9 @@ autocmd FileType acme,asm,bib,c,cpp,cmake,impala,java,markdown,inc,php,python,s,
 
 " other
 map Y y$
-map Ä :vimgrep//gj **/*.{cpp,h}<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 map Q @q
 cabbrev h tab help
 cabbrev help tab help
-
-"augroup filetype
-    "au! BufRead,BufNewFile *.td set filetype=tablegen
-    "au! BufRead,BufNewFile *.ll set filetype=llvm
-"augroup END
 
 " builtin macros
 runtime macros/matchit.vim
@@ -164,32 +157,6 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 let g:airline_symbols.colnr = ' ㏇:'
-
-"
-" clang
-"
-
-"let g:clang_auto = 0
-let g:clang_c_options = '-std=c11'
-let g:clang_cpp_options = '-std=gnu++20'
-let g:clang_diagsopt = ''   " <- disable diagnostics
-let g:clang_exec = '/usr/bin/clang'
-let g:clang_format_exec = '/usr/bin/clang-format'
-let g:clang_pwheight = 8
-let g:clang_sh_exec = 'bash'
-let g:clang_verbose_pmenu = 0
-let g:clang_vim_exec = 'nvim'
-let g:clang_c_completeopt = 'menu,menuone,longest,noinsert,preview'
-let g:clang_cpp_completeopt = 'menu,menuone,longest,noinsert,preview'
-
-"if has('python')
-    "map <C-I> :pyf /usr/share/clang/clang-format.py<cr>
-    "imap <C-I> <c-o>:pyf /usr/share/clang/clang-format.py<cr>
-"elseif has('python3')
-    map <C-K> :py3f /usr/share/clang/clang-format.py<CR>
-    "imap <C-I> <c-o>:py3f /usr/share/clang/clang-format.py<cr>
-    "imap <C-I> <c-o>:py3f /usr/share/clang/clang-format.py<cr>
-"endif
 
 "
 " ctrlp
@@ -267,10 +234,9 @@ let g:nvimgdb_use_cmake_to_find_executables = 0
 
 let g:vim_markdown_folding_disabled = 1
 
-" NERDTree
+" chadtree
 
-nnoremap <silent> <F10> :NERDTreeToggle<CR>
-let NERDTreeRespectWildIgnore = 1
+nnoremap <silent> <F10> :CHADopen<CR>
 
 " tagbar
 
@@ -279,28 +245,6 @@ map <silent> <F9> :TagbarToggle<CR>
 "let g:tagbar_autoclose = 1
 "let g:tagbar_autofocus = 1
 let g:tagbar_width=60
-
-" Tabularize
-
-function! s:align()
-    let p = '^\s*|\s.*\s|\s*$'
-    if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
-        let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
-        let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
-        Tabularize/|/l1
-        normal! 0
-        call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
-    endif
-endfunction
-
-nmap <Leader>a= :Tabularize /=<CR>
-vmap <Leader>a= :Tabularize /=<CR>
-nmap <Leader>a: :Tabularize /:\zs<CR>
-vmap <Leader>a: :Tabularize /:\zs<CR>
-nmap <Leader>a<Bar> :Tabularize /<Bar>\zs<CR>
-vmap <Leader>a<Bar> :Tabularize /<Bar>\zs<CR>
-
-"autocmd FileType markdown inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
 " tex
 
