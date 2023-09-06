@@ -12,6 +12,7 @@ let g:FerretMap = 0 " don't import standard ferret mappings
 call plug#begin('~/.vim/plugged')
 
 "Plug 'sheerun/vim-polyglot'
+"Plug 'ms-jpq/chadtree'
 Plug 'AnyDSL/vim-thorin2'
 Plug 'DavidEGx/ctrlp-smarttabs'
 Plug 'Valloric/YouCompleteMe'
@@ -30,12 +31,12 @@ Plug 'machakann/vim-swap'
 Plug 'majutsushi/tagbar'
 Plug 'morhetz/gruvbox'
 Plug 'mrtazz/DoxygenToolkit.vim'
-Plug 'ms-jpq/chadtree'
 Plug 'preservim/vim-markdown'
 Plug 'rhysd/vim-grammarous'
 Plug 'rust-lang/rust.vim'
 Plug 'sakhnik/nvim-gdb'
 Plug 'scrooloose/nerdcommenter'
+Plug 'tikhomirov/vim-glsl'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
@@ -43,6 +44,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'whonore/Coqtail'
 Plug 'wincent/ferret'
+":Plug 'github/copilot.vim'
 
 call plug#end()
 
@@ -125,7 +127,7 @@ noremap <F11> :make! -j $(nproc)<CR>
 noremap <S-F11> :make!<CR>
 
 " remove trailing whitespaces
-autocmd FileType acme,asm,bib,c,cpp,cmake,impala,java,markdown,inc,php,python,s,tex,yml autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType acme,asm,bib,c,cpp,cmake,impala,java,markdown,inc,php,python,s,tex,yml,thorin autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " other
 map Y y$

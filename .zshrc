@@ -5,11 +5,16 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+
 export EDITOR=nvim
 export VISUAL=nvim
 export PATH="/home/roland/.local/share/gem/ruby/3.0.0/bin:/usr/lib/ccache/bin/:$PATH"
 
 # autocomplete
+zstyle :compinstall filename '/home/roland/.zshrc'
 autoload -Uz compinit
 compinit
 
