@@ -42,4 +42,3 @@ vim.keymap.set('n', 'Q',        '@q')
 vim.keymap.set('n', '<C-L>',    ':nohlsearch<CR><C-L>', { silent = true })
 
 require"lazy".setup("plugins")
-

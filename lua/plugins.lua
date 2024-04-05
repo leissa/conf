@@ -1,6 +1,5 @@
 return {
     {
-        -- "fneu/breezy",
         "folke/tokyonight.nvim",
         lazy     = false,   -- make sure we load this during startup if it is your main colorscheme
         priority = 1000,    -- make sure to load this before all the other start plugins
@@ -171,6 +170,14 @@ return {
                     hijack_netrw = true, -- disables netrw and use telescope-file-browser in its place
                 },
                 undo = {
+                },
+            },
+            mappings = {
+                i = {
+                    -- map actions.which_key to <C-h> (default: <C-/>)
+                    -- actions.which_key shows the mappings for your picker,
+                    -- e.g. git_{create, delete, ...}_branch for the git_branches picker
+                    --["<C-h>"] = "which_key"
                 },
             },
         },
