@@ -9,44 +9,46 @@ let g:FerretMap = 0 " don't import standard ferret mappings
 " load plugins
 "
 
-call plug#begin('~/.vim/plugged')
+"call plug#begin('~/.vim/plugged')
 
 "Plug 'sheerun/vim-polyglot'
 "Plug 'ms-jpq/chadtree'
-Plug 'AnyDSL/vim-thorin2'
-Plug 'DavidEGx/ctrlp-smarttabs'
-Plug 'Valloric/YouCompleteMe'
-Plug 'antiagainst/vim-tablegen'
-Plug 'benekastah/neomake'
-Plug 'condy0919/docom.vim'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'derekwyatt/vim-fswitch'
-Plug 'easymotion/vim-easymotion'
-Plug 'fneu/breezy'
-Plug 'godlygeek/tabular'
-Plug 'joshdick/onedark.vim'
-Plug 'leissa/vim-acme'
-Plug 'lervag/vimtex'
-Plug 'machakann/vim-swap'
-Plug 'majutsushi/tagbar'
-Plug 'morhetz/gruvbox'
-Plug 'mrtazz/DoxygenToolkit.vim'
-Plug 'preservim/vim-markdown'
-Plug 'rhysd/vim-grammarous'
-Plug 'rust-lang/rust.vim'
-Plug 'sakhnik/nvim-gdb'
-Plug 'scrooloose/nerdcommenter'
-Plug 'tikhomirov/vim-glsl'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/indentpython.vim'
-Plug 'whonore/Coqtail'
-Plug 'wincent/ferret'
 ":Plug 'github/copilot.vim'
 
-call plug#end()
+"Plug 'AnyDSL/vim-thorin2'
+"Plug 'DavidEGx/ctrlp-smarttabs'
+"Plug 'Valloric/YouCompleteMe'
+"Plug 'goolord/alpha-nvim'
+"Plug 'antiagainst/vim-tablegen'
+"Plug 'benekastah/neomake'
+"Plug 'condy0919/docom.vim'
+"Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'derekwyatt/vim-fswitch'
+"Plug 'easymotion/vim-easymotion'
+"Plug 'fneu/breezy'
+"Plug 'godlygeek/tabular'
+"Plug 'joshdick/onedark.vim'
+"Plug 'leissa/vim-acme'
+"Plug 'lervag/vimtex'
+"Plug 'machakann/vim-swap'
+"Plug 'majutsushi/tagbar'
+"Plug 'morhetz/gruvbox'
+"Plug 'mrtazz/DoxygenToolkit.vim'
+"Plug 'preservim/vim-markdown'
+"Plug 'rhysd/vim-grammarous'
+"Plug 'rust-lang/rust.vim'
+"Plug 'sakhnik/nvim-gdb'
+"Plug 'scrooloose/nerdcommenter'
+"Plug 'tikhomirov/vim-glsl'
+"Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-surround'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-scripts/indentpython.vim'
+"Plug 'whonore/Coqtail'
+"Plug 'wincent/ferret'
+
+"call plug#end()
 
 "
 " standard options
@@ -170,9 +172,9 @@ let g:ctrlp_open_multiple_files = 't'       " open in a new tab
 let g:ctrlp_open_new_file = 't'             " open in a new tab
 let g:ctrlp_regexp = 1
 let g:ctrlp_root_markers = ['.git']
-let g:ctrlp_tabpage_position = 'cl'
+"let g:ctrlp_tabpage_position = 'ac'
 let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site|build|modules|html)$',
+    \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site|build|modules|html|external)$',
     \ 'file': '\v\.(exe|so|dll|class|png|prg|jpg|jpeg|ll)$',
 \ }
 
@@ -255,10 +257,21 @@ let g:vimtex_view_general_viewer = 'okular'
 let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 "let g:vimtex_quickfix_open_on_warning = 0
 " Disable custom warnings based on regexp
-let g:vimtex_quickfix_ignore_filters = [ 'Marginpar on page', 'Overfull']
-
+let g:vimtex_quickfix_ignore_filters = [ 
+            \ 'Marginpar on page',
+            \ 'Overfull',        
+            \ 'Underfull',      
+            \ 'Missing ".*" in',                
+            \ 'todonotes Warning',                
+            \ 'Font shape.*',
+            \ 'cannot apply log',
+            \]
 
 " include custom settings - do this last
+
+" YouCompleteMe
+
+"let g:ycm_add_preview_to_completeopt = 1
 
 if filereadable(".project.vim")
     source .project.vim
