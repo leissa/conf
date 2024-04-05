@@ -134,22 +134,18 @@ return {
             extensions = {}
         },
     },
-    -- {
-    --     "nvim-neo-tree/neo-tree.nvim",
-    --     dependencies = {
-    --         'MunifTanjim/nui.nvim',
-    --         'nvim-lua/plenary.nvim'
-    --     },
-    --     keys = {
-    --         {"<leader>ft", "<cmd>Neotree toggle<cr>", desc = "NeoTree"},
-    --     },
-    --     config = function()
-    --         require("neo-tree").setup()
-    --     end,
-    -- },
     {
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
+        opts = {
+                highlight = {
+                    enable = true,
+                    additional_vim_regex_highlighting = false,
+                },
+        },
+        config = function(_, opts)
+            require'nvim-treesitter.configs'.setup(opts)
+        end,
     },
     {
         'godlygeek/tabular',
@@ -161,21 +157,29 @@ return {
     {
         'nvim-telescope/telescope.nvim', 
         branch = '0.1.x',
-        dependencies = {'nvim-lua/plenary.nvim'},
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'nvim-telescope/telescope-file-browser.nvim',
+            'debugloop/telescope-undo.nvim',
+        },
+        keys = {
+            {'<leader>fb', ':Telescope file_browser<CR>', desc = 'open file browers'},
+        },
         opts = {
             extensions = {
                 file_browser = {
                     hijack_netrw = true, -- disables netrw and use telescope-file-browser in its place
                 },
+                undo = {
+                },
             },
         },
-    },
-    {
-        "nvim-telescope/telescope-file-browser.nvim",
-        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-        keys = {
-            {'<leader>fb', ':Telescope file_browser<CR>', desc = 'open file browers'},
-        },
+        config = function(_, opts)
+            require("telescope").setup(opts)
+            require("telescope").load_extension("undo")
+            require("telescope").load_extension("file_browser")
+        end,
+        lazy = false, -- needed for hijack_netrw
     },
     { 'leissa/vim-acme' },
     { 'easymotion/vim-easymotion' },
