@@ -4,12 +4,14 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+source /usr/share/fzf/completion.zsh
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
 export EDITOR=nvim
 export VISUAL=nvim
+export PAGER="nvimpager"
 export PATH="/home/roland/.local/share/gem/ruby/3.0.0/bin:/usr/lib/ccache/bin/:$PATH:/home/roland/thorin2/build/bin"
 
 # autocomplete
@@ -25,6 +27,7 @@ alias pacman="pacman --color=auto"
 #alias yay="yay --color auto --noconfirm"
 alias ls="ls --color=auto"
 alias ll="ls -l --group-directories-first"
+alias fzf="fzf --preview 'highlight {} -O truecolor'"
 
 # Appends every command to the history file once it is executed
 setopt inc_append_history
@@ -44,6 +47,7 @@ if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
 fi
 
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
@@ -56,3 +60,7 @@ autoload -Uz _zinit
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 zinit load jeffreytse/zsh-vi-mode
 zinit light zsh-users/zsh-syntax-highlighting
+
+# Set up fzf key bindings and fuzzy completion
+source "/usr/share/fzf/key-bindings.zsh"
+source "/usr/share/fzf/completion.zsh"
