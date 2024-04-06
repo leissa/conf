@@ -4,8 +4,8 @@ return {
         build = ':TSUpdate',
         ft = {"c", "cpp", "cs", "bash", "zsh", "sh", "java", "rust", "python", "javascript", "typescript", "lua", "vimscript", "latex", "fortran", "go"},
         opts = {
-            ensure_installed = ft,
-            auto_install = true,
+            -- ensure_installed = ft,
+            -- auto_install = true,
             highlight = {
                 enable = true,
                 additional_vim_regex_highlighting = false,

@@ -64,4 +64,14 @@ vim.keymap.set('n',  '18gb', ':b 18<CR>', { silent = true })
 vim.keymap.set('n',  '19gb', ':b 19<CR>', { silent = true })
 vim.keymap.set('n',  '20gb', ':b 20<CR>', { silent = true })
 
+-- remove trailing whitespaces
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    pattern = {"*"},
+    callback = function()
+      local save_cursor = vim.fn.getpos(".")
+      pcall(function() vim.cmd [[%s/\s\+$//e]] end)
+      vim.fn.setpos(".", save_cursor)
+    end,
+})
+
 require"lazy".setup("plugins")
