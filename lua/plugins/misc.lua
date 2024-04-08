@@ -10,7 +10,12 @@ return {
         end,
     },
     { 'stevearc/dressing.nvim' },
-    { 'lewis6991/gitsigns.nvim' },
+    {
+        'lewis6991/gitsigns.nvim',
+        config = function()
+            require'gitsigns'.setup()
+        end
+    },
     {
         'godlygeek/tabular',
         dependencies = {'preservim/vim-markdown'},
