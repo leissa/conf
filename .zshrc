@@ -28,6 +28,7 @@ alias pacman="pacman --color=auto"
 alias ls="ls --color=auto"
 alias ll="ls -l --group-directories-first"
 alias fzf="fzf --preview 'highlight {} -O truecolor'"
+#alias gdb="gdb -q"
 
 # Appends every command to the history file once it is executed
 setopt inc_append_history

@@ -23,6 +23,7 @@ return {
                 extra = true,   -- Extra mapping; `gco`, `gcO`, `gcA`
             },
             pre_hook  = nil, -- Function to call before (un)comment
+            -- post_hook = nil, -- Function to call after (un)comment
             post_hook = nil, -- Function to call after (un)comment
         },
         lazy = false,

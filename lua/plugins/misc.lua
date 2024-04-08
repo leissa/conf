@@ -9,6 +9,8 @@ return {
             vim.cmd([[colorscheme tokyonight-night]])
         end,
     },
+    { 'stevearc/dressing.nvim' },
+    { 'lewis6991/gitsigns.nvim' },
     {
         'godlygeek/tabular',
         dependencies = {'preservim/vim-markdown'},
@@ -21,7 +23,7 @@ return {
     },
     { 'leissa/vim-acme' },
     { 'easymotion/vim-easymotion' },
-    { 
+    {
         'derekwyatt/vim-fswitch',
         ft = {"c", "cpp"},
         keys = {
@@ -42,19 +44,13 @@ return {
             vim.g.vimtex_view_general_options    = '--unique file:@pdf\\#src:@line@tex'
             vim.g.vimtex_quickfix_ignore_filters = {
                 'Marginpar on page',
-                'Overfull',        
-                'Underfull',      
-                'Missing ".*" in',                
-                'todonotes Warning',                
+                'Overfull',
+                'Underfull',
+                'Missing ".*" in',
+                'todonotes Warning',
                 'Font shape.*',
                 'cannot apply log',
             }
         end
-    },
-    {
-        "Valloric/YouCompleteMe",
-        enabled = false,
-        ft = {"c", "cpp", "cs", "go", "java", "python", "python2", "javascript", "typescript", "rust"},
-        build = "python install.py --all",
     },
 }
