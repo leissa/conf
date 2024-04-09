@@ -9,6 +9,7 @@ return {
         "3rd/image.nvim",
     },
     lazy = false, -- use neo-tree instead of netrw
+    opts = {},
     config = function()
         require("neo-tree").setup()
     end,
