@@ -65,7 +65,6 @@ return {
         cmp.setup.filetype('gitcommit', {
             sources = cmp.config.sources({
                 { name = 'git' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
-            }, {
                 { name = 'buffer' },
             })
         })
@@ -82,8 +81,7 @@ return {
         cmp.setup.cmdline(':', {
             mapping = cmp.mapping.preset.cmdline(),
             sources = cmp.config.sources({
-                { name = 'path' }
-            }, {
+                { name = 'path' },
                 { name = 'cmdline' }
             }),
             matching = { disallow_symbol_nonprefix_matching = false }

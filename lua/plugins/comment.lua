@@ -26,11 +26,7 @@ return {
         -- post_hook = nil, -- Function to call after (un)comment
         post_hook = nil,   -- Function to call after (un)comment
     },
-    -- config = function(_, opts)
-    --     require('Comment').setup(opts)
-    --     vim.keymap.set('n', 'gcy', 'yygcc', { desc = 'yank & toggle comment line' })
-    -- end
     keys = {
-        { 'gcy', 'yy<Plug>(comment_toggle_linewise)', desc = 'yank & toggle comment line' },
+        { 'gcy', 'yy<Plug>(comment_toggle_linewise)<cr>', desc = 'yank & toggle comment line' },
     }
 }

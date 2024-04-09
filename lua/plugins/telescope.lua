@@ -1,6 +1,7 @@
 return {
     'nvim-telescope/telescope.nvim',
     branch       = '0.1.x',
+    lazy         = false, -- needed for hijack_netrw
     dependencies = {
         'nvim-lua/plenary.nvim',
         'nvim-telescope/telescope-file-browser.nvim',
@@ -47,5 +48,4 @@ return {
         require("telescope").load_extension("undo")
         require("telescope").load_extension("file_browser")
     end,
-    lazy         = false, -- needed for hijack_netrw
 }
