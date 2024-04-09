@@ -2,13 +2,15 @@ return {
     'sakhnik/nvim-gdb',
     ft = { 'c', 'cpp' },
     lazy = false,
+    init = function() vim.g.nvimgdb_disable_start_keymaps = true end,
     config = function()
-        local NvimGdb = require 'nvimgdb'
-        NvimGdb.setup()
+        vim.g.nvimgdb_disable_start_keymaps = true
+        local nvimgdb = require 'nvimgdb'
+        nvimgdb.setup()
 
         vim.g.nvimgdb_config = {
             set_tkeymaps = function()
-                NvimGdb.here.keymaps:set_t()
+                nvimgdb.here.keymaps:set_t()
                 local buf  = vim.api.nvim_get_current_buf()
                 local opts = { nowait = true }
                 vim.api.nvim_buf_set_keymap(buf, 'n', 'r', '<cmd>GdbRun<cr>', opts)
@@ -24,7 +26,7 @@ return {
         }
     end,
     keys = {
-        { '<leader>bb',  '<cmd>GdbBreakpointToggle<cr>', desc = "Toggle Breakpoint" },
-        { '<leader>gdb', ':GdbStart gdb -q --args ',     desc = "Start GDB" },
+        { '<leader>bb', '<cmd>GdbBreakpointToggle<cr>', desc = "gdb: toggle breakpoint" },
+        { 'gdb',        ':GdbStart gdb -q --args ',     desc = "gdb: start" },
     }
 }

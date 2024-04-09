@@ -1,14 +1,14 @@
 return {
     'neovim/nvim-lspconfig',
-    dependencies = {'folke/neodev.nvim'},
+    dependencies = { 'folke/neodev.nvim' },
     config = function()
         require("neodev").setup {} -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
 
-        local lspconfig = require'lspconfig'
-        lspconfig.asm_lsp .setup {}
-        lspconfig.bashls  .setup {}
-        lspconfig.clangd  .setup {}
-        lspconfig.pyright .setup {}
+        local lspconfig = require 'lspconfig'
+        lspconfig.asm_lsp.setup {}
+        lspconfig.bashls.setup {}
+        lspconfig.clangd.setup {}
+        lspconfig.pyright.setup {}
         lspconfig.tsserver.setup {}
 
         lspconfig.java_language_server.setup {
@@ -65,40 +65,35 @@ return {
         -- vim.o.updatetime = 250
         -- vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 
-        -- Use LspAttach autocommand to only map the following keys
-        -- after the language server attaches to the current buffer
+        -- Use LspAttach autocommand to only map the following keys after the language server attaches to the current buffer
         vim.api.nvim_create_autocmd('LspAttach', {
             group = vim.api.nvim_create_augroup('UserLspConfig', {}),
             callback = function(ev)
                 vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc' -- Enable completion triggered by <c-x><c-o>
-
-                -- Buffer local mappings. See `:help vim.lsp.*` for documentation on any of the below functions
-                local opts = { buffer = ev.buf }
-                -- navigate
-                vim.keymap.set('n', 'gD',        vim.lsp.buf.declaration, opts)
-                vim.keymap.set('n', 'gd',        vim.lsp.buf.definition, opts)
-                vim.keymap.set('n', 'gi',        vim.lsp.buf.implementation, opts)
-                vim.keymap.set('n', '<space>D',  vim.lsp.buf.type_definition, opts)
-                --help
-                vim.keymap.set('n', 'K',         vim.lsp.buf.hover, opts)
-                -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-                -- workspace folders
-                vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-                vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-                vim.keymap.set('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)
-                -- code
-                vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-                vim.keymap.set('n', 'gr',        vim.lsp.buf.references, opts)
-                vim.keymap.set('n', '<space>f',  function() vim.lsp.buf.format { async = true } end, opts)
-                vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
             end,
         })
     end,
     keys = {
+        --help
+        {'K', vim.lsp.buf.hover, desc = "help" },
+        {'<leader>lk', vim.lsp.buf.signature_help, desc = "signature help" },
+        -- navigate
+        { 'gd',     vim.lsp.buf.definition,      desc = "Goto: definition" },
+        { 'gD',     vim.lsp.buf.declaration,     desc = "Goto: declaration" },
+        { 'g<c-d>', vim.lsp.buf.type_definition, desc = "Goto: type definition" },
+        { 'gi',     vim.lsp.buf.implementation,  desc = "Goto: implementation" },
         -- diagnostics
-        { '<space>e', vim.diagnostic.open_float, desc = 'Diagnostics: open float' },
-        { '[d',       vim.diagnostic.goto_prev,  desc = 'Diagnostics: goto prev' },
-        { ']d',       vim.diagnostic.goto_next,  desc = 'Diagnostics: goto next' },
-        { '<space>q', vim.diagnostic.setloclist, desc = 'Diagnostics: set location list' },
+        { '<leader>ds', vim.diagnostic.open_float, desc = 'Diagnostics: show' },
+        { '<leader>dn', vim.diagnostic.goto_next,  desc = 'Diagnostics: next' },
+        { '<leader>dp', vim.diagnostic.goto_prev,  desc = 'Diagnostics: prev' },
+        -- workspace folders
+        {'<leader>wa', vim.lsp.buf.add_workspace_folder,    desc = "workspace: add folder" },
+        {'<leader>wr', vim.lsp.buf.remove_workspace_folder, desc = "workspace: remove folder" },
+        {'<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, desc = "workspace: list folders" },
+        -- code
+        {'<leader>ca', vim.lsp.buf.code_action, mode = { 'n', 'v' },       desc = "code: action" },
+        {'<leader>cf', function() vim.lsp.buf.format { async = true } end, desc = "code: format" },
+        {'<leader>cl', vim.lsp.buf.references,                             desc = "code: list all references of symbol" },
+        {'<leader>cr', vim.lsp.buf.rename,                                 desc = "code: rename" },
     },
 }
