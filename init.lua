@@ -1,3 +1,4 @@
+-- setup lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
     vim.fn.system({
@@ -9,66 +10,57 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
         lazypath,
     })
 end
-
 vim.opt.rtp:prepend(lazypath)
 
 -- leaders
-vim.g.mapleader      = ","
-vim.g.maplocalleader = " "
+vim.g.mapleader      = " "
+vim.g.maplocalleader = ","
+
+-- search
+vim.opt.ignorecase   = true
+vim.opt.smartcase    = true
+vim.keymap.set('n', '<C-l>', '<cmd>nohlsearch<cr>', { silent = true })
 
 -- indentation rules
 function MyIndent()
-    vim.o.expandtab   = true
-    vim.o.autoindent  = true
-    vim.o.smartindent = true
-    vim.o.shiftround  = true
-    vim.o.tabstop     = 4
-    vim.o.softtabstop = 4
-    vim.o.shiftwidth  = 4
+    vim.opt.expandtab   = true
+    vim.opt.autoindent  = true
+    vim.opt.shiftround  = true
+    vim.opt.tabstop     = 4
+    vim.opt.softtabstop = 4
+    vim.opt.shiftwidth  = 4
 end
 
+MyIndent()
+
 -- file handling
-vim.o.autowrite = true
-vim.o.confirm   = true
-vim.o.hidden    = true
+vim.opt.autowrite   = true
+vim.opt.confirm     = true
+vim.opt.hidden      = true
+vim.opt.swapfile    = false
 
 -- completion
-vim.o.completeopt = "menu,menuone,longest,noinsert"
-vim.o.wildmode    = "list:longest,full"
+vim.opt.completeopt = "menu,menuone,longest,noinsert"
+vim.opt.wildmode    = 'list:longest,full'
+
+-- clipboard
+vim.opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 
 -- key mappings
-vim.keymap.set('n',   '<F11>',  ':make! -j $(nproc)<CR>')
-vim.keymap.set('n', '<S-F11>',  ':make! -j         <CR>')
-vim.keymap.set('n', 'Y',        'y$')
-vim.keymap.set('n', 'Q',        '@q')
-vim.keymap.set('n', '<C-L>',    ':nohlsearch<CR><C-L>', { silent = true })
+vim.keymap.set('n', '<F11>', ':make! -j $(nproc)<CR>')
+vim.keymap.set('n', '<S-F11>', ':make! -j         <CR>')
+vim.keymap.set('n', 'Y', 'y$')
+vim.keymap.set('n', 'Q', '@q')
 
-vim.keymap.set('n', '<c-j>', '<cmd>bn<CR>',  { silent = true })
-vim.keymap.set('n', '<c-k>', '<cmd>bp<CR>',  { silent = true })
-vim.keymap.set('n',   '1gb', '<cmd>b  1<CR>', { silent = true })
-vim.keymap.set('n',   '2gb', '<cmd>b  2<CR>', { silent = true })
-vim.keymap.set('n',   '3gb', '<cmd>b  3<CR>', { silent = true })
-vim.keymap.set('n',   '4gb', '<cmd>b  4<CR>', { silent = true })
-vim.keymap.set('n',   '5gb', '<cmd>b  5<CR>', { silent = true })
-vim.keymap.set('n',   '6gb', '<cmd>b  6<CR>', { silent = true })
-vim.keymap.set('n',   '7gb', '<cmd>b  7<CR>', { silent = true })
-vim.keymap.set('n',   '8gb', '<cmd>b  8<CR>', { silent = true })
-vim.keymap.set('n',   '9gb', '<cmd>b  9<CR>', { silent = true })
-vim.keymap.set('n',  '10gb', '<cmd>b 10<CR>', { silent = true })
-vim.keymap.set('n',  '11gb', '<cmd>b 11<CR>', { silent = true })
-vim.keymap.set('n',  '12gb', '<cmd>b 12<CR>', { silent = true })
-vim.keymap.set('n',  '13gb', '<cmd>b 13<CR>', { silent = true })
-vim.keymap.set('n',  '14gb', '<cmd>b 14<CR>', { silent = true })
-vim.keymap.set('n',  '15gb', '<cmd>b 15<CR>', { silent = true })
-vim.keymap.set('n',  '16gb', '<cmd>b 16<CR>', { silent = true })
-vim.keymap.set('n',  '17gb', '<cmd>b 17<CR>', { silent = true })
-vim.keymap.set('n',  '18gb', '<cmd>b 18<CR>', { silent = true })
-vim.keymap.set('n',  '19gb', '<cmd>b 19<CR>', { silent = true })
-vim.keymap.set('n',  '20gb', '<cmd>b 20<CR>', { silent = true })
+-- working with buffers, tabs & windows
+vim.keymap.set('n', '<c-j>', '<cmd>bn<CR>', { silent = true, desc = 'next buffer' })
+vim.keymap.set('n', '<c-k>', '<cmd>bp<CR>', { silent = true, desc = 'prev buffer' })
+vim.keymap.set('n', '<leader>qq', '<cmd>bd<CR>', { silent = true, desc = 'close current buffer' })
+vim.cmd([[autocmd FileType help wincmd T]]) -- open help in new tab
 
 -- remove trailing whitespaces
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    pattern = {"*"},
+    pattern = { "*" },
     callback = function()
         local save_cursor = vim.fn.getpos(".")
         pcall(function() vim.cmd [[%s/\s\+$//e]] end)
@@ -76,7 +68,5 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     end,
 })
 
--- open help in new tab
-vim.cmd([[autocmd FileType help wincmd T]])
 
-require"lazy".setup("plugins")
+require "lazy".setup("plugins")

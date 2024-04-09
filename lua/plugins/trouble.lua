@@ -1,39 +1,14 @@
 return {
-    {
-        "folke/trouble.nvim",
-        branch = "dev",
-        keys = {
-            {
-                "<leader>xx",
-                "<cmd>Trouble diagnostics toggle<cr>",
-                desc = "Diagnostics (Trouble)",
-            },
-            {
-                "<leader>xX",
-                "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-                desc = "Buffer Diagnostics (Trouble)",
-            },
-            {
-                "<leader>cs",
-                "<cmd>Trouble symbols toggle focus=false<cr>",
-                desc = "Symbols (Trouble)",
-            },
-            {
-                "<leader>cl",
-                "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-                desc = "LSP Definitions / references / ... (Trouble)",
-            },
-            {
-                "<leader>xL",
-                "<cmd>Trouble loclist toggle<cr>",
-                desc = "Location List (Trouble)",
-            },
-            {
-                "<leader>xQ",
-                "<cmd>Trouble qflist toggle<cr>",
-                desc = "Quickfix List (Trouble)",
-            },
-        },
-        opts = {}, -- for default options, refer to the configuration section for custom setup.
-    }
+    "folke/trouble.nvim",
+    branch = "dev",
+    lazy = false,
+    keys = {
+        { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>",                        desc = "Trouble: Diagnostics", },
+        { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",           desc = "Trouble: Buffer Diagnostics", },
+        { "<leader>xl", "<cmd>Trouble loclist toggle<cr>",                            desc = "Trouble: Location List", },
+        { "<leader>xq", "<cmd>Trouble qflist toggle<cr>",                             desc = "Trouble: Quickfix List", },
+        { "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>",                desc = "Trouble: Symbols", },
+        { "<leader>cl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", desc = "Trouble: LSP Definitions / references / ...", },
+    },
+    opts = {}
 }
