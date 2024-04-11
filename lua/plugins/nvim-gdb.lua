@@ -23,6 +23,8 @@ return {
                 vim.api.nvim_buf_set_keymap(buf, 'n', 'd', '<cmd>GdbFrameDown<cr>', opts)
                 vim.api.nvim_buf_set_keymap(buf, 'n', '<c-p>', '<c-w><c-w><c-p>', opts)
             end,
+            set_keymaps   = function() nvimgdb.here.keymaps:set() end,
+            unset_keymaps = function() nvimgdb.here.keymaps.unset() end,
         }
     end,
     keys = {

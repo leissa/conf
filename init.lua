@@ -37,10 +37,10 @@ MyIndent()
 vim.opt.autowrite   = true
 vim.opt.confirm     = true
 vim.opt.hidden      = true
-vim.opt.swapfile    = false
 
 -- completion
-vim.opt.completeopt = "menu,menuone,longest,noinsert"
+-- vim.opt.completeopt = "menu,menuone,longest,noinsert"
+vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.wildmode    = 'list:longest,full'
 
 -- clipboard
@@ -51,11 +51,13 @@ vim.keymap.set('n', '<F11>', ':make! -j $(nproc)<CR>')
 vim.keymap.set('n', '<S-F11>', ':make! -j         <CR>')
 vim.keymap.set('n', 'Y', 'y$')
 vim.keymap.set('n', 'Q', '@q')
+vim.keymap.set('c', '<c-j>', '<Down>')
+vim.keymap.set('c', '<c-k>', '<Up>')
 
 -- working with buffers, tabs & windows
-vim.keymap.set('n', '<c-j>', '<cmd>bn<CR>', { silent = true, desc = 'next buffer' })
-vim.keymap.set('n', '<c-k>', '<cmd>bp<CR>', { silent = true, desc = 'prev buffer' })
-vim.keymap.set('n', '<leader>qq', '<cmd>bd<CR>', { silent = true, desc = 'close current buffer' })
+-- vim.keymap.set('n', '<c-j>', '<cmd>bn<CR>', { silent = true, desc = 'next buffer' })
+-- vim.keymap.set('n', '<c-k>', '<cmd>bp<CR>', { silent = true, desc = 'prev buffer' })
+-- vim.keymap.set('n', '<leader>q', '<cmd>bd<CR>', { silent = true, desc = 'close current buffer' })
 vim.cmd([[autocmd FileType help wincmd T]]) -- open help in new tab
 
 -- remove trailing whitespaces
@@ -68,5 +70,9 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     end,
 })
 
+function Root()
+    local ptrns = { ".git", ".clang-format", "pyproject.toml", "setup.py", ".svn" }
+    return vim.fs.dirname(vim.fs.find(ptrns, { upward = true })[1])
+end
 
 require "lazy".setup("plugins")

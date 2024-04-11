@@ -27,6 +27,6 @@ return {
         post_hook = nil,   -- Function to call after (un)comment
     },
     keys = {
-        { 'gcy', 'yy<Plug>(comment_toggle_linewise)<cr>', desc = 'yank & toggle comment line' },
+        -- { 'gcy', 'yy<Plug>(comment_toggle_linewise)<cr>', desc = 'yank & toggle comment line' },
     }
 }
