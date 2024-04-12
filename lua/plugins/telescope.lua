@@ -46,6 +46,58 @@ function Config_files()
     return Telescope("find_files", { cwd = vim.fn.stdpath("config") })
 end
 
+local kind_filter = {
+    default = {
+        "Class",
+        "Constructor",
+        "Enum",
+        "Field",
+        "Function",
+        "Interface",
+        "Method",
+        "Module",
+        "Namespace",
+        "Package",
+        "Property",
+        "Struct",
+        "Trait",
+    },
+    markdown = false,
+    help = false,
+    -- you can specify a different filter for each filetype
+    lua = {
+        "Class",
+        "Constructor",
+        "Enum",
+        "Field",
+        "Function",
+        "Interface",
+        "Method",
+        "Module",
+        "Namespace",
+        -- "Package", -- remove package since luals uses it for control flow structures
+        "Property",
+        "Struct",
+        "Trait",
+    },
+}
+
+local function get_kind_filter(buf)
+  buf = (buf == nil or buf == 0) and vim.api.nvim_get_current_buf() or buf
+  local ft = vim.bo[buf].filetype
+  if kind_filter == false then
+    return
+  end
+  if kind_filter[ft] == false then
+    return
+  end
+  if type(kind_filter[ft]) == "table" then
+    return kind_filter[ft]
+  end
+  ---@diagnostic disable-next-line: return-type-mismatch
+  return type(kind_filter) == "table" and type(kind_filter.default) == "table" and kind_filter.default or nil
+end
+
 return {
     'nvim-telescope/telescope.nvim',
     branch       = '0.1.x',
@@ -102,7 +154,7 @@ return {
             "<leader>ss",
             function()
                 require("telescope.builtin").lsp_document_symbols({
-                    symbols = require("lazyvim.config").get_kind_filter(),
+                    symbols = get_kind_filter(),
                 })
             end,
             desc = "Goto Symbol",
@@ -111,7 +163,7 @@ return {
             "<leader>sS",
             function()
                 require("telescope.builtin").lsp_dynamic_workspace_symbols({
-                    symbols = require("lazyvim.config").get_kind_filter(),
+                    symbols = get_kind_filter(),
                 })
             end,
             desc = "Goto Symbol (Workspace)",
