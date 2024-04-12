@@ -42,7 +42,7 @@ function Telescope(builtin, opts)
     end
 end
 
-function Config_files()
+local function config_files()
     return Telescope("find_files", { cwd = vim.fn.stdpath("config") })
 end
 
@@ -118,7 +118,7 @@ return {
         -- { "<leader><space>", Telescope("files"), desc = "Find Files (Root Dir)" },
         -- find
         { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
-        { "<leader>fc", Config_files(),                                                desc = "Find Config File" },
+        { "<leader>fc", config_files(),                                                desc = "Find Config File" },
         { "<leader>ff", Telescope("files"),                                            desc = "Find Files (Root Dir)" },
         { "<C-p>",      Telescope("files"),                                            desc = "Find Files (Root Dir)" }, -- same as above
         { "<leader>fF", Telescope("files", { cwd = false }),                           desc = "Find Files (cwd)" },

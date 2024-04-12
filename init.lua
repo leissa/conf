@@ -72,7 +72,8 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 
 function Root()
     local ptrns = { ".git", ".clang-format", "pyproject.toml", "setup.py", ".svn" }
-    return vim.fs.dirname(vim.fs.find(ptrns, { upward = true })[1])
+    local res = vim.fs.dirname(vim.fs.find(ptrns, { upward = true })[1])
+    return res and res or vim.uv.cwd()
 end
 
 require "lazy".setup("plugins")

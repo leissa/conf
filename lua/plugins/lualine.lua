@@ -1,13 +1,13 @@
 local icons = require 'icons'
 local norm = require 'lazy.core.util'.norm
 
-function Color(name)
+local function name2color(name)
     local col = vim.api.nvim_get_hl(0, { name = name, link = false }).fg
     local res = col and string.format("#%06x", col) or nil
     return res and { fg = res } or nil
 end
 
-function Realpath(path)
+local function realpath(path)
     if path == "" or path == nil then
         return nil
     end
@@ -15,22 +15,22 @@ function Realpath(path)
     return norm(path)
 end
 
-function CWD()
-    return Realpath(vim.uv.cwd()) or ""
+local function get_cwd()
+    return realpath(vim.uv.cwd()) or ""
 end
 
-function RootDir(opts)
+local function root_dir(opts)
     opts = vim.tbl_extend("force", {
         cwd = false,
         subdirectory = true,
         parent = true,
         other = true,
         icon = "󱉭 ",
-        color = Color("Special"),
+        color = name2color("Special"),
     }, opts or {})
 
     local function get()
-        local cwd = CWD()
+        local cwd = get_cwd()
         -- local root = LazyVim.root.get({ normalize = true })
         local root = norm(Root())
         local name = vim.fs.basename(root)
@@ -61,7 +61,7 @@ function RootDir(opts)
     }
 end
 
-function Format(component, text, hl_group)
+local function format(component, text, hl_group)
     if not hl_group or hl_group == "" then
         return text
     end
@@ -104,7 +104,7 @@ function PrettyPath(opts)
         end
 
         local root = norm(Root())
-        local cwd = CWD()
+        local cwd = get_cwd()
 
         if opts.relative == "cwd" and path:find(cwd, 1, true) == 1 then
             path = path:sub(#cwd + 2)
@@ -121,15 +121,15 @@ function PrettyPath(opts)
 
         if opts.modified_hl and vim.bo.modified then
             parts[#parts] = parts[#parts] .. opts.modified_sign
-            parts[#parts] = Format(self, parts[#parts], opts.modified_hl)
+            parts[#parts] = format(self, parts[#parts], opts.modified_hl)
         else
-            parts[#parts] = Format(self, parts[#parts], opts.filename_hl)
+            parts[#parts] = format(self, parts[#parts], opts.filename_hl)
         end
 
         local dir = ""
         if #parts > 1 then
             dir = table.concat({ unpack(parts, 1, #parts - 1) }, sep)
-            dir = Format(self, dir .. sep, opts.directory_hl)
+            dir = format(self, dir .. sep, opts.directory_hl)
         end
         return dir .. parts[#parts]
     end
@@ -149,7 +149,7 @@ return {
             lualine_a = { "mode" },
             lualine_b = { "branch" },
             lualine_c = {
-                RootDir(),
+                root_dir(),
                 {
                     "diagnostics",
                     symbols = {
@@ -166,22 +166,22 @@ return {
                 {
                     function() return require("noice").api.status.command.get() end,
                     cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
-                    color = Color("Statement"),
+                    color = name2color("Statement"),
                 },
                 {
                     function() return require("noice").api.status.mode.get() end,
                     cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
-                    color = Color("Constant"),
+                    color = name2color("Constant"),
                 },
                 {
                     function() return "  " .. require("dap").status() end,
                     cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
-                    color = Color("Debug"),
+                    color = name2color("Debug"),
                 },
                 {
                     require("lazy.status").updates,
                     cond = require("lazy.status").has_updates,
-                    color = Color("Special"),
+                    color = name2color("Special"),
                 },
                 {
                     "diff",

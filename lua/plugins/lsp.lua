@@ -191,11 +191,9 @@ return {
             'hrsh7th/cmp-cmdline',
             'hrsh7th/cmp-vsnip',
             'hrsh7th/vim-vsnip',
-            'onsails/lspkind.nvim',
         },
         config = function()
             local cmp     = require 'cmp'
-            local lspkind = require 'lspkind'
             cmp.setup({
                 snippet = {
                     expand = function(args)                  -- REQUIRED - you must specify a snippet engine
@@ -228,12 +226,15 @@ return {
                     { name = 'path' },
                 }),
                 formatting = {
-                    format = lspkind.cmp_format({        --- lspkind
-                        mode = 'symbol',                 -- or 'symbol_text',
-                        maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
-                        ellipsis_char = icons.misc.dots, -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-                        show_labelDetails = true,        -- show labelDetails in menu. Disabled by default
-                    })
+                    format = function(_, item)
+                        if icons.kinds[item.kind] then
+                            item.kind = icons.kinds[item.kind] .. item.kind
+                        end
+                        return item
+                    end,
+                    -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
+                    -- ellipsis_char = icons.misc.dots, -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+                    -- show_labelDetails = true,        -- show labelDetails in menu. Disabled by default
                 }
             })
 
