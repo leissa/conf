@@ -2,6 +2,7 @@ return {
     'sakhnik/nvim-gdb',
     ft = { 'c', 'cpp' },
     lazy = false,
+    enabled = false,
     init = function() vim.g.nvimgdb_disable_start_keymaps = true end,
     config = function()
         vim.g.nvimgdb_disable_start_keymaps = true

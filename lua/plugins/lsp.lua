@@ -100,6 +100,24 @@ return {
                 }
             }
 
+            vim.g['tex_flavor'] = 'latex'
+            lsp.texlab.setup {
+                cmd = { "texlab" },
+                filetypes = { "tex", "bib" },
+                settings = {
+                    texlab = {
+                        rootDirectory = nil,
+                        --      ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
+                        build = _G.TeXMagicBuildConfig,
+                        --      ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
+                        forwardSearch = {
+                            executable = "okular",
+                            args = { "%p" }
+                        }
+                    }
+                }
+            }
+
             vim.diagnostic.config({
                 virtual_text  = false,
                 severity_sort = false,
