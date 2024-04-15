@@ -7,6 +7,7 @@ return {
             'folke/neodev.nvim',
             {
                 "ray-x/lsp_signature.nvim",
+                enabled = false,
                 event = "VeryLazy",
                 opts = {},
                 config = function(_, opts)
@@ -193,7 +194,7 @@ return {
             'hrsh7th/vim-vsnip',
         },
         config = function()
-            local cmp     = require 'cmp'
+            local cmp = require 'cmp'
             cmp.setup({
                 snippet = {
                     expand = function(args)                  -- REQUIRED - you must specify a snippet engine
@@ -210,7 +211,6 @@ return {
                 },
                 mapping = cmp.mapping.preset.insert({
                     ['<C-b>']     = cmp.mapping.scroll_docs(-4),
-                    ['x']         = cmp.mapping.scroll_docs(-4),
                     ['<C-f>']     = cmp.mapping.scroll_docs(4),
                     ['<C-Space>'] = cmp.mapping.complete(),
                     ['<C-e>']     = cmp.mapping.abort(),
@@ -235,7 +235,12 @@ return {
                     -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
                     -- ellipsis_char = icons.misc.dots, -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
                     -- show_labelDetails = true,        -- show labelDetails in menu. Disabled by default
-                }
+                },
+                view = {
+                    docs = {
+                        auto_open = true
+                    }
+                },
             })
 
             -- Set configuration for specific filetype.
