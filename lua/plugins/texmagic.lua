@@ -1,5 +1,6 @@
 return {
     'jakewvincent/texmagic.nvim',
+    enabled = false,
     opts = {
         engines = {
             pdflatex = { -- This has the same name as a default engine but would

@@ -154,6 +154,7 @@ return {
                 { "<leader>cc", vim.lsp.codelens.run,                                                                   desc = "Run Codelens",               mode = { "n", "v" },     has = "codeLens" },
                 { "<leader>cf", function() vim.lsp.buf.format { async = true } end,                                     desc = "code: format" },
                 { "<leader>cr", vim.lsp.buf.rename,                                                                     desc = "Rename",                     mode = { "n" } },
+                { "<leader>cR", vim.lsp.buf.references,                                                                 desc = "References"},
                 { "<leader>cC", vim.lsp.codelens.refresh,                                                               desc = "Refresh & Display Codelens", mode = { "n" },          has = "codeLens" },
                 {
                     "<leader>cA",
