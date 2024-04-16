@@ -13,6 +13,7 @@ export EDITOR=nvim
 export VISUAL=nvim
 export PAGER="nvimpager"
 export PATH="/home/roland/.local/share/gem/ruby/3.0.0/bin:/usr/lib/ccache/bin/:$PATH:/home/roland/thorin2/build/bin"
+export CMAKE_EXPORT_COMPILE_COMMANDS=1
 
 # autocomplete
 zstyle :compinstall filename '/home/roland/.zshrc'

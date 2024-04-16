@@ -32,7 +32,7 @@ return {
     -- },
     { 'tpope/vim-fugitive' },
     { 'preservim/vim-markdown' },
-    -- { 'tpope/vim-surround' },
+    { 'tpope/vim-surround' },
     { 'machakann/vim-swap' },
     { 'AnyDSL/vim-thorin2',    ft = "thorin" },
 }
