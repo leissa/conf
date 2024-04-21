@@ -119,27 +119,6 @@ return {
                 }
             }
 
-            vim.diagnostic.config({
-                virtual_text  = false,
-                severity_sort = false,
-                signs         = {
-                    text = {
-                        [vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
-                        [vim.diagnostic.severity.WARN] = icons.diagnostics.Warn,
-                        [vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
-                        [vim.diagnostic.severity.INFO] = icons.diagnostics.Info,
-                    },
-                },
-                float         = {
-                    border = 'rounded',
-                    source = true,
-                }
-            })
-
-            -- Show line diagnostics automatically in hover window
-            -- vim.o.updatetime = 250
-            -- vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
-
             local keymaps = {
                 { "<leader>cl", "<cmd>LspInfo<cr>",                                                                     desc = "Lsp Info" },
                 { "gd",         function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end,      desc = "Goto Definition",            has = "definition" },
@@ -210,11 +189,21 @@ return {
                     -- documentation = cmp.config.window.bordered(),
                 },
                 mapping = cmp.mapping.preset.insert({
+                    ["<C-n>"]     = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+                    ["<C-p>"]     = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
                     ['<C-b>']     = cmp.mapping.scroll_docs(-4),
                     ['<C-f>']     = cmp.mapping.scroll_docs(4),
                     ['<C-Space>'] = cmp.mapping.complete(),
                     ['<C-e>']     = cmp.mapping.abort(),
                     ['<CR>']      = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                    ["<S-CR>"]    = cmp.mapping.confirm({
+                        behavior = cmp.ConfirmBehavior.Replace,
+                        select = true, -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                    }),
+                    ["<C-CR>"]    = function(fallback)
+                        cmp.abort()
+                        fallback()
+                    end,
                 }),
                 sources = cmp.config.sources({
                     { name = 'nvim_lsp' },
