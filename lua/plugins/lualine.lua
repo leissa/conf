@@ -115,9 +115,9 @@ function PrettyPath(opts)
         local sep = package.config:sub(1, 1)
         local parts = vim.split(path, "[\\/]")
 
-        if #parts > 3 then
-            parts = { parts[1], "…", parts[#parts - 1], parts[#parts] }
-        end
+        -- if #parts > 3 then
+        --     parts = { parts[1], "…", parts[#parts - 1], parts[#parts] }
+        -- end
 
         if opts.modified_hl and vim.bo.modified then
             parts[#parts] = parts[#parts] .. opts.modified_sign

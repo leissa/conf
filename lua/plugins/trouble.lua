@@ -1,43 +1,89 @@
 return {
-    "folke/trouble.nvim",
-    cmd  = { "TroubleToggle", "Trouble" },
-    opts = { use_diagnostic_signs = true },
-    -- branch = "dev",
-    keys = {
-        { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
-        { "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
-        { "<leader>xl", "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
-        { "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
-        { '<leader>xs', vim.diagnostic.open_float, desc = 'Diagnostics: show' },
-        { '<leader>xn', vim.diagnostic.goto_next,  desc = 'Diagnostics: next' },
-        { '<leader>xp', vim.diagnostic.goto_prev,  desc = 'Diagnostics: prev' },
-        {
-            "[q",
-            function()
-                if require("trouble").is_open() then
-                    require("trouble").previous({ skip_groups = true, jump = true })
-                else
-                    local ok, err = pcall(vim.cmd.cprev)
-                    if not ok then
-                        vim.notify(err, vim.log.levels.ERROR)
+    {
+        "folke/trouble.nvim",
+        branch = "dev",
+        keys   = {
+            { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>",              desc = "Diagnostics (Trouble)" },
+            { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+            { "<leader>xl", "<cmd>Trouble loclist toggle<cr>",                  desc = "Location List (Trouble)" },
+            { "<leader>xq", "<cmd>Trouble qflist toggle<cr>",                   desc = "Quickfix List (Trouble)" },
+            { '<leader>xs', vim.diagnostic.open_float, desc = 'Diagnostics: show' },
+            { '<leader>xn', vim.diagnostic.goto_next,  desc = 'Diagnostics: next' },
+            { '<leader>xp', vim.diagnostic.goto_prev,  desc = 'Diagnostics: prev' },
+            {
+                "[q",
+                function()
+                    if require("trouble").is_open() then
+                        require("trouble").prev({ skip_groups = true, jump = true })
+                    else
+                        local ok, err = pcall(vim.cmd.cprev)
+                        if not ok then
+                            vim.notify(err, vim.log.levels.ERROR)
+                        end
                     end
-                end
-            end,
-            desc = "Previous Trouble/Quickfix Item",
+                end,
+                desc = "Previous Trouble/Quickfix Item",
+            },
+            { "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>",      desc = "Symbols (Trouble)" },
+            {
+                "<leader>cS",
+                "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+                desc = "LSP references/definitions/... (Trouble)",
+            },
         },
-        {
-            "]q",
-            function()
-                if require("trouble").is_open() then
-                    require("trouble").next({ skip_groups = true, jump = true })
-                else
-                    local ok, err = pcall(vim.cmd.cnext)
-                    if not ok then
-                        vim.notify(err, vim.log.levels.ERROR)
-                    end
-                end
-            end,
-            desc = "Next Trouble/Quickfix Item",
-        },
+    },
+    {
+        "nvim-lualine/lualine.nvim",
+        optional = true,
+        opts = function(_, opts)
+            local trouble = require("trouble")
+            local symbols = trouble.statusline({
+                mode = "symbols",
+                groups = {},
+                title = false,
+                filter = { range = true },
+                format = "{kind_icon}{symbol.name:Normal}",
+            })
+            table.insert(opts.sections.lualine_x, 1, {
+                symbols.get,
+                cond = symbols.has,
+            })
+        end,
+    },
+    {
+        "folke/edgy.nvim",
+        optional = true,
+        opts = function(_, opts)
+            for _, pos in ipairs({ "top", "bottom", "left", "right" }) do
+                opts[pos] = opts[pos] or {}
+                table.insert(opts[pos], {
+                    ft = "trouble",
+                    filter = function(_buf, win)
+                        return vim.w[win].trouble
+                            and vim.w[win].trouble.position == pos
+                            and vim.w[win].trouble.type == "split"
+                            and vim.w[win].trouble.relative == "editor"
+                            and not vim.w[win].trouble_preview
+                    end,
+                })
+            end
+        end,
+    },
+    {
+        "nvim-telescope/telescope.nvim",
+        optional = true,
+        opts = function(_, opts)
+            local open_with_trouble = require("trouble.sources.telescope").open
+            return vim.tbl_deep_extend("force", opts, {
+                defaults = {
+                    mappings = {
+                        i = {
+                            ["<c-t>"] = open_with_trouble,
+                            ["<a-t>"] = open_with_trouble,
+                        },
+                    },
+                },
+            })
+        end,
     },
 }

@@ -10,6 +10,7 @@ return {
         end,
     },
     { 'stevearc/dressing.nvim' },
+    { 'brgmnn/vim-opencl' },
     {
         'godlygeek/tabular',
         dependencies = { 'preservim/vim-markdown' },

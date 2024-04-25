@@ -64,5 +64,5 @@ zinit load jeffreytse/zsh-vi-mode
 zinit light zsh-users/zsh-syntax-highlighting
 
 # Set up fzf key bindings and fuzzy completion
-source "/usr/share/fzf/key-bindings.zsh"
-source "/usr/share/fzf/completion.zsh"
+#source "/usr/share/fzf/key-bindings.zsh"
+#source "/usr/share/fzf/completion.zsh"

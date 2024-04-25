@@ -1,5 +1,16 @@
 local icons = require 'icons'
 
+---@param f fun(client, buffer)
+local function on_attach(f)
+    vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(args)
+            local buffer = args.buf ---@type number
+            local client = vim.lsp.get_client_by_id(args.data.client_id)
+            f(client, buffer)
+        end,
+    })
+end
+
 return {
     {
         'neovim/nvim-lspconfig',
@@ -171,6 +182,22 @@ return {
             'hrsh7th/cmp-cmdline',
             'hrsh7th/cmp-vsnip',
             'hrsh7th/vim-vsnip',
+            {
+                "zbirenbaum/copilot-cmp",
+                dependencies = "copilot.lua",
+                opts = {},
+                config = function(_, opts)
+                    local copilot_cmp = require("copilot_cmp")
+                    copilot_cmp.setup(opts)
+                    -- attach cmp source whenever copilot attaches
+                    -- fixes lazy-loading issues with the copilot cmp source
+                    on_attach(function(client)
+                        if client.name == "copilot" then
+                            copilot_cmp._on_insert_enter({})
+                        end
+                    end)
+                end,
+            },
         },
         config = function()
             local cmp = require 'cmp'
@@ -213,6 +240,11 @@ return {
                     -- { name = 'snippy' }, -- For snippy users.
                     { name = 'buffer' },
                     { name = 'path' },
+                    {
+                        name = 'copilot',
+                        group_index = 1,
+                        priority = 100,
+                    },
                 }),
                 formatting = {
                     format = function(_, item)
