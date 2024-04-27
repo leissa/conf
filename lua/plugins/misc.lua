@@ -23,17 +23,9 @@ return {
     },
     { 'leissa/vim-acme' },
     { 'easymotion/vim-easymotion' },
-    -- {
-    --     'derekwyatt/vim-fswitch',
-    --     ft = { "c", "cpp" },
-    --     keys = {
-    --         { 'ö', ':FSSplitRight<CR>', desc = 'Switch to the file and load it into a new window split on the right' },
-    --         { 'Ö', ':FSSplitLeft<CR>',  desc = 'Switch to the file and load it into a new window split on the left' },
-    --     },
-    -- },
     { 'tpope/vim-fugitive' },
     { 'preservim/vim-markdown' },
     { 'tpope/vim-surround' },
     { 'machakann/vim-swap' },
-    { 'AnyDSL/vim-thorin2',    ft = "thorin" },
+    { 'AnyDSL/vim-thorin2',       ft = "thorin" },
 }
