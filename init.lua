@@ -50,7 +50,7 @@ vim.opt.wildmode    = 'list:longest,full'
 
 -- clipboard
 
-vim.opt.clipboard:append("unnamedplus") -- use system clipboard as default register
+-- vim.opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 
 -- key mappings
 

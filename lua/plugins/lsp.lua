@@ -80,6 +80,7 @@ return {
                     "--header-insertion=iwyu",
                     "--completion-style=detailed",
                     "--function-arg-placeholders",
+                    "--offset-encoding=utf-8",
                     "--fallback-style=llvm",
                 },
                 init_options = {
@@ -114,21 +115,47 @@ return {
 
             vim.g['tex_flavor'] = 'latex'
             lsp.texlab.setup {
-                cmd = { "texlab" },
-                filetypes = { "tex", "bib" },
-                settings = {
-                    texlab = {
-                        rootDirectory = nil,
-                        --      ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
-                        build = _G.TeXMagicBuildConfig,
-                        --      ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
-                        forwardSearch = {
-                            executable = "okular",
-                            args = { "%p" }
-                        }
+                texlab = {
+                    auxDirectory = ".",
+                    bibtexFormatter = "texlab",
+                    build = {
+                        args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
+                        executable = "latexmk",
+                        forwardSearchAfter = false,
+                        onSave = false
+                    },
+                    chktex = {
+                        onEdit = false,
+                        onOpenAndSave = false
+                    },
+                    diagnosticsDelay = 300,
+                    formatterLineLength = 80,
+                    forwardSearch = {
+                        args = {}
+                    },
+                    latexFormatter = "latexindent",
+                    latexindent = {
+                        modifyLineBreaks = false
                     }
                 }
             }
+
+            -- {
+            --     cmd = { "texlab" },
+            --     filetypes = { "tex", "bib" },
+            --     settings = {
+            --         texlab = {
+            --             rootDirectory = nil,
+            --             --      ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
+            --             build = _G.TeXMagicBuildConfig,
+            --             --      ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
+            --             forwardSearch = {
+            --                 executable = "okular",
+            --                 args = { "%p" }
+            --             }
+            --         }
+            --     }
+            -- }
 
             local keymaps = {
                 { "<leader>cl", "<cmd>LspInfo<cr>",                                                                     desc = "Lsp Info" },
@@ -238,7 +265,12 @@ return {
                     -- { name = 'luasnip' }, -- For luasnip users.
                     -- { name = 'ultisnips' }, -- For ultisnips users.
                     -- { name = 'snippy' }, -- For snippy users.
-                    { name = 'buffer' },
+                    {
+                        name = 'buffer',
+                        option = {
+                            keyword_pattern = [[\k\+]],
+                        }
+                    },
                     { name = 'path' },
                     {
                         name = 'copilot',
@@ -276,7 +308,12 @@ return {
             cmp.setup.cmdline({ '/', '?' }, {
                 mapping = cmp.mapping.preset.cmdline(),
                 sources = {
-                    { name = 'buffer' }
+                    {
+                        name = 'buffer',
+                        option = {
+                            keyword_pattern = [[\k\+]],
+                        }
+                    }
                 }
             })
 

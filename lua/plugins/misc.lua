@@ -11,6 +11,7 @@ return {
     },
     { 'stevearc/dressing.nvim' },
     { 'brgmnn/vim-opencl' },
+    { 'tpope/vim-commentary' },
     {
         'godlygeek/tabular',
         dependencies = { 'preservim/vim-markdown' },
@@ -22,7 +23,12 @@ return {
         end,
     },
     { 'leissa/vim-acme' },
-    { 'easymotion/vim-easymotion' },
+    {
+        'easymotion/vim-easymotion',
+        keys = {
+            { "<leader><leader>l", "<Plug>(easymotion-bd-jk)", desc = "Line downward and upward" }
+        }
+    },
     { 'tpope/vim-fugitive' },
     { 'preservim/vim-markdown' },
     { 'tpope/vim-surround' },

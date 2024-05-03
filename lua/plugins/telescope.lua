@@ -100,8 +100,9 @@ end
 
 return {
     'nvim-telescope/telescope.nvim',
-    branch       = '0.1.x',
+    -- branch       = '0.1.x',
     lazy         = false, -- needed for hijack_netrw
+    enabled = false,
     dependencies = {
         'nvim-lua/plenary.nvim',
         'nvim-telescope/telescope-file-browser.nvim',
