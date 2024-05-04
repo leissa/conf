@@ -72,7 +72,7 @@ return {
             lsp.tsserver.setup { capabilities = caps }
 
             lsp.clangd.setup {
-                capabilities = caps,
+                capabilities = table.insert(caps, { offsetEncoding = "utf-16" }),
                 cmd = {
                     "clangd",
                     "--background-index",
@@ -80,7 +80,7 @@ return {
                     "--header-insertion=iwyu",
                     "--completion-style=detailed",
                     "--function-arg-placeholders",
-                    "--offset-encoding=utf-8",
+                    "--offset-encoding=utf-16",
                     "--fallback-style=llvm",
                 },
                 init_options = {
@@ -158,33 +158,20 @@ return {
             -- }
 
             local keymaps = {
-                { "<leader>cl", "<cmd>LspInfo<cr>",                                                                     desc = "Lsp Info" },
-                { "gd",         function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end,      desc = "Goto Definition",            has = "definition" },
-                { "gr",         "<cmd>Telescope lsp_references<cr>",                                                    desc = "References" },
-                { "gD",         vim.lsp.buf.declaration,                                                                desc = "Goto Declaration" },
-                { "gI",         function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end,  desc = "Goto Implementation" },
-                { "gy",         function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, desc = "Goto T[y]pe Definition" },
-                { "K",          vim.lsp.buf.hover,                                                                      desc = "Hover" },
-                { "gK",         vim.lsp.buf.signature_help,                                                             desc = "Signature Help",             has = "signatureHelp" },
-                { "<c-k>",      vim.lsp.buf.signature_help,                                                             mode = "i",                          desc = "Signature Help", has = "signatureHelp" },
-                { "<leader>ca", vim.lsp.buf.code_action,                                                                desc = "Code Action",                mode = { "n", "v" },     has = "codeAction" },
-                { "<leader>cc", vim.lsp.codelens.run,                                                                   desc = "Run Codelens",               mode = { "n", "v" },     has = "codeLens" },
-                { "<leader>cf", function() vim.lsp.buf.format { async = true } end,                                     desc = "code: format" },
-                { "<leader>cr", vim.lsp.buf.rename,                                                                     desc = "Rename",                     mode = { "n" } },
-                { "<leader>cC", vim.lsp.codelens.refresh,                                                               desc = "Refresh & Display Codelens", mode = { "n" },          has = "codeLens" },
-                {
-                    "<leader>cA",
-                    function()
-                        vim.lsp.buf.code_action({
-                            context = {
-                                only = { "source", },
-                                diagnostics = {},
-                            },
-                        })
-                    end,
-                    desc = "Source Action",
-                    has = "codeAction",
-                }
+                { "gd",         vim.lsp.buf.definition,                                                                             desc = "Go to Definition" },
+                { "gD",         vim.lsp.buf.declaration,                                                                            desc = "Go to Declaration" },
+                { "gI",         vim.lsp.buf.implementation,                                                                         desc = "Go to Implementation" },
+                { "gy",         vim.lsp.buf.type_definition,                                                                        desc = "Go to T[y]pe Definition" },
+                { "gr",         vim.lsp.buf.references,                                                                             desc = "Go to References" },
+                { "K",          vim.lsp.buf.hover,                                                                                  desc = "Hover" },
+                { "<c-k>",      vim.lsp.buf.signature_help,                                                                         desc = "Signature Help",             mode = "i" },
+                { "<leader>ca", vim.lsp.buf.code_action,                                                                            desc = "Code Action",                mode = { "n", "v" } },
+                { "<leader>cA", function() vim.lsp.buf.code_action({ context = { only = { "source", }, diagnostics = {}, }, }) end, desc = "Source Action" },
+                { "<leader>cc", vim.lsp.codelens.run,                                                                               desc = "Run Codelens",               mode = { "n", "v" } },
+                { "<leader>cC", vim.lsp.codelens.refresh,                                                                           desc = "Refresh & Display Codelens", mode = { "n" } },
+                { "<leader>cf", function() vim.lsp.buf.format { async = true } end,                                                 desc = "code: format" },
+                { "<leader>cl", "<cmd>LspInfo<cr>",                                                                                 desc = "Lsp Info" },
+                { "<leader>cr", vim.lsp.buf.rename,                                                                                 desc = "Rename",                     mode = { "n" } },
             }
 
             -- Use LspAttach autocommand to only map the following keys after the language server attaches to the current buffer

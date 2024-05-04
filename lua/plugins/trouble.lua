@@ -7,9 +7,9 @@ return {
             { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
             { "<leader>xl", "<cmd>Trouble loclist toggle<cr>",                  desc = "Location List (Trouble)" },
             { "<leader>xq", "<cmd>Trouble qflist toggle<cr>",                   desc = "Quickfix List (Trouble)" },
-            { '<leader>xs', vim.diagnostic.open_float, desc = 'Diagnostics: show' },
-            { '<leader>xn', vim.diagnostic.goto_next,  desc = 'Diagnostics: next' },
-            { '<leader>xp', vim.diagnostic.goto_prev,  desc = 'Diagnostics: prev' },
+            { '<leader>xs', vim.diagnostic.open_float, desc = 'Diagnostics: Show' },
+            { '<leader>xn', vim.diagnostic.goto_next,  desc = 'Diagnostics: Next' },
+            { '<leader>xp', vim.diagnostic.goto_prev,  desc = 'Diagnostics: Prev' },
             {
                 "[q",
                 function()
@@ -69,21 +69,21 @@ return {
             end
         end,
     },
-    {
-        "nvim-telescope/telescope.nvim",
-        optional = true,
-        opts = function(_, opts)
-            local open_with_trouble = require("trouble.sources.telescope").open
-            return vim.tbl_deep_extend("force", opts, {
-                defaults = {
-                    mappings = {
-                        i = {
-                            ["<c-t>"] = open_with_trouble,
-                            ["<a-t>"] = open_with_trouble,
-                        },
-                    },
-                },
-            })
-        end,
-    },
+    -- {
+    --     "nvim-telescope/telescope.nvim",
+    --     optional = true,
+    --     opts = function(_, opts)
+    --         local open_with_trouble = require("trouble.sources.telescope").open
+    --         return vim.tbl_deep_extend("force", opts, {
+    --             defaults = {
+    --                 mappings = {
+    --                     i = {
+    --                         ["<c-t>"] = open_with_trouble,
+    --                         ["<a-t>"] = open_with_trouble,
+    --                     },
+    --                 },
+    --             },
+    --         })
+    --     end,
+    -- },
 }

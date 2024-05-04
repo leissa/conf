@@ -10,6 +10,13 @@ return {
         end,
     },
     { 'stevearc/dressing.nvim' },
+    {
+        "danymat/neogen",
+        config = true,
+        keys = {
+            { "<Leader>cn", ":lua require('neogen').generate()<CR>", desc = "Neogen" }
+        }
+    },
     { 'brgmnn/vim-opencl' },
     { 'tpope/vim-commentary' },
     {
@@ -24,14 +31,19 @@ return {
     },
     { 'leissa/vim-acme' },
     {
-        'easymotion/vim-easymotion',
+        'smoka7/hop.nvim',
+        version = "*",
+        config = true,
         keys = {
-            { "<leader><leader>l", "<Plug>(easymotion-bd-jk)", desc = "Line downward and upward" }
+            { "<leader><leader>l", "<cmd>HopLine<cr>",  silent = true, desc = "Line" },
+            { "<leader><leader>c", "<cmd>HopChar1<cr>", silent = true, desc = "1 Char" },
+            { "<leader><leader>C", "<cmd>HopChar2<cr>", silent = true, desc = "2 Chars" },
+            { "<leader><leader>w", "<cmd>HopWord<cr>",  silent = true, desc = "Word" },
         }
     },
-    { 'tpope/vim-fugitive' },
+    -- { 'tpope/vim-fugitive' },
     { 'preservim/vim-markdown' },
     { 'tpope/vim-surround' },
     { 'machakann/vim-swap' },
-    { 'AnyDSL/vim-thorin2',       ft = "thorin" },
+    { 'AnyDSL/vim-thorin2',    ft = "thorin" },
 }
