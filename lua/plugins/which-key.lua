@@ -13,7 +13,6 @@
             ["<leader><leader>"] = { name = "+hop" },
             ["<leader>b"] = { name = "+buffer" },
             ["<leader>c"] = { name = "+code" },
-            ["<leader>f"] = { name = "+file/find" },
             ["<leader>g"] = { name = "+git" },
             ["<leader>l"] = { name = "+LSP" },
             ["<leader>n"] = { name = "+noice" },

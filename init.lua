@@ -60,9 +60,13 @@ vim.keymap.set('n', 'Y', 'y$')
 vim.keymap.set('n', 'Q', '@q')
 vim.keymap.set('c', '<c-j>', '<Down>')
 vim.keymap.set('c', '<c-k>', '<Up>')
+
 vim.keymap.set('n', 'gh', '<S-h>', { desc = "Go Home" })
 vim.keymap.set('n', 'gm', '<S-m>', { desc = "Go Middle" })
 vim.keymap.set('n', 'gl', '<S-l>', { desc = "Go Low" })
+
+vim.keymap.set('n', 'q:',  '<Nop>', { desc = "Go Low" })
+vim.keymap.set('n', 'q::', 'q:',    { desc = "Open Commandline-Window" })
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
