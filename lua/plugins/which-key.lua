@@ -14,6 +14,7 @@
             ["<leader>b"] = { name = "+buffer" },
             ["<leader>c"] = { name = "+code" },
             ["<leader>g"] = { name = "+git" },
+            ["<leader>i"] = { name = "+iswap" },
             ["<leader>l"] = { name = "+LSP" },
             ["<leader>n"] = { name = "+noice" },
             ["<leader>N"] = { name = "+notify" },

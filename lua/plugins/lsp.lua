@@ -60,6 +60,18 @@ return {
                     { "<leader>cR", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
                 },
             },
+            {
+                'Julian/lean.nvim',
+                event = { 'BufReadPre *.lean', 'BufNewFile *.lean' },
+
+                -- see details below for full configuration options
+                opts = {
+                    lsp = {
+                        on_attach = on_attach,
+                    },
+                    mappings = true,
+                }
+            },
         },
         config = function()
             require("neodev").setup {} -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
@@ -68,8 +80,11 @@ return {
             local caps = require('cmp_nvim_lsp').default_capabilities()
             lsp.asm_lsp.setup { capabilities = caps }
             lsp.bashls.setup { capabilities = caps }
+            lsp.cmake.setup { capabilities = caps }
             lsp.pyright.setup { capabilities = caps }
             lsp.tsserver.setup { capabilities = caps }
+            lsp.tsserver.setup { capabilities = caps }
+            lsp.marksman.setup { capabilities = caps }
 
             lsp.clangd.setup {
                 capabilities = table.insert(caps, { offsetEncoding = "utf-16" }),

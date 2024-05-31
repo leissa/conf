@@ -1,5 +1,4 @@
 return {
-    enabled = false,
     "nvim-pack/nvim-spectre",
     build = false,
     cmd = "Spectre",

@@ -39,14 +39,15 @@ MyIndent()
 
 -- file handling
 
-vim.opt.autowrite   = true
-vim.opt.confirm     = true
-vim.opt.hidden      = true
+vim.opt.autowrite    = true
+vim.opt.confirm      = true
+vim.opt.hidden       = true
+-- vim.opt.conceallevel = 2
 
 -- completion
 
-vim.opt.completeopt = "menu,menuone,noselect"
-vim.opt.wildmode    = 'list:longest,full'
+vim.opt.completeopt  = "menu,menuone,noselect"
+vim.opt.wildmode     = 'list:longest,full'
 
 -- clipboard
 
@@ -65,8 +66,8 @@ vim.keymap.set('n', 'gh', '<S-h>', { desc = "Go Home" })
 vim.keymap.set('n', 'gm', '<S-m>', { desc = "Go Middle" })
 vim.keymap.set('n', 'gl', '<S-l>', { desc = "Go Low" })
 
-vim.keymap.set('n', 'q:',  '<Nop>', { desc = "Go Low" })
-vim.keymap.set('n', 'q::', 'q:',    { desc = "Open Commandline-Window" })
+vim.keymap.set('n', 'q:', '<Nop>', { desc = "Go Low" })
+vim.keymap.set('n', 'q::', 'q:', { desc = "Open Commandline-Window" })
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
