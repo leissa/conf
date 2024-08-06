@@ -58,6 +58,8 @@ return {
                 },
                 keys = {
                     { "<leader>cR", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
+                    { "<leader>ch", "<cmd>ClangdToggleInlayHints<cr>", desc = "Toggle Inline Hints (C/C++)" },
+                    { "<leader>ct", "<cmd>ClangdTypeHierarchy<cr>", desc = "Type Hierarchy (C/C++)" },
                 },
             },
             {
@@ -85,9 +87,16 @@ return {
             lsp.tsserver.setup { capabilities = caps }
             lsp.tsserver.setup { capabilities = caps }
             lsp.marksman.setup { capabilities = caps }
+            lsp.coq_lsp.setup {
+                capabilities = caps,
+                cmd = { "/home/roland/.opam/5.1.0/bin/coq-lsp" },
+            }
 
             lsp.clangd.setup {
-                capabilities = table.insert(caps, { offsetEncoding = "utf-16" }),
+                capabilities = {
+                    offsetEncoding = { "utf-16" },
+                },
+                -- capabilities = table.insert(caps, { offsetEncoding = "utf-16" }),
                 cmd = {
                     "clangd",
                     "--background-index",
@@ -211,22 +220,22 @@ return {
             'hrsh7th/cmp-cmdline',
             'hrsh7th/cmp-vsnip',
             'hrsh7th/vim-vsnip',
-            {
-                "zbirenbaum/copilot-cmp",
-                dependencies = "copilot.lua",
-                opts = {},
-                config = function(_, opts)
-                    local copilot_cmp = require("copilot_cmp")
-                    copilot_cmp.setup(opts)
-                    -- attach cmp source whenever copilot attaches
-                    -- fixes lazy-loading issues with the copilot cmp source
-                    on_attach(function(client)
-                        if client.name == "copilot" then
-                            copilot_cmp._on_insert_enter({})
-                        end
-                    end)
-                end,
-            },
+            -- {
+            --     "zbirenbaum/copilot-cmp",
+            --     dependencies = "copilot.lua",
+            --     opts = {},
+            --     config = function(_, opts)
+            --         local copilot_cmp = require("copilot_cmp")
+            --         copilot_cmp.setup(opts)
+            --         -- attach cmp source whenever copilot attaches
+            --         -- fixes lazy-loading issues with the copilot cmp source
+            --         on_attach(function(client)
+            --             if client.name == "copilot" then
+            --                 copilot_cmp._on_insert_enter({})
+            --             end
+            --         end)
+            --     end,
+            -- },
         },
         config = function()
             local cmp = require 'cmp'

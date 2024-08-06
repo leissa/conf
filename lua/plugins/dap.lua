@@ -12,7 +12,6 @@ end
 
 return {
     "mfussenegger/nvim-dap",
-
     dependencies = {
         -- fancy UI for the debugger
         {
@@ -48,16 +47,6 @@ return {
             opts = {},
         },
 
-        -- which key integration
-        {
-            "folke/which-key.nvim",
-            optional = true,
-            opts = {
-                defaults = {
-                    ["<leader>d"] = { name = "+debug" },
-                },
-            },
-        },
     },
 
     opts = function()
@@ -97,7 +86,7 @@ return {
 
                     return (path and path ~= '') and path or dap.ABORT
                 end,
-           },
+            },
             -- {
             --     name = 'Run executable with arguments (GDB)',
             --     type = 'gdb',

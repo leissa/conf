@@ -1,38 +1,40 @@
-  return {
-    "folke/which-key.nvim",
-    event = "VeryLazy",
-    opts = {
-        plugins = { spelling = true },
-        defaults = {
-            mode = { "n", "v" },
-            ["g"] = { name = "+goto" },
-            ["gz"] = { name = "+surround" },
-            ["z"] = { name = "+fold" },
-            ["]"] = { name = "+next" },
-            ["["] = { name = "+prev" },
-            ["<leader><leader>"] = { name = "+hop" },
-            ["<leader>b"] = { name = "+buffer" },
-            ["<leader>c"] = { name = "+code" },
-            ["<leader>g"] = { name = "+git" },
-            ["<leader>i"] = { name = "+iswap" },
-            ["<leader>l"] = { name = "+LSP" },
-            ["<leader>n"] = { name = "+noice" },
-            ["<leader>N"] = { name = "+notify" },
-            ["<leader>q"] = { name = "+quit/session" },
-            ["<leader>s"] = { name = "+search" },
-            ["<leader>t"] = { name = "+tags" },
-            ["<leader>u"] = { name = "+ui" },
-            ["<leader>w"] = { name = "+windows" },
-            ["<leader>x"] = { name = "+diagnostics/quickfix" },
+return {
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        opts = {
+            spec = {
+                { "<leader>i", group = "iswap", icon = "↔" },
+                { "<leader><leader>", group = "hop" },
+                { "<leader>N", group = "notify" },
+                { "<leader>b", group = "buffer" },
+                { "<leader>c", group = "code" },
+                { "<leader>d", group = "debug" },
+                { "<leader>g", group = "git" },
+                { "<leader>l", group = "LSP", icon = "󰆧" },
+                { "<leader>n", group = "noice" },
+                { "<leader>q", group = "quit/session" },
+                { "<leader>s", group = "search" },
+                { "<leader>t", group = "tags" },
+                { "<leader>u", group = "ui" },
+                { "<leader>w", group = "windows" },
+                { "<leader>x", group = "diagnostics/quickfix" },
+                { "<localleader>l", group = "LaTeX", icon = "" },
+                { "[", group = "prev" },
+                { "]", group = "next" },
+                { "g", group = "goto" },
+                { "gz", group = "surround", mode = { "n", "v" }, },
+                { "z", group = "fold" },
+            },
+        },
+        keys = {
+            {
+                "<leader>?",
+                function()
+                    require("which-key").show({ global = false })
+                end,
+                desc = "Buffer Local Keymaps (which-key)",
+            },
         },
     },
---     init = function()
---         vim.o.timeout = true
---         vim.o.timeoutlen = 500
---     end,
-    config = function(_, opts)
-        local wk = require("which-key")
-        wk.setup(opts)
-        wk.register(opts.defaults)
-    end,
-  }
+}
