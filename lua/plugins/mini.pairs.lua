@@ -1,4 +1,4 @@
 return {
-  "folke/flash.nvim",
+  "echasnovski/mini.pairs",
   enabled = false,
 }

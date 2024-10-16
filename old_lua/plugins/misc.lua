@@ -20,6 +20,7 @@ return {
             vim.cmd([[colorscheme tokyonight]])
         end,
     },
+    { "j-hui/fidget.nvim",     opts = {} },
     {
         "jiriks74/presence.nvim",
         event = "UIEnter",
@@ -32,6 +33,7 @@ return {
             { "<Leader>cn", "<cmd>lua require('neogen').generate()<CR>", desc = "Neogen" }
         }
     },
+    { 'rhysd/clever-f.vim', },
     { 'brgmnn/vim-opencl' },
     { 'whonore/Coqtail' },
     { 'tpope/vim-commentary' },

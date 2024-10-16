@@ -39,15 +39,15 @@ MyIndent()
 
 -- file handling
 
-vim.opt.autowrite    = true
-vim.opt.confirm      = true
-vim.opt.hidden       = true
+vim.opt.autowrite   = true
+vim.opt.confirm     = true
+vim.opt.hidden      = true
 -- vim.opt.conceallevel = 2
 
 -- completion
 
-vim.opt.completeopt  = "menu,menuone,noselect"
-vim.opt.wildmode     = 'list:longest,full'
+vim.opt.completeopt = "menu,menuone,noselect"
+vim.opt.wildmode    = 'list:longest,full'
 
 -- clipboard
 
@@ -62,9 +62,9 @@ vim.keymap.set('n', 'Q', '@q')
 vim.keymap.set('c', '<c-j>', '<Down>')
 vim.keymap.set('c', '<c-k>', '<Up>')
 
-vim.keymap.set('n', 'gh', '<S-h>', { desc = "Go Home" })
-vim.keymap.set('n', 'gm', '<S-m>', { desc = "Go Middle" })
-vim.keymap.set('n', 'gl', '<S-l>', { desc = "Go Low" })
+vim.keymap.set({'n', 'v'}, 'gh', '<S-h>', { desc = "Go Home" })
+vim.keymap.set({'n', 'v'}, 'gm', '<S-m>', { desc = "Go Middle" })
+vim.keymap.set({'n', 'v'}, 'gl', '<S-l>', { desc = "Go Low" })
 
 vim.keymap.set('n', 'q:', '<Nop>', { desc = "Go Low" })
 vim.keymap.set('n', 'q::', 'q:', { desc = "Open Commandline-Window" })
@@ -160,8 +160,9 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 
 function Root()
     local ptrns = { ".git", ".clang-format", "pyproject.toml", "setup.py", ".svn" }
-    local res = vim.fs.dirname(vim.fs.find(ptrns, { upward = true })[1])
-    return res and res or vim.uv.cwd()
+    local cwd   = vim.uv.cwd()
+    local res   = vim.fs.root(cwd and cwd or 0, ptrns)
+    return res and res or cwd
 end
 
 require "lazy".setup("plugins")

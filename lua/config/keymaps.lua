@@ -1,0 +1,22 @@
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
+local map = LazyVim.safe_keymap_set
+
+map("n", "<C-l>", "<cmd>nohlsearch<cr>", { silent = true, desc = "clear search highlighting" })
+map("n", "Q", "@q")
+
+-- make
+map("n", "<F11>", ":make! -j $(nproc)<CR>")
+map("n", "<S-F11>", ":make! -j <CR>")
+
+-- Alternative for Home, Middle, Low
+map({ "n", "v" }, "gh", "<S-h>", { desc = "Go Home" })
+map({ "n", "v" }, "gm", "<S-m>", { desc = "Go Middle" })
+map({ "n", "v" }, "gl", "<S-l>", { desc = "Go Low" })
+
+-- CLI/Window
+map("n", "q:", "<Nop>", { desc = "Do *Not* open Commandline-Window" })
+map("n", "q::", "q:", { desc = "Open Commandline-Window" })
+map("c", "<c-j>", "<Down>")
+map("c", "<c-k>", "<Up>")
