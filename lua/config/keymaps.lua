@@ -2,6 +2,7 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 local map = LazyVim.safe_keymap_set
+local del = vim.keymap.del
 
 map("n", "<C-l>", "<cmd>nohlsearch<cr>", { silent = true, desc = "clear search highlighting" })
 map("n", "Q", "@q")
@@ -20,3 +21,14 @@ map("n", "q:", "<Nop>", { desc = "Do *Not* open Commandline-Window" })
 map("n", "q::", "q:", { desc = "Open Commandline-Window" })
 map("c", "<c-j>", "<Down>")
 map("c", "<c-k>", "<Up>")
+
+-- Buffers
+map("n", "<M-h>", "<cmd>BufferLineMovePrev<cr>", { desc = "Move Buffer Prev" })
+map("n", "<M-l>", "<cmd>BufferLineMoveNext<cr>", { desc = "Move Buffer Next" })
+
+-- remove vimtex group
+del("n", "<localleader>l")
+
+-- remove LazyVim's "better indenting"
+del("v", "<")
+del("v", ">")

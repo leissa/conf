@@ -24,9 +24,8 @@ return {
     presets = {
       long_message_to_split = false,
     },
-    redirect = false,
-      -- view = "popup",
-      -- filter = { event = "msg_show" },
-    -- },
+    messages = {
+      enabled = false,
+    }
   }
 }

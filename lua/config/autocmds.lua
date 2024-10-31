@@ -22,3 +22,5 @@ autocmd("BufWritePre", {
         vim.fn.setpos(".", save_cursor)
     end,
 })
+
+-- Don't use crappy indent in LaTeX
