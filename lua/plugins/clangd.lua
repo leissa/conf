@@ -2,9 +2,9 @@ return {
   "p00f/clangd_extensions.nvim",
   keys = {
     { "<leader>ch", false },
-    { "<localleader>i", ft = {"c", "cpp"}, "<cmd>ClangdToggleInlayHints<cr>", desc = "Toggle Inlay Hints (C/C++)" },
-    { "<localleader>t", ft = {"c", "cpp"}, "<cmd>ClangdTypeHierarchy<cr>", desc = "Type Hierarchy (C/C++)" },
-    { "<localleader>h", ft = {"c", "cpp"}, "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
+    { "<localleader>i", "<cmd>ClangdToggleInlayHints<cr>",   ft = {"c", "cpp"}, desc = "Toggle Inlay Hints (C/C++)" },
+    { "<localleader>t", "<cmd>ClangdTypeHierarchy<cr>",      ft = {"c", "cpp"}, desc = "Type Hierarchy (C/C++)" },
+    { "<localleader>h", "<cmd>ClangdSwitchSourceHeader<cr>", ft = {"c", "cpp"}, desc = "Switch Source/Header (C/C++)" },
   },
   opts = {
     inlay_hints = {

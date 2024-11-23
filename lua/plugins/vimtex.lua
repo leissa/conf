@@ -11,5 +11,17 @@ return {
 			pattern = "tex",
 			command = "set indentexpr=",
 		})
+        vim.g.vimtex_quickfix_ignore_filters = {
+            '\\vspace should only be used',
+            'A possible image without description',
+            'Marginpar on page',
+            'Overfull',
+            'Underfull',
+            'Missing ".*" in',
+            'todonotes Warning',
+            'Font shape.*',
+            'cannot apply log',
+            'in font nullfont',
+        }
 	end,
 }

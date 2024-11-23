@@ -8,8 +8,8 @@ map("n", "<C-l>", "<cmd>nohlsearch<cr>", { silent = true, desc = "clear search h
 map("n", "Q", "@q")
 
 -- make
-map("n", "<F11>", ":make! -j $(nproc)<CR>")
-map("n", "<S-F11>", ":make! -j <CR>")
+map("n", "<S-F11>", ":make! -j $(nproc)<CR>")
+map("n", "<F11>", ":make!<CR>")
 
 -- Alternative for Home, Middle, Low
 map({ "n", "v" }, "gh", "<S-h>", { desc = "Go Home" })
