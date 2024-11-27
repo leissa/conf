@@ -55,7 +55,7 @@ vim.opt.wildmode    = 'list:longest,full'
 
 -- key mappings
 
-vim.keymap.set('n', '<F11>', ':make! -j $(nproc)<CR>')
+vim.keymap.set('n', '<F11>',   ':make! -j $(nproc)<CR>')
 vim.keymap.set('n', '<S-F11>', ':make! -j         <CR>')
 vim.keymap.set('n', 'Y', 'y$')
 vim.keymap.set('n', 'Q', '@q')
