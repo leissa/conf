@@ -25,3 +25,8 @@ opt.wildmode = "list:longest,full"
 g.maplocalleader = "ö"
 g.root_spec = { ".git", "lsp", "cwd" }
 g.autoformat = false -- no autoformat on write
+
+-- set to `true` to follow the main branch
+-- you need to have a working rust toolchain to build the plugin
+-- in this case.
+-- g.lazyvim_blink_main = false
