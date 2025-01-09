@@ -6,3 +6,4 @@ compile_commands.json
 -.d
 .cache
 .gdb_history
+kitty/kitty.conf.bak
