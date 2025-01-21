@@ -1,3 +1,3 @@
 return {
-  "AnyDSL/vim-mim",
+    "AnyDSL/vim-mim",
 }

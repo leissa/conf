@@ -30,3 +30,14 @@ g.autoformat = false -- no autoformat on write
 -- you need to have a working rust toolchain to build the plugin
 -- in this case.
 -- g.lazyvim_blink_main = false
+
+function MyIndent()
+    opt.expandtab   = true
+    opt.autoindent  = true
+    opt.shiftround  = true
+    opt.tabstop     = 4
+    opt.softtabstop = 4
+    opt.shiftwidth  = 4
+end
+
+MyIndent()
