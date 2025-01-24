@@ -1,3 +1,0 @@
-return {
-    "AnyDSL/vim-mim",
-}
