@@ -3,18 +3,12 @@ return {
     keys = {
         { "<leader>ch", false },
         {
-            "<localleader>i",
-            "<cmd>ClangdToggleInlayHints<cr>",
-            ft = { "c", "cpp" },
-            desc = "Toggle Inlay Hints (C/C++)",
-        },
-        { "<localleader>t", "<cmd>ClangdTypeHierarchy<cr>", ft = { "c", "cpp" }, desc = "Type Hierarchy (C/C++)" },
-        {
             "<localleader>h",
             "<cmd>ClangdSwitchSourceHeader<cr>",
             ft = { "c", "cpp" },
             desc = "Switch Source/Header (C/C++)",
         },
+        { "<localleader>t", "<cmd>ClangdTypeHierarchy<cr>", ft = { "c", "cpp" }, desc = "Type Hierarchy (C/C++)" },
     },
     opts = {
         inlay_hints = {

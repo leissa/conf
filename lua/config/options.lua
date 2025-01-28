@@ -32,12 +32,12 @@ g.autoformat = false -- no autoformat on write
 -- g.lazyvim_blink_main = false
 
 function MyIndent()
-    opt.expandtab   = true
-    opt.autoindent  = true
-    opt.shiftround  = true
-    opt.tabstop     = 4
-    opt.softtabstop = 4
-    opt.shiftwidth  = 4
+	opt.expandtab = true
+	opt.autoindent = true
+	opt.shiftround = true
+	opt.tabstop = 4
+	opt.softtabstop = 4
+	opt.shiftwidth = 4
 end
 
 MyIndent()
