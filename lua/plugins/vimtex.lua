@@ -11,6 +11,10 @@ return {
             pattern = "tex",
             command = "set indentexpr=",
         })
+
+        vim.g.vimtex_syntax_enabled = 0
+        vim.g.vimtex_syntax_conceal_disable = 1
+
         vim.g.vimtex_quickfix_ignore_filters = {
             "\\vspace should only be used",
             "A possible image without description",

@@ -16,6 +16,10 @@ map({ "n", "v" }, "gh", "<S-h>", { desc = "Go Home" })
 map({ "n", "v" }, "gm", "<S-m>", { desc = "Go Middle" })
 map({ "n", "v" }, "gl", "<S-l>", { desc = "Go Low" })
 
+-- Alternative for brackets in normal/visual mode
+-- map({ "n", "v" }, "ö", "[", { desc = "[" })
+-- map({ "n", "v" }, "ä", "]", { desc = "]" })
+
 -- CLI/Window
 map("n", "q:", "<Nop>", { desc = "Do *Not* open Commandline-Window" })
 map("n", "q::", "q:", { desc = "Open Commandline-Window" })
@@ -29,3 +33,8 @@ map("n", "<M-l>", "<cmd>BufferLineMoveNext<cr>", { desc = "Move Buffer Next" })
 -- remove LazyVim's "better indenting"
 del("v", "<")
 del("v", ">")
+
+-- remove preset for quickfix/loclist and subistute later with quicker
+-- del("n", "<leader>xq")
+-- del("n", "<leader>xl")
+
