@@ -1,5 +1,6 @@
 return {
     { "andweeb/presence.nvim", config = true },
+    { "kevinhwang91/nvim-bqf" },
     { "AnyDSL/vim-mim" },
     { "sindrets/diffview.nvim" },
     -- { "machakann/vim-swap"},
