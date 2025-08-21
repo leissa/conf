@@ -1,7 +1,0 @@
--k
---type-set=acme=.acme
---type-set=cfg=.cfg
---type-set=def=.def
---type-set=gen=.gen
---type-set=impala=.impala
---type-set=tablegen=.td

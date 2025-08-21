@@ -3,7 +3,10 @@
 .project.vim
 .clang
 compile_commands.json
+.dotenv
 -.d
+.env
 .cache
 .gdb_history
 kitty/kitty.conf.bak
+pybind11

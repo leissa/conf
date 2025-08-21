@@ -11,6 +11,41 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# eza
+
+zstyle ':omz:plugins:eza' 'hyperlink'   yes
+zstyle ':omz:plugins:eza' 'dirs-first'  yes
+zstyle ':omz:plugins:eza' 'git-status'  yes
+zstyle ':omz:plugins:eza' 'header'      no
+zstyle ':omz:plugins:eza' 'hyperlink'   yes
+zstyle ':omz:plugins:eza' 'icons'       yes
+zstyle ':omz:plugins:eza' 'size-prefix' binary
+
+# fzf-tab
+
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+
+# set descriptions format to enable group support
+# note: don't use escape sequences (like '%F{red}%d%f') here, fzf-tab will ignore them
+zstyle ':completion:*:descriptions' format '[%d]'
+
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+
+# preview directory's content with eza when completing cd/zoxide
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:z:*'  fzf-preview 'eza -1 --color=always $realpath'
+
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
+
+zstyle ':fzf-tab:*' fzf-flags --bind 'one:accept'
+zstyle ':fzf-tab:*' use-fzf-default-opts yes
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -72,12 +107,20 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+    alias-tips
+    aliases
+    archlinux
     colored-man-pages
     colorize
+    dotenv
+    eza
+    fzf-tab
     git
     kitty
+    procs
     tmux
     vi-mode
+    zoxide
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
@@ -94,57 +137,70 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
 export EDITOR='nvim'
 export VISUAL='nvim'
 export PAGER="nvimpager"
 export CMAKE_EXPORT_COMPILE_COMMANDS=1
+export BAT_THEME=tokyonight
 
 zstyle ':completion:*' rehash true
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# aliases
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 alias icat="kitten icat"
-alias ls="ls --hyperlink=auto --color=auto"
-alias ll="ls -la"
 alias picard="picard -s"
 
 # fzf
+
 eval "$(fzf --zsh)"
 
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
+    --highlight-line \
+    --info=inline-right \
+    --ansi \
+    --layout=reverse \
+    --border=none \
+    --color=bg+:#283457 \
+    --color=border:#27a1b9 \
+    --color=fg:#c0caf5 \
+    --color=gutter:#16161e \
+    --color=header:#ff9e64 \
+    --color=hl+:#2ac3de \
+    --color=hl:#2ac3de \
+    --color=info:#545c7e \
+    --color=marker:#ff007c \
+    --color=pointer:#ff007c \
+    --color=prompt:#2ac3de \
+    --color=query:#c0caf5:regular \
+    --color=scrollbar:#27a1b9 \
+    --color=separator:#ff9e64 \
+    --color=spinner:#ff007c \
+"
+#  --color=bg:#16161e \
+
 # Preview file content using bat (https://github.com/sharkdp/bat)
-export FZF_CTRL_T_OPTS="
+export FZF_CTRL_T_OPTS="$FZF_DEFAULT_OPTS \
     --walker-skip .git,node_modules,target
     --preview 'bat -n --color=always {}'
     --bind 'ctrl-/:change-preview-window(down|hidden|)'"
 
 # CTRL-/ to toggle small preview window to see the full command
 # CTRL-Y to copy the command into clipboard using pbcopy
-export FZF_CTRL_R_OPTS="
+export FZF_CTRL_R_OPTS="$FZF_DEFAULT_OPTS \
     --preview 'echo {}' --preview-window up:3:hidden:wrap
     --bind 'ctrl-/:toggle-preview'
     --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
-    --color header:italic
     --header 'Press CTRL-Y to copy command into clipboard'"
+    #--color header:italic
 
 # Print tree structure in the preview window
-export FZF_ALT_C_OPTS="
+export FZF_ALT_C_OPTS="$FZF_DEFAULT_OPTS \
     --walker-skip .git,node_modules,target
     --preview 'tree -C {}'"
+
+#
+# other
+#
 
 # Install packages using yay (change to pacman/AUR helper of your choice)
 function in() {
@@ -162,5 +218,9 @@ function re() {
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+# broot
+
+source /home/roland/.config/broot/launcher/bash/br
 
 #neofetch
