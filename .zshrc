@@ -5,7 +5,7 @@
 export ZSH="$HOME/.oh-my-zsh"
 
 # Path cargo
-export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$HOME/bin:$PATH"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -21,30 +21,30 @@ zstyle ':omz:plugins:eza' 'hyperlink'   yes
 zstyle ':omz:plugins:eza' 'icons'       yes
 zstyle ':omz:plugins:eza' 'size-prefix' binary
 
-# fzf-tab
-
-# disable sort when completing `git checkout`
-zstyle ':completion:*:git-checkout:*' sort false
-
-# set descriptions format to enable group support
-# note: don't use escape sequences (like '%F{red}%d%f') here, fzf-tab will ignore them
-zstyle ':completion:*:descriptions' format '[%d]'
-
-# set list-colors to enable filename colorizing
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
-# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
-zstyle ':completion:*' menu no
-
-# preview directory's content with eza when completing cd/zoxide
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-zstyle ':fzf-tab:complete:z:*'  fzf-preview 'eza -1 --color=always $realpath'
-
-# switch group using `<` and `>`
-zstyle ':fzf-tab:*' switch-group '<' '>'
-
-zstyle ':fzf-tab:*' fzf-flags --bind 'one:accept'
-zstyle ':fzf-tab:*' use-fzf-default-opts yes
+## fzf-tab
+#
+## disable sort when completing `git checkout`
+#zstyle ':completion:*:git-checkout:*' sort false
+#
+## set descriptions format to enable group support
+## note: don't use escape sequences (like '%F{red}%d%f') here, fzf-tab will ignore them
+#zstyle ':completion:*:descriptions' format '[%d]'
+#
+## set list-colors to enable filename colorizing
+#zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+#
+## force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+#zstyle ':completion:*' menu no
+#
+## preview directory's content with eza when completing cd/zoxide
+#zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+#zstyle ':fzf-tab:complete:z:*'  fzf-preview 'eza -1 --color=always $realpath'
+#
+## switch group using `<` and `>`
+#zstyle ':fzf-tab:*' switch-group '<' '>'
+#
+#zstyle ':fzf-tab:*' fzf-flags --bind 'one:accept'
+#zstyle ':fzf-tab:*' use-fzf-default-opts yes
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -114,7 +114,7 @@ plugins=(
     colorize
     dotenv
     eza
-    fzf-tab
+    #fzf-tab
     git
     kitty
     procs
