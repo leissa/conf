@@ -27,6 +27,7 @@ return {
             "cannot apply log",
             "in font nullfont",
             "Size substitutions",
+            "Some font shapes",
         }
     end,
 }
