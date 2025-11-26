@@ -1,12 +1,12 @@
 [submodule "oh-my-zsh/.oh-my-zsh/plugins/alias-tips"]
-	path = oh-my-zsh/.oh-my-zsh/plugins/alias-tips
+	path = oh-my-zsh/.oh-my-zsh/custom/plugins/alias-tips
 	url = git@github.com:djui/alias-tips.git
 [submodule "oh-my-zsh/.oh-my-zsh/plugins/zsh-autosuggestions"]
-	path = oh-my-zsh/.oh-my-zsh/plugins/zsh-autosuggestions
+	path = oh-my-zsh/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 	url = git@github.com:zsh-users/zsh-autosuggestions.git
 [submodule "oh-my-zsh/.oh-my-zsh/plugins/zsh-syntax-highlighting"]
-	path = oh-my-zsh/.oh-my-zsh/plugins/zsh-syntax-highlighting
+	path = oh-my-zsh/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
 [submodule "oh-my-zsh/.oh-my-zsh/themes/powerlevel10k"]
-	path = oh-my-zsh/.oh-my-zsh/themes/powerlevel10k
+	path = oh-my-zsh/.oh-my-zsh/custom/themes/powerlevel10k
 	url = git@github.com:romkatv/powerlevel10k.git
