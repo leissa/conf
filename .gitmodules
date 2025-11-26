@@ -1,3 +1,6 @@
+[submodule "oh-my-zsh/ohmyzsh"]
+	path = oh-my-zsh/.oh-my-zsh
+	url = git@github.com:ohmyzsh/ohmyzsh.git
 [submodule "oh-my-zsh/.oh-my-zsh/plugins/alias-tips"]
 	path = oh-my-zsh/.oh-my-zsh/custom/plugins/alias-tips
 	url = git@github.com:djui/alias-tips.git
@@ -10,6 +13,3 @@
 [submodule "oh-my-zsh/.oh-my-zsh/themes/powerlevel10k"]
 	path = oh-my-zsh/.oh-my-zsh/custom/themes/powerlevel10k
 	url = git@github.com:romkatv/powerlevel10k.git
-[submodule "oh-my-zsh/ohmyzsh"]
-	path = oh-my-zsh/.oh-my-zsh
-	url = git@github.com:ohmyzsh/ohmyzsh.git
