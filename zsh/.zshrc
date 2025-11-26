@@ -1,9 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-
 # Path cargo
 export PATH="$HOME/.cargo/bin:$HOME/bin:$HOME/projects/pintos/src/utils/bin:$HOME/projects/pintos/src/utils:$PATH"
 export DEBUGINFOD_URLS="https://debuginfod.archlinux.org https://debuginfod.elfutils.org"
@@ -129,6 +126,9 @@ plugins=(
 #ENABLE_CORRECTION="true"
 VI_MODE_SET_CURSOR=true
 
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.config/zsh/oh-my-zsh"
+export ZSH_CUSTOM="$HOME/.config/zsh/custom"
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
