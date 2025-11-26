@@ -9,7 +9,7 @@ export PATH="$HOME/.cargo/bin:$HOME/bin:$HOME/projects/pintos/src/utils/bin:$HOM
 export DEBUGINFOD_URLS="https://debuginfod.archlinux.org https://debuginfod.elfutils.org"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # eza
@@ -225,3 +225,5 @@ eval "$(pyenv init -)"
 source /home/roland/.config/broot/launcher/bash/br
 
 #neofetch
+
+# eval "$(starship init zsh)"
