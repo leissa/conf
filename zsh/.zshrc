@@ -203,14 +203,15 @@ export FZF_ALT_C_OPTS="$FZF_DEFAULT_OPTS \
 # other
 #
 
-# Install packages using yay (change to pacman/AUR helper of your choice)
-function in() {
-    yay -Slq | fzf -q "$1" -m --preview 'yay -Si {1}'| xargs -ro yay -S
-}
-# Remove installed packages (change to pacman/AUR helper of your choice)
-function re() {
-    yay -Qq | fzf -q "$1" -m --preview 'yay -Qi {1}' | xargs -ro yay -Rns
-}
+# # Install packages using yay (change to pacman/AUR helper of your choice)
+# function in() {
+#     yay -Slq | fzf --multi --preview 'cat <(pacman -Si {1}) <(pacman -Fl {1} | awk "{print \$2}")' | xargs -ro yay -S
+#     # yay -Slq | fzf -q "$1" -m --preview 'yay -Si {1}'| xargs -ro yay -S
+# }
+# # Remove installed packages (change to pacman/AUR helper of your choice)
+# function re() {
+#     yay -Qq | fzf -q "$1" -m --preview 'yay -Qi {1}' | xargs -ro yay -Rns
+# }
 
 # opam configuration
 [[ ! -r /home/roland/.opam/opam-init/init.zsh ]] || source /home/roland/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
