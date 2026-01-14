@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path cargo
-export PATH="$HOME/.cargo/bin:$HOME/bin:$HOME/projects/pintos/src/utils/bin:$HOME/projects/pintos/src/utils:$PATH"
+export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$HOME/bin:$HOME/projects/pintos/src/utils/bin:$HOME/projects/pintos/src/utils:$PATH"
 export DEBUGINFOD_URLS="https://debuginfod.archlinux.org https://debuginfod.elfutils.org"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
