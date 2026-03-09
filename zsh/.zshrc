@@ -117,8 +117,8 @@ plugins=(
     kitty
     procs
     tmux
-    vi-mode
     zoxide
+    zsh-vi-mode
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
