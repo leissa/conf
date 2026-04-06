@@ -118,7 +118,7 @@ plugins=(
     procs
     tmux
     zoxide
-    zsh-vi-mode
+    vi-mode
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
@@ -130,6 +130,7 @@ VI_MODE_SET_CURSOR=true
 export ZSH="$HOME/.config/zsh/oh-my-zsh"
 export ZSH_CUSTOM="$HOME/.config/zsh/custom"
 source $ZSH/oh-my-zsh.sh
+source "$HOME/.elan/env"
 
 # User configuration
 
