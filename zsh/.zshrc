@@ -105,10 +105,10 @@ zstyle ':omz:plugins:eza' 'size-prefix' binary
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    alias-tips
+    #alias-tips
     aliases
     archlinux
-    colored-man-pages
+    #colored-man-pages
     colorize
     dotenv
     eza
