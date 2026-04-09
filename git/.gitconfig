@@ -1,6 +1,6 @@
 [user]
 	name = Roland Leißa
-	email = leissa@uni-mannheim.de
+	email = roland.leissa@cs.uni-goettingen.de
 [core]
     excludesfile = ~/.gitignore
 [push]
