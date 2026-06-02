@@ -10,13 +10,4 @@ return {
             { "<leader><leader>w", "<cmd>HopWord<cr>", silent = true, mode = { "n", "v" }, desc = "Word" },
         },
     },
-    {
-        "folke/which-key.nvim",
-        event = "VeryLazy",
-        opts = {
-            spec = {
-                { "<leader><leader>", group = "hop" },
-            },
-        },
-    },
 }
