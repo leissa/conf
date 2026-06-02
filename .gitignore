@@ -1,3 +1,8 @@
 cgdb/.cgdb/logs/
 cgdb/.cgdb/readline_history.txt
 nvim/.config/nvim/lazy-lock.json
+nvim/.config/nvim/lazyvim.json
+kitty/.config/kitty/current-theme.conf
+kitty/.config/kitty/*.bak
+picard/.config/MusicBrainz/Picard.ini
+picard/.config/MusicBrainz/.Picard.ini.synclock
