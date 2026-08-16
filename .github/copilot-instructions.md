@@ -15,7 +15,11 @@ make delete # unstow all packages (remove symlinks)
 
 These invoke `stow --verbose --target=$HOME --restow */` and `--delete */` respectively.
 
-> **Note:** Root-level files (`.bashrc`, `.tmux.conf`) are not part of any stow package and must be managed separately.
+Note the trailing `*/`: **only directories are stowed**. A new file added at the repo root is *not* deployed.
+
+There is no build, no test suite and no linter. "Correct" means: the file is valid for its tool, and the package layout still maps to the right place in `$HOME`.
+
+The repo is expected to live at `~/projects/conf` — `.tmux.conf` hardcodes `~/projects/conf/tpm_install.sh`.
 
 ## Repository Structure
 
@@ -24,13 +28,28 @@ These invoke `stow --verbose --target=$HOME --restow */` and `--delete */` respe
 | `nvim/` | `~/.config/nvim/` | Neovim config (LazyVim-based) |
 | `zsh/` | `~/.config/zsh/` + `~/.zshrc` | Zsh + oh-my-zsh config |
 | `kitty/` | `~/.config/kitty/` | Kitty terminal config |
-| `tmux/` | (root `.tmux.conf`) | tmux config |
 | `git/` | `~/.gitconfig`, `~/.gitignore` | Git global config |
 | `env/` | `~/.config/environment.d/` | Systemd user env vars |
 | `broot/` | `~/.config/broot/` | broot file manager |
 | `cgdb/` | `~/.cgdb/` | cgdb debugger |
 | `picard/` | `~/.config/MusicBrainz/` | MusicBrainz Picard |
-| `p10k/` | (p10k theme file) | Powerlevel10k prompt config |
+| `presenterm/` | `~/.config/presenterm/` | presenterm terminal slides |
+| `p10k/` | `~/.p10k.zsh` | Powerlevel10k prompt config |
+
+A config for a new tool *foo* goes in `foo/.config/foo/…`, never at the repo root.
+
+### Unstowed root-level files
+
+Not part of any package; managed by hand (link/copy them into place yourself):
+`.bashrc`, `.tmux.conf`, `tokyonight.tmTheme`, `typst.lua`, and the helper scripts
+`tpm_install.sh`, `ssh-agent-startup.sh`, `ssh-agent-logout.sh`, `linediff.sh`, `24-bit-color.sh`, `trucolor-test.sh`.
+
+### Machine-local files
+
+Present in the working tree but gitignored — never commit them and don't try to "restore" them:
+`nvim/.config/nvim/lazy-lock.json`, `nvim/.config/nvim/lazyvim.json`,
+`kitty/.config/kitty/current-theme.conf` (written by kitty's theme switcher),
+`picard/.config/MusicBrainz/Picard.ini`, `cgdb/.cgdb/logs/`.
 
 ## Git Submodules
 
@@ -48,13 +67,15 @@ Submodules live under `zsh/.config/zsh/`:
 - `custom/plugins/alias-tips`
 - `custom/themes/powerlevel10k`
 
+Never edit files inside a submodule to change behaviour — override via `zsh/.zshrc` or `custom/`.
+
 ## Neovim Configuration
 
-Built on [LazyVim](https://www.lazyvim.org/). Entry point: `nvim/.config/nvim/init.lua`.
+Built on [LazyVim](https://www.lazyvim.org/). Entry point: `nvim/.config/nvim/init.lua` → `lua/config/lazy.lua`, which bootstraps lazy.nvim, imports `lazyvim.plugins`, then every file in `lua/plugins/`.
 
 **Structure:**
 - `lua/config/` — core config (keymaps, options, lazy setup, autocmds)
-- `lua/plugins/` — plugin specs that extend/override LazyVim defaults
+- `lua/plugins/` — one file per plugin (or small topic), each returning a lazy.nvim spec table
 
 **Key settings:**
 - No autoformat on save (`g.autoformat = false`) — format manually
@@ -65,8 +86,8 @@ Built on [LazyVim](https://www.lazyvim.org/). Entry point: `nvim/.config/nvim/in
 
 **Plugin notes:**
 - Colorscheme: Tokyo Night
-- `lua/plugins/disabled.lua` — lists LazyVim defaults that have been disabled
-- `stylua.toml` configures Lua formatting
+- To turn off a LazyVim default, add `{ "repo/name", enabled = false }` to `lua/plugins/disabled.lua` — don't delete anything
+- Two stylua configs, deliberately different: `nvim/.config/nvim/stylua.toml` is 2-space (LazyVim style, applies to `lua/config/`), `lua/plugins/stylua.toml` is 4-space and governs the plugin specs. Match the directory you are editing.
 
 ## Zsh Configuration
 
@@ -93,5 +114,7 @@ Tokyo Night is used consistently across all tools:
 - bat: `$BAT_THEME=tokyonight`
 - fzf: Tokyo Night color palette in `$FZF_DEFAULT_OPTS`
 - kitty: themed via `current-theme.conf` (gitignored, set by kitty's theme switcher)
+- presenterm: `theme: tokyonight-night`
+- `tokyonight.tmTheme` for TextMate-grammar consumers
 
 When adding new tool configs, use Tokyo Night where the tool supports theming.
