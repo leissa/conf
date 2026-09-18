@@ -1,0 +1,6 @@
+{
+  // Baseline for markdownlint-cli2; merged with any project-local config.
+  "config": {
+    "MD013": false // line-length
+  }
+}

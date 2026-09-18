@@ -28,6 +28,7 @@ return {
             "in font nullfont",
             "Size substitutions",
             "Some font shapes",
+            "Columns might not be balanced",
         }
     end,
 }
