@@ -116,7 +116,7 @@ Tokyo Night is used consistently across all tools:
 - fzf: Tokyo Night color palette in `$FZF_DEFAULT_OPTS`
 - kitty: themed via `current-theme.conf` (gitignored, set by kitty's theme switcher)
 - presenterm: `theme: tokyonight-night`
-- starship: Tokyo Night palette defined inline in `starship.toml`
+- starship: Tokyo Night palette defined inline in `starship.toml`; the git segment is a set of `custom.git_*` modules (p10k rainbow port: green = clean, yellow = modified), not the built-in `git_branch`/`git_status`
 - `tokyonight.tmTheme` for TextMate-grammar consumers
 
 When adding new tool configs, use Tokyo Night where the tool supports theming.

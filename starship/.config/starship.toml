@@ -7,25 +7,28 @@ format = """
 $os\
 [](bg:#769ff0 fg:#a3aed2)\
 $directory\
-[](fg:#769ff0 bg:#394260)\
-$git_branch\
-$git_status\
-[](fg:#394260 bg:#212736)\
+${custom.git_clean}\
+${custom.git_dirty}\
+${custom.git_none}\
+$character"""
+
+# language versions form their own pill that vanishes entirely when empty
+right_format = """
+([](fg:#212736)\
 $nodejs\
 $bun\
 $rust\
 $golang\
 $php\
-[](fg:#212736 bg:#1d2230)\
-$time\
-[ ](fg:#1d2230)\
-$character"""
+[ ](fg:#212736))\
+[](fg:#1d2230)\
+$time"""
 
 [directory]
 style = "fg:#e3e5e5 bg:#769ff0"
 format = "[ $path ]($style)"
-truncation_length = 3
-truncation_symbol = "…/"
+truncation_length = 0
+truncate_to_repo = false
 
 [directory.substitutions]
 "Documents" = "󰈙 "
@@ -33,14 +36,108 @@ truncation_symbol = "…/"
 "Music" = " "
 "Pictures" = " "
 
-[git_branch]
-symbol = ""
-style = "bg:#394260"
-format = '[[ $symbol $branch ](fg:#769ff0 bg:#394260)]($style)'
+# git segment à la p10k rainbow: green if clean (or only untracked), yellow if modified
+[custom.git_clean]
+when = "! git status --porcelain=v2 -uno 2>/dev/null | grep -q '^[12u]'"
+require_repo = true
+command = '''
+st=$(git status --porcelain=v2 --branch --show-stash 2>/dev/null) || exit
+a=0 b=0 stash=0 c=0 staged=0 unstaged=0 untracked=0
+while IFS= read -r l; do
+  case $l in
+    '# branch.oid '*)      oid=${l#'# branch.oid '} ;;
+    '# branch.head '*)     head=${l#'# branch.head '} ;;
+    '# branch.upstream '*) up=${l#'# branch.upstream '} ;;
+    '# branch.ab '*)       read -r _ _ a b <<<"$l"; a=${a#+} b=${b#-} ;;
+    '# stash '*)           stash=${l#'# stash '} ;;
+    u*)                    ((c++)) ;;
+    [12]*)                 [[ ${l:2:1} != . ]] && ((staged++)); [[ ${l:3:1} != . ]] && ((unstaged++)) ;;
+    '?'*)                  ((untracked++)) ;;
+  esac
+done <<<"$st"
+if [[ $head != '(detached)' ]]; then
+  (( ${#head} > 32 )) && head="${head:0:12}…${head: -12}"
+  res=$' '"$head"
+elif tag=$(git describe --tags --exact-match 2>/dev/null); then
+  res="#$tag"
+else
+  res="@${oid:0:8}"
+fi
+[[ -n $up && ${up#*/} != "$head" ]] && res+=":${up#*/}"
+[[ $(git log -1 --format=%s 2>/dev/null) =~ (^|[^[:alnum:]])(wip|WIP)([^[:alnum:]]|$) ]] && res+=" wip"
+if ((a || b)); then
+  res+=" "; ((b)) && res+="⇣$b"; ((a)) && res+="⇡$a"
+fi
+((stash)) && res+=" *$stash"
+gd=$(git rev-parse --git-dir)
+if   [[ -d $gd/rebase-merge || -d $gd/rebase-apply ]]; then res+=" rebase"
+elif [[ -f $gd/MERGE_HEAD       ]]; then res+=" merge"
+elif [[ -f $gd/CHERRY_PICK_HEAD ]]; then res+=" cherry-pick"
+elif [[ -f $gd/REVERT_HEAD      ]]; then res+=" revert"
+elif [[ -f $gd/BISECT_LOG       ]]; then res+=" bisect"
+fi
+((c))         && res+=" ~$c"
+((staged))    && res+=" +$staged"
+((unstaged))  && res+=" !$unstaged"
+((untracked)) && res+=" ?$untracked"
+printf '%s' "$res"
+'''
+shell = ["bash", "--noprofile", "--norc"]
+format = "[](fg:#769ff0 bg:green)[ $output ](fg:black bg:green)[ ](fg:green)"
 
-[git_status]
-style = "bg:#394260"
-format = '[[($all_status$ahead_behind )](fg:#769ff0 bg:#394260)]($style)'
+[custom.git_dirty]
+when = "git status --porcelain=v2 -uno 2>/dev/null | grep -q '^[12u]'"
+require_repo = true
+command = '''
+st=$(git status --porcelain=v2 --branch --show-stash 2>/dev/null) || exit
+a=0 b=0 stash=0 c=0 staged=0 unstaged=0 untracked=0
+while IFS= read -r l; do
+  case $l in
+    '# branch.oid '*)      oid=${l#'# branch.oid '} ;;
+    '# branch.head '*)     head=${l#'# branch.head '} ;;
+    '# branch.upstream '*) up=${l#'# branch.upstream '} ;;
+    '# branch.ab '*)       read -r _ _ a b <<<"$l"; a=${a#+} b=${b#-} ;;
+    '# stash '*)           stash=${l#'# stash '} ;;
+    u*)                    ((c++)) ;;
+    [12]*)                 [[ ${l:2:1} != . ]] && ((staged++)); [[ ${l:3:1} != . ]] && ((unstaged++)) ;;
+    '?'*)                  ((untracked++)) ;;
+  esac
+done <<<"$st"
+if [[ $head != '(detached)' ]]; then
+  (( ${#head} > 32 )) && head="${head:0:12}…${head: -12}"
+  res=$' '"$head"
+elif tag=$(git describe --tags --exact-match 2>/dev/null); then
+  res="#$tag"
+else
+  res="@${oid:0:8}"
+fi
+[[ -n $up && ${up#*/} != "$head" ]] && res+=":${up#*/}"
+[[ $(git log -1 --format=%s 2>/dev/null) =~ (^|[^[:alnum:]])(wip|WIP)([^[:alnum:]]|$) ]] && res+=" wip"
+if ((a || b)); then
+  res+=" "; ((b)) && res+="⇣$b"; ((a)) && res+="⇡$a"
+fi
+((stash)) && res+=" *$stash"
+gd=$(git rev-parse --git-dir)
+if   [[ -d $gd/rebase-merge || -d $gd/rebase-apply ]]; then res+=" rebase"
+elif [[ -f $gd/MERGE_HEAD       ]]; then res+=" merge"
+elif [[ -f $gd/CHERRY_PICK_HEAD ]]; then res+=" cherry-pick"
+elif [[ -f $gd/REVERT_HEAD      ]]; then res+=" revert"
+elif [[ -f $gd/BISECT_LOG       ]]; then res+=" bisect"
+fi
+((c))         && res+=" ~$c"
+((staged))    && res+=" +$staged"
+((unstaged))  && res+=" !$unstaged"
+((untracked)) && res+=" ?$untracked"
+printf '%s' "$res"
+'''
+shell = ["bash", "--noprofile", "--norc"]
+format = "[](fg:#769ff0 bg:yellow)[ $output ](fg:black bg:yellow)[ ](fg:yellow)"
+
+# not in a git repo: just close the directory segment
+[custom.git_none]
+when = '[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" != true ]'
+shell = ["bash", "--noprofile", "--norc"]
+format = "[ ](fg:#769ff0)"
 
 [nodejs]
 symbol = ""

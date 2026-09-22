@@ -230,4 +230,5 @@ source /home/roland/.config/broot/launcher/bash/br
 
 # starship prompt -- config in ~/.config/starship.toml
 
+ZLE_RPROMPT_INDENT=0  # flush right prompt against the terminal edge (like p10k)
 eval "$(starship init zsh)"
