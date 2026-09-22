@@ -5,7 +5,7 @@ add_newline = false
 format = """
 [](fg:#a3aed2)\
 $os\
-[](bg:#769ff0 fg:#a3aed2)\
+[](bg:#3d59a1 fg:#a3aed2)\
 $directory\
 ${custom.git_clean}\
 ${custom.git_dirty}\
@@ -25,7 +25,7 @@ $php\
 $time"""
 
 [directory]
-style = "fg:#e3e5e5 bg:#769ff0"
+style = "fg:#c0caf5 bg:#3d59a1"
 format = "[ $path ]($style)"
 truncation_length = 0
 truncate_to_repo = false
@@ -83,7 +83,7 @@ fi
 printf '%s' "$res"
 '''
 shell = ["bash", "--noprofile", "--norc"]
-format = "[](fg:#769ff0 bg:green)[ $output ](fg:black bg:green)[ ](fg:green)"
+format = "[](fg:#3d59a1 bg:green)[ $output ](fg:black bg:green)[ ](fg:green)"
 
 [custom.git_dirty]
 when = "git status --porcelain=v2 -uno 2>/dev/null | grep -q '^[12u]'"
@@ -131,13 +131,13 @@ fi
 printf '%s' "$res"
 '''
 shell = ["bash", "--noprofile", "--norc"]
-format = "[](fg:#769ff0 bg:yellow)[ $output ](fg:black bg:yellow)[ ](fg:yellow)"
+format = "[](fg:#3d59a1 bg:yellow)[ $output ](fg:black bg:yellow)[ ](fg:yellow)"
 
 # not in a git repo: just close the directory segment
 [custom.git_none]
 when = '[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" != true ]'
 shell = ["bash", "--noprofile", "--norc"]
-format = "[ ](fg:#769ff0)"
+format = "[ ](fg:#3d59a1)"
 
 [nodejs]
 symbol = ""
