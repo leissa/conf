@@ -34,7 +34,7 @@ The repo is expected to live at `~/projects/conf` — `.tmux.conf` hardcodes `~/
 | `cgdb/` | `~/.cgdb/` | cgdb debugger |
 | `picard/` | `~/.config/MusicBrainz/` | MusicBrainz Picard |
 | `presenterm/` | `~/.config/presenterm/` | presenterm terminal slides |
-| `p10k/` | `~/.p10k.zsh` | Powerlevel10k prompt config |
+| `starship/` | `~/.config/starship.toml` | Starship prompt config |
 
 A config for a new tool *foo* goes in `foo/.config/foo/…`, never at the repo root.
 
@@ -65,7 +65,6 @@ Submodules live under `zsh/.config/zsh/`:
 - `custom/plugins/zsh-autosuggestions`
 - `custom/plugins/zsh-syntax-highlighting`
 - `custom/plugins/alias-tips`
-- `custom/themes/powerlevel10k`
 
 Never edit files inside a submodule to change behaviour — override via `zsh/.zshrc` or `custom/`.
 
@@ -93,6 +92,8 @@ Built on [LazyVim](https://www.lazyvim.org/). Entry point: `nvim/.config/nvim/in
 
 oh-my-zsh is stored at `~/.config/zsh/oh-my-zsh` (non-standard), with custom plugins/themes at `~/.config/zsh/custom/`. Active plugins are listed in `zsh/.zshrc`.
 
+The prompt is [Starship](https://starship.rs/), not an oh-my-zsh theme: `zsh/.zshrc` sets `ZSH_THEME=""` so oh-my-zsh installs no prompt of its own, and runs `eval "$(starship init zsh)"` at the very end of the file. Prompt changes belong in `starship/.config/starship.toml`. (Powerlevel10k, its `p10k/` package and its submodule were removed.)
+
 Key environment:
 - `$EDITOR` / `$VISUAL` = `nvim`
 - `$PAGER` = `nvimpager`
@@ -115,6 +116,7 @@ Tokyo Night is used consistently across all tools:
 - fzf: Tokyo Night color palette in `$FZF_DEFAULT_OPTS`
 - kitty: themed via `current-theme.conf` (gitignored, set by kitty's theme switcher)
 - presenterm: `theme: tokyonight-night`
+- starship: Tokyo Night palette defined inline in `starship.toml`
 - `tokyonight.tmTheme` for TextMate-grammar consumers
 
 When adding new tool configs, use Tokyo Night where the tool supports theming.

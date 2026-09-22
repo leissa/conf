@@ -5,9 +5,9 @@
 export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$HOME/bin:$HOME/projects/pintos/src/utils/bin:$HOME/projects/pintos/src/utils:$PATH"
 export DEBUGINFOD_URLS="https://debuginfod.archlinux.org https://debuginfod.elfutils.org"
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
-# # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# The prompt comes from starship (initialized at the bottom of this file),
+# so oh-my-zsh must not install a theme of its own.
+ZSH_THEME=""
 
 # eza
 
@@ -228,4 +228,6 @@ source /home/roland/.config/broot/launcher/bash/br
 
 #neofetch
 
-# eval "$(starship init zsh)"
+# starship prompt -- config in ~/.config/starship.toml
+
+eval "$(starship init zsh)"

@@ -1,0 +1,163 @@
+# Starship prompt -- Tokyo Night (night) powerline.
+# Replaces the former powerlevel10k setup; see `zsh/.zshrc`.
+
+format = """
+[░▒▓](fg:blue)\
+[ $os$username ](bg:blue fg:bg_dark)\
+[](fg:blue bg:bg_sel)\
+$directory\
+[](fg:bg_sel bg:bg_high)\
+$git_branch\
+$git_status\
+[](fg:bg_high bg:bg_alt)\
+$c\
+$rust\
+$golang\
+$python\
+$lua\
+$nodejs\
+$java\
+$haskell\
+$ocaml\
+[](fg:bg_alt bg:bg_dark)\
+$cmd_duration\
+$time\
+[ ](fg:bg_dark)\
+$line_break\
+$character"""
+
+add_newline = true
+palette = "tokyonight"
+
+[palettes.tokyonight]
+bg       = "#1a1b26"
+bg_dark  = "#16161e"
+bg_alt   = "#1f2335"
+bg_high  = "#292e42"
+bg_sel   = "#3b4261"
+fg       = "#c0caf5"
+fg_dark  = "#a9b1d6"
+comment  = "#565f89"
+blue     = "#7aa2f7"
+cyan     = "#7dcfff"
+magenta  = "#bb9af7"
+green    = "#9ece6a"
+yellow   = "#e0af68"
+orange   = "#ff9e64"
+red      = "#f7768e"
+
+[os]
+disabled = false
+format = "[$symbol]($style)"
+style = "bg:blue fg:bg_dark"
+
+[os.symbols]
+# This machine reports ID=cachyos; os_info does not know it, hence the
+# Unknown override with the Arch logo (CachyOS is ID_LIKE=arch).
+Unknown = "󰣇"
+CachyOS = "󰣇"
+Arch = "󰣇"
+Linux = ""
+Ubuntu = ""
+Debian = ""
+Fedora = ""
+Macos = "󰀵"
+Windows = "󰍲"
+
+# Only shown over SSH or when running as somebody else.
+[username]
+show_always = false
+format = "[ $user]($style)"
+style_user = "bg:blue fg:bg_dark"
+style_root = "bg:red fg:bg_dark"
+
+[hostname]
+ssh_only = true
+format = "[@$hostname]($style)"
+style = "bg:blue fg:bg_dark"
+
+[directory]
+style = "bg:bg_sel fg:fg"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+"projects" = " "
+
+[git_branch]
+symbol = ""
+style = "bg:bg_high"
+format = '[[ $symbol $branch ](fg:blue bg:bg_high)]($style)'
+
+[git_status]
+style = "bg:bg_high"
+format = '[[($all_status$ahead_behind )](fg:orange bg:bg_high)]($style)'
+
+[c]
+symbol = ""
+style = "bg:bg_alt"
+format = '[[ $symbol ($version) ](fg:cyan bg:bg_alt)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:bg_alt"
+format = '[[ $symbol ($version) ](fg:cyan bg:bg_alt)]($style)'
+
+[golang]
+symbol = ""
+style = "bg:bg_alt"
+format = '[[ $symbol ($version) ](fg:cyan bg:bg_alt)]($style)'
+
+# pyenv is in use, so show the virtualenv/version it selects.
+[python]
+symbol = ""
+style = "bg:bg_alt"
+format = '[[ $symbol ($version)( \($virtualenv\)) ](fg:cyan bg:bg_alt)]($style)'
+pyenv_version_name = true
+
+[lua]
+symbol = ""
+style = "bg:bg_alt"
+format = '[[ $symbol ($version) ](fg:cyan bg:bg_alt)]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:bg_alt"
+format = '[[ $symbol ($version) ](fg:cyan bg:bg_alt)]($style)'
+
+[java]
+symbol = ""
+style = "bg:bg_alt"
+format = '[[ $symbol ($version) ](fg:cyan bg:bg_alt)]($style)'
+
+[haskell]
+symbol = ""
+style = "bg:bg_alt"
+format = '[[ $symbol ($version) ](fg:cyan bg:bg_alt)]($style)'
+
+[ocaml]
+symbol = ""
+style = "bg:bg_alt"
+format = '[[ $symbol ($version) ](fg:cyan bg:bg_alt)]($style)'
+
+[cmd_duration]
+min_time = 2000
+style = "bg:bg_dark"
+format = '[[ 󱑅 $duration ](fg:yellow bg:bg_dark)]($style)'
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:bg_dark"
+format = '[[  $time ](fg:fg_dark bg:bg_dark)]($style)'
+
+# Green ❯ normally, red on a non-zero exit, magenta ❮ in vi command mode.
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vicmd_symbol = "[❮](bold magenta)"
