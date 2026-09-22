@@ -37,6 +37,8 @@ truncate_to_repo = false
 "Pictures" = " "
 
 # git segment à la p10k rainbow: green if clean (or only untracked), yellow if modified
+# colors: Tokyo Night green #9ece6a / yellow #e0af68 darkened (42% mixed into bg #1a1b26),
+# with fg #c0caf5 like the directory segment on blue0 #3d59a1
 [custom.git_clean]
 when = "! git status --porcelain=v2 -uno 2>/dev/null | grep -q '^[12u]'"
 require_repo = true
@@ -83,7 +85,7 @@ fi
 printf '%s' "$res"
 '''
 shell = ["bash", "--noprofile", "--norc"]
-format = "[](fg:#3d59a1 bg:green)[ $output ](fg:black bg:green)[ ](fg:green)"
+format = "[](fg:#3d59a1 bg:#516643)[ $output ](fg:#c0caf5 bg:#516643)[ ](fg:#516643)"
 
 [custom.git_dirty]
 when = "git status --porcelain=v2 -uno 2>/dev/null | grep -q '^[12u]'"
@@ -131,7 +133,7 @@ fi
 printf '%s' "$res"
 '''
 shell = ["bash", "--noprofile", "--norc"]
-format = "[](fg:#3d59a1 bg:yellow)[ $output ](fg:black bg:yellow)[ ](fg:yellow)"
+format = "[](fg:#3d59a1 bg:#6d5942)[ $output ](fg:#c0caf5 bg:#6d5942)[ ](fg:#6d5942)"
 
 # not in a git repo: just close the directory segment
 [custom.git_none]
