@@ -1,26 +1,116 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-add_newline = false
+add_newline     = false
+palette         = "tokyonight"
+# the git segment shells out; the 500ms default trips (and prints a warning into
+# the prompt) on big repos with a cold cache.
+command_timeout = 1000
 
 format = """
-[](fg:#a3aed2)\
+[](fg:os_bg)\
 $os\
-[](bg:#3d59a1 fg:#a3aed2)\
+[](bg:blue0 fg:os_bg)\
 $directory\
 ${custom.git_clean}\
 ${custom.git_dirty}\
 ${custom.git_none}\
 $character"""
 
+# Right side is a single bar on `bar_bg`: toolchains, then what the last command
+# did, then the clock. Every module below renders "[ <content>]" with no trailing
+# space -- only $time closes the bar -- so the segments never double-space.
 right_format = """
-[](fg:#1d2230)\
+[](fg:bar_bg)\
+$c\
+$cpp\
+$cmake\
+$rust\
+$python\
+$ocaml\
+$lua\
+$typst\
+$package\
+$status\
+$cmd_duration\
+$jobs\
+$shlvl\
+$sudo\
 $time"""
 
+continuation_prompt = "[∙](fg:comment) "
+
+# Tokyo Night (night). Naming these means the theme lives in one place instead of
+# being retyped as hex in every format string; note that green/red/yellow/... here
+# deliberately shadow the ANSI names, so module defaults pick up the theme too.
+[palettes.tokyonight]
+bg           = "#1a1b26"
+bg_dark      = "#16161e"
+bg_highlight = "#292e42"
+fg           = "#c0caf5"
+fg_dark      = "#a9b1d6"
+fg_gutter    = "#3b4261"
+comment      = "#565f89"
+blue0        = "#3d59a1"
+blue         = "#7aa2f7"
+blue1        = "#2ac3de"
+cyan         = "#7dcfff"
+teal         = "#1abc9c"
+green        = "#9ece6a"
+green1       = "#73daca"
+yellow       = "#e0af68"
+orange       = "#ff9e64"
+red          = "#f7768e"
+magenta      = "#bb9af7"
+magenta2     = "#ff007c"
+purple       = "#9d7cd8"
+# powerline caps, from starship's own tokyo-night preset
+os_bg        = "#a3aed2"
+os_fg        = "#090c0c"
+bar_bg       = "#1d2230"
+bar_fg       = "#a0a9cb"
+
+[os]
+disabled = false
+style    = "bg:os_bg fg:os_fg"
+format   = "[ $symbol ]($style)"
+
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+AOSC = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CachyOS = "󰣇"
+EndeavourOS = ""
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+Pop = ""
+
+# Full paths, never truncated -- but inside a repo the root component is picked
+# out in bold and everything above it dimmed, so the repo boundary is readable.
 [directory]
-style = "fg:#c0caf5 bg:#3d59a1"
-format = "[ $path ]($style)"
-truncation_length = 0
-truncate_to_repo = false
+style                  = "fg:fg bg:blue0"
+before_repo_root_style = "fg:fg_dark bg:blue0"
+repo_root_style        = "fg:fg bg:blue0 bold"
+read_only              = " 󰌾"
+read_only_style        = "fg:orange bg:blue0"
+format                 = "[ $path]($style)[$read_only]($read_only_style)[ ]($style)"
+repo_root_format       = "[ $before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)[ ]($style)"
+truncation_length      = 0
+truncate_to_repo       = false
 
 [directory.substitutions]
 "Documents" = "󰈙 "
@@ -28,8 +118,8 @@ truncate_to_repo = false
 "Music" = " "
 "Pictures" = " "
 
-# git segment à la p10k rainbow: green if clean (or only untracked), yellow if modified
-# colors: Tokyo Night green #9ece6a / yellow #e0af68 as text on bg_highlight #292e42
+# git segment a la p10k rainbow: green if clean (or only untracked), yellow if
+# modified.
 [custom.git_clean]
 when = "! git status --porcelain=v2 -uno 2>/dev/null | grep -q '^[12u]'"
 require_repo = true
@@ -76,7 +166,7 @@ fi
 printf '%s' "$res"
 '''
 shell = ["bash", "--noprofile", "--norc"]
-format = "[](fg:#3d59a1 bg:#292e42)[ $output ](fg:#9ece6a bg:#292e42)[ ](fg:#292e42)"
+format = "[](fg:blue0 bg:bg_highlight)[ $output ](fg:green bg:bg_highlight)[ ](fg:bg_highlight)"
 
 [custom.git_dirty]
 when = "git status --porcelain=v2 -uno 2>/dev/null | grep -q '^[12u]'"
@@ -124,46 +214,134 @@ fi
 printf '%s' "$res"
 '''
 shell = ["bash", "--noprofile", "--norc"]
-format = "[](fg:#3d59a1 bg:#292e42)[ $output ](fg:#e0af68 bg:#292e42)[ ](fg:#292e42)"
+format = "[](fg:blue0 bg:bg_highlight)[ $output ](fg:yellow bg:bg_highlight)[ ](fg:bg_highlight)"
 
 # not in a git repo: just close the directory segment
 [custom.git_none]
-when = '[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" != true ]'
-shell = ["bash", "--noprofile", "--norc"]
-format = "[ ](fg:#3d59a1)"
+when   = '[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" != true ]'
+shell  = ["bash", "--noprofile", "--norc"]
+format = "[ ](fg:blue0)"
+
+[character]
+success_symbol            = "[❯](bold green)"
+error_symbol              = "[❯](bold red)"
+vimcmd_symbol             = "[❮](bold teal)"
+vimcmd_visual_symbol      = "[❮](bold yellow)"
+vimcmd_replace_symbol     = "[❮](bold purple)"
+vimcmd_replace_one_symbol = "[❮](bold magenta)"
+
+#
+# right bar
+#
+
+# zsh already hands starship --status and --pipestatus on every prompt; the
+# module is just disabled by default, so this was free information being dropped.
+[status]
+disabled                  = false
+map_symbol                = true
+pipestatus                = true
+symbol                    = " "
+not_executable_symbol     = " "
+not_found_symbol          = " "
+sigint_symbol             = "󰀦 "
+signal_symbol             = " "
+success_symbol            = ""
+style                     = "fg:red bg:bar_bg"
+format                    = "[ $symbol$common_meaning$signal_name$maybe_int]($style)"
+pipestatus_format         = "[ $pipestatus ⇒ $symbol$common_meaning$signal_name$maybe_int]($style)"
+pipestatus_segment_format = "[$status]($style)"
+pipestatus_separator      = "|"
+
+[cmd_duration]
+min_time          = 2000
+show_milliseconds = false
+style             = "fg:yellow bg:bar_bg"
+format            = "[ 󰔛 $duration]($style)"
+# desktop notification when a long command finishes while you are in another window
+show_notifications = true
+min_time_to_notify = 45000
+
+[jobs]
+symbol_threshold = 1
+number_threshold = 1
+symbol           = " "
+style            = "fg:blue1 bg:bar_bg"
+format           = "[ $symbol$number]($style)"
+
+[shlvl]
+disabled  = false
+threshold = 2
+symbol    = " "
+repeat    = false
+style     = "fg:orange bg:bar_bg"
+format    = "[ $symbol$shlvl]($style)"
+
+# Off on purpose. The module probes with `sudo -n -v`, which costs ~7ms and makes
+# sudo log "roland : a password is required" to the journal on *every* prompt
+# whenever the credential is not cached. Flip to false if you want the indicator.
+[sudo]
+disabled = true
+symbol   = "󰘚"
+style    = "fg:magenta bg:bar_bg"
+format   = "[ $symbol]($style)"
 
 [time]
-disabled = false
+disabled    = false
 time_format = "%R" # Hour:Minute Format
-style = "bg:#1d2230"
-format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
+style       = "fg:bar_fg bg:bar_bg"
+format      = "[  $time ]($style)"
 
-[os]
-style = "bg:#a3aed2 fg:#090c0c"
-format = "[ $symbol ]($style)"
-disabled = false
+#
+# toolchains -- these only render when the relevant files are in the directory
+#
 
-[os.symbols]
-Windows = "󰍲"
-Ubuntu = "󰕈"
-SUSE = ""
-Raspbian = "󰐿"
-Mint = "󰣭"
-Macos = "󰀵"
-Manjaro = ""
-Linux = "󰌽"
-Gentoo = "󰣨"
-Fedora = "󰣛"
-Alpine = ""
-Amazon = ""
-Android = ""
-AOSC = ""
-Arch = "󰣇"
-Artix = "󰣇"
-CachyOS = "󰣇"
-EndeavourOS = ""
-CentOS = ""
-Debian = "󰣚"
-Redhat = "󱄛"
-RedHatEnterprise = "󱄛"
-Pop = ""
+[c]
+symbol = "󰙱 "
+style  = "fg:blue1 bg:bar_bg"
+format = "[ $symbol($name-$version)]($style)"
+
+[cpp]
+symbol = "󰙲 "
+style  = "fg:blue bg:bar_bg"
+format = "[ $symbol($name-$version)]($style)"
+
+[cmake]
+symbol = " "
+style  = "fg:teal bg:bar_bg"
+format = "[ $symbol($version)]($style)"
+
+[rust]
+symbol = " "
+style  = "fg:orange bg:bar_bg"
+format = "[ $symbol($version)]($style)"
+
+[python]
+symbol               = " "
+style                = "fg:yellow bg:bar_bg"
+# Deliberately venv-only. starship evaluates format variables lazily, so leaving
+# $version out skips the `pyenv version-name` / `python --version` subprocess and
+# takes this module from ~60ms to ~11ms -- and under pyenv it only ever printed
+# "system" anyway. The outer (...) hides the module entirely outside a venv.
+format               = "([ $symbol$virtualenv]($style))"
+pyenv_version_name   = true
+pyenv_prefix         = ""
+
+[ocaml]
+symbol = " "
+style  = "fg:magenta bg:bar_bg"
+format = "[ $symbol($version)( \\($switch_indicator$switch_name\\))]($style)"
+
+[lua]
+symbol = " "
+style  = "fg:purple bg:bar_bg"
+format = "[ $symbol($version)]($style)"
+
+[typst]
+symbol = " "
+style  = "fg:green1 bg:bar_bg"
+format = "[ $symbol($version)]($style)"
+
+[package]
+symbol = "󰏖 "
+style  = "fg:comment bg:bar_bg"
+format = "[ $symbol$version]($style)"

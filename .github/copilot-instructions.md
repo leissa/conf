@@ -94,6 +94,15 @@ oh-my-zsh is stored at `~/.config/zsh/oh-my-zsh` (non-standard), with custom plu
 
 The prompt is [Starship](https://starship.rs/), not an oh-my-zsh theme: `zsh/.zshrc` sets `ZSH_THEME=""` so oh-my-zsh installs no prompt of its own, and runs `eval "$(starship init zsh)"` at the very end of the file. Prompt changes belong in `starship/.config/starship.toml`. (Powerlevel10k, its `p10k/` package and its submodule were removed.)
 
+`starship.toml` sets `format` and `right_format` explicitly, so **a module that is not named in one of them does not render**, however it is configured. The left side is the powerline chain `os → directory → custom.git → character`; the right side is one bar on `bar_bg` holding the toolchain modules, then `status` / `cmd_duration` / `jobs` / `shlvl`, then the clock. Every right-side module is formatted as `[ <content>]` with no trailing space -- only `$time` closes the bar -- so segments never double-space.
+
+Two things worth knowing before adding a module:
+
+- **`when` in a `[custom.*]` module defaults to `false`**, not true. `require_repo`/`detect_files` alone will never render; set `when = true` as well.
+- **Format variables are evaluated lazily.** Leaving `$version` out of a language module's format skips the subprocess that computes it. That is why `[python]` is virtualenv-only (~11ms instead of ~60ms for a `pyenv version-name` that only ever prints `system`).
+
+`starship timings` prints the per-module cost for the current directory; use it before adding anything that shells out.
+
 Key environment:
 - `$EDITOR` / `$VISUAL` = `nvim`
 - `$PAGER` = `nvimpager`
@@ -116,7 +125,7 @@ Tokyo Night is used consistently across all tools:
 - fzf: Tokyo Night color palette in `$FZF_DEFAULT_OPTS`
 - kitty: themed via `current-theme.conf` (gitignored, set by kitty's theme switcher)
 - presenterm: `theme: tokyonight-night`
-- starship: Tokyo Night palette defined inline in `starship.toml`; the git segment is a set of `custom.git_*` modules (p10k rainbow port: green = clean, yellow = modified), not the built-in `git_branch`/`git_status`
+- starship: the palette is named -- `[palettes.tokyonight]` in `starship.toml`, selected with `palette = "tokyonight"`, and referenced by name (`fg:green bg:blue0`) rather than by hex. Its colour names deliberately shadow the ANSI ones, so modules left at their defaults pick up the theme too. The git segment is a set of `custom.git_*` modules (p10k rainbow port: green = clean, yellow = modified), not the built-in `git_branch`/`git_status`
 - `tokyonight.tmTheme` for TextMate-grammar consumers
 
 When adding new tool configs, use Tokyo Night where the tool supports theming.
