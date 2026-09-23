@@ -12,15 +12,7 @@ ${custom.git_dirty}\
 ${custom.git_none}\
 $character"""
 
-# language versions form their own pill that vanishes entirely when empty
 right_format = """
-([](fg:#212736)\
-$nodejs\
-$bun\
-$rust\
-$golang\
-$php\
-[ ](fg:#212736))\
 [](fg:#1d2230)\
 $time"""
 
@@ -60,7 +52,7 @@ if [[ $head != '(detached)' ]]; then
   (( ${#head} > 32 )) && head="${head:0:12}…${head: -12}"
   res=$' '"$head"
 elif tag=$(git describe --tags --exact-match 2>/dev/null); then
-  res="#$tag"
+  res=$' '"$tag"
 else
   res="@${oid:0:8}"
 fi
@@ -108,7 +100,7 @@ if [[ $head != '(detached)' ]]; then
   (( ${#head} > 32 )) && head="${head:0:12}…${head: -12}"
   res=$' '"$head"
 elif tag=$(git describe --tags --exact-match 2>/dev/null); then
-  res="#$tag"
+  res=$' '"$tag"
 else
   res="@${oid:0:8}"
 fi
@@ -139,31 +131,6 @@ format = "[](fg:#3d59a1 bg:#292e42)[ $output ](fg:#e0af68 bg:#292e42)[ ](f
 when = '[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" != true ]'
 shell = ["bash", "--noprofile", "--norc"]
 format = "[ ](fg:#3d59a1)"
-
-[nodejs]
-symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
-
-[bun]
-symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
-
-[rust]
-symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
-
-[golang]
-symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
-
-[php]
-symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
 [time]
 disabled = false
