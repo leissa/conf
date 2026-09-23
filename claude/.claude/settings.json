@@ -1,0 +1,15 @@
+{
+  "model": "opus[1m]",
+  "enabledPlugins": {
+    "pyright-lsp@claude-plugins-official": true,
+    "clangd-lsp@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true
+  },
+  "theme": "dark",
+  "agentPushNotifEnabled": true,
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/starship-statusline.sh",
+    "padding": 0
+  }
+}

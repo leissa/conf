@@ -257,3 +257,92 @@ format = "[ $symbol($version)]($style)"
 symbol = "󰏖 "
 style  = "fg:comment bg:bar_bg"
 format = "[ $symbol$version]($style)"
+
+#
+# Claude Code statusline
+#
+# Rendered by `starship statusline claude-code`, wired up in claude/.claude/settings.json.
+# These modules and the plain git_branch/git_status/git_metrics below are used
+# ONLY by this profile -- the interactive prompt uses custom.git instead.
+
+[profiles]
+claude-code = "$claude_model$claude_context$claude_cost$git_branch$git_status$git_metrics"
+
+[claude_model]
+symbol = "󰚩 "
+style  = "fg:blue bold"
+format = "[$symbol$model]($style) "
+
+[claude_context]
+gauge_width          = 8
+gauge_full_symbol    = "█"
+gauge_partial_symbol = "▒"
+gauge_empty_symbol   = "░"
+format               = "[$gauge $percentage]($style) "
+
+[[claude_context.display]]
+threshold = 0
+style     = "fg:green"
+hidden    = true
+
+[[claude_context.display]]
+threshold = 30
+style     = "fg:green"
+hidden    = false
+
+[[claude_context.display]]
+threshold = 60
+style     = "fg:yellow"
+hidden    = false
+
+[[claude_context.display]]
+threshold = 80
+style     = "fg:red bold"
+hidden    = false
+
+[claude_cost]
+symbol = "󰇁"
+format = "[$symbol$cost]($style) "
+
+[[claude_cost.display]]
+threshold = 0
+style     = "fg:green"
+hidden    = true
+
+[[claude_cost.display]]
+threshold = 1
+style     = "fg:yellow"
+hidden    = false
+
+[[claude_cost.display]]
+threshold = 5
+style     = "fg:red bold"
+hidden    = false
+
+[git_branch]
+symbol = " "
+style  = "fg:magenta"
+format = "[$symbol$branch]($style) "
+
+# Counts, and the same vocabulary as the interactive segment's script, so the two
+# read alike. Avoids U+2718 for `deleted`: JetBrainsMono Nerd Font has no glyph.
+[git_status]
+style      = "fg:yellow"
+format     = "([$all_status$ahead_behind]($style))"  # symbols carry their own trailing space
+conflicted = "~${count} "
+staged     = "+${count} "
+modified   = "!${count} "
+untracked  = "?${count} "
+deleted    = "-${count} "
+renamed    = "»${count} "
+stashed    = "*${count} "
+ahead      = "⇡${count} "
+behind     = "⇣${count} "
+diverged   = "⇣${behind_count}⇡${ahead_count} "
+up_to_date = ""
+
+[git_metrics]
+disabled     = false
+added_style  = "fg:green"
+deleted_style = "fg:red"
+format       = "([+$added]($added_style) )([-$deleted]($deleted_style) )"

@@ -35,6 +35,7 @@ The repo is expected to live at `~/projects/conf` — `.tmux.conf` hardcodes `~/
 | `picard/` | `~/.config/MusicBrainz/` | MusicBrainz Picard |
 | `presenterm/` | `~/.config/presenterm/` | presenterm terminal slides |
 | `starship/` | `~/.config/starship.toml`, `~/.config/starship/` | Starship prompt config + the git segment's helper script |
+| `claude/` | `~/.claude/` | Claude Code settings + its starship statusline wrapper |
 
 A config for a new tool *foo* goes in `foo/.config/foo/…`, never at the repo root.
 
@@ -109,6 +110,25 @@ Key environment:
 - `$BAT_THEME` = `tokyonight`
 - `$CMAKE_EXPORT_COMPILE_COMMANDS=1` (always generate compile_commands.json)
 - Uses `pyenv`, `opam`, `elan` (Lean), and `broot`
+
+## Claude Code
+
+`claude/.claude/settings.json` sets a `statusLine` pointing at
+`claude/.claude/starship-statusline.sh`, which pipes the session JSON into
+`starship statusline claude-code` -- the `[profiles] claude-code` format string in
+`starship.toml`. The wrapper exists because starship resolves path-based modules
+from its own working directory, never from the JSON's `workspace.current_dir`, so
+it digs that field out with `jq` and passes it as `-p`.
+
+The `claude_model` / `claude_context` / `claude_cost` modules are new in starship
+1.26 and are not on starship.rs yet; `starship print-config` and the bundled
+`config-schema.json` are the reference. They, and the plain `git_branch` /
+`git_status` / `git_metrics` modules, are used **only** by that profile -- the
+interactive prompt uses `custom.git` instead.
+
+Only those two files are stowed; the rest of `~/.claude/` is machine-local state.
+Note that Claude Code rewrites `settings.json` itself when you change the model or
+theme from inside the app, so expect that file to pick up edits you did not make.
 
 ## tmux Configuration
 
