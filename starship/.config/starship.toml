@@ -11,8 +11,7 @@ format = """
 $os\
 [](bg:blue0 fg:os_bg)\
 $directory\
-${custom.git_clean}\
-${custom.git_dirty}\
+${custom.git}\
 ${custom.git_none}\
 $character"""
 
@@ -119,102 +118,15 @@ truncate_to_repo       = false
 "Pictures" = " "
 
 # git segment a la p10k rainbow: green if clean (or only untracked), yellow if
-# modified.
-[custom.git_clean]
-when = "! git status --porcelain=v2 -uno 2>/dev/null | grep -q '^[12u]'"
+# modified. The colour is chosen by the script and emitted as a raw SGR escape --
+# see starship/.config/starship/git-segment.sh for why. `require_repo` is handled
+# inside starship, so unlike a `when` it costs no extra process.
+[custom.git]
 require_repo = true
-command = '''
-st=$(git status --porcelain=v2 --branch --show-stash 2>/dev/null) || exit
-a=0 b=0 stash=0 c=0 staged=0 unstaged=0 untracked=0
-while IFS= read -r l; do
-  case $l in
-    '# branch.oid '*)      oid=${l#'# branch.oid '} ;;
-    '# branch.head '*)     head=${l#'# branch.head '} ;;
-    '# branch.upstream '*) up=${l#'# branch.upstream '} ;;
-    '# branch.ab '*)       read -r _ _ a b <<<"$l"; a=${a#+} b=${b#-} ;;
-    '# stash '*)           stash=${l#'# stash '} ;;
-    u*)                    ((c++)) ;;
-    [12]*)                 [[ ${l:2:1} != . ]] && ((staged++)); [[ ${l:3:1} != . ]] && ((unstaged++)) ;;
-    '?'*)                  ((untracked++)) ;;
-  esac
-done <<<"$st"
-if [[ $head != '(detached)' ]]; then
-  (( ${#head} > 32 )) && head="${head:0:12}…${head: -12}"
-  res=$' '"$head"
-elif tag=$(git describe --tags --exact-match 2>/dev/null); then
-  res=$' '"$tag"
-else
-  res="@${oid:0:8}"
-fi
-[[ -n $up && ${up#*/} != "$head" ]] && res+=":${up#*/}"
-[[ $(git log -1 --format=%s 2>/dev/null) =~ (^|[^[:alnum:]])(wip|WIP)([^[:alnum:]]|$) ]] && res+=" wip"
-if ((a || b)); then
-  res+=" "; ((b)) && res+="⇣$b"; ((a)) && res+="⇡$a"
-fi
-((stash)) && res+=" *$stash"
-gd=$(git rev-parse --git-dir)
-if   [[ -d $gd/rebase-merge || -d $gd/rebase-apply ]]; then res+=" rebase"
-elif [[ -f $gd/MERGE_HEAD       ]]; then res+=" merge"
-elif [[ -f $gd/CHERRY_PICK_HEAD ]]; then res+=" cherry-pick"
-elif [[ -f $gd/REVERT_HEAD      ]]; then res+=" revert"
-elif [[ -f $gd/BISECT_LOG       ]]; then res+=" bisect"
-fi
-((c))         && res+=" ~$c"
-((staged))    && res+=" +$staged"
-((unstaged))  && res+=" !$unstaged"
-((untracked)) && res+=" ?$untracked"
-printf '%s' "$res"
-'''
-shell = ["bash", "--noprofile", "--norc"]
-format = "[](fg:blue0 bg:bg_highlight)[ $output ](fg:green bg:bg_highlight)[ ](fg:bg_highlight)"
-
-[custom.git_dirty]
-when = "git status --porcelain=v2 -uno 2>/dev/null | grep -q '^[12u]'"
-require_repo = true
-command = '''
-st=$(git status --porcelain=v2 --branch --show-stash 2>/dev/null) || exit
-a=0 b=0 stash=0 c=0 staged=0 unstaged=0 untracked=0
-while IFS= read -r l; do
-  case $l in
-    '# branch.oid '*)      oid=${l#'# branch.oid '} ;;
-    '# branch.head '*)     head=${l#'# branch.head '} ;;
-    '# branch.upstream '*) up=${l#'# branch.upstream '} ;;
-    '# branch.ab '*)       read -r _ _ a b <<<"$l"; a=${a#+} b=${b#-} ;;
-    '# stash '*)           stash=${l#'# stash '} ;;
-    u*)                    ((c++)) ;;
-    [12]*)                 [[ ${l:2:1} != . ]] && ((staged++)); [[ ${l:3:1} != . ]] && ((unstaged++)) ;;
-    '?'*)                  ((untracked++)) ;;
-  esac
-done <<<"$st"
-if [[ $head != '(detached)' ]]; then
-  (( ${#head} > 32 )) && head="${head:0:12}…${head: -12}"
-  res=$' '"$head"
-elif tag=$(git describe --tags --exact-match 2>/dev/null); then
-  res=$' '"$tag"
-else
-  res="@${oid:0:8}"
-fi
-[[ -n $up && ${up#*/} != "$head" ]] && res+=":${up#*/}"
-[[ $(git log -1 --format=%s 2>/dev/null) =~ (^|[^[:alnum:]])(wip|WIP)([^[:alnum:]]|$) ]] && res+=" wip"
-if ((a || b)); then
-  res+=" "; ((b)) && res+="⇣$b"; ((a)) && res+="⇡$a"
-fi
-((stash)) && res+=" *$stash"
-gd=$(git rev-parse --git-dir)
-if   [[ -d $gd/rebase-merge || -d $gd/rebase-apply ]]; then res+=" rebase"
-elif [[ -f $gd/MERGE_HEAD       ]]; then res+=" merge"
-elif [[ -f $gd/CHERRY_PICK_HEAD ]]; then res+=" cherry-pick"
-elif [[ -f $gd/REVERT_HEAD      ]]; then res+=" revert"
-elif [[ -f $gd/BISECT_LOG       ]]; then res+=" bisect"
-fi
-((c))         && res+=" ~$c"
-((staged))    && res+=" +$staged"
-((unstaged))  && res+=" !$unstaged"
-((untracked)) && res+=" ?$untracked"
-printf '%s' "$res"
-'''
-shell = ["bash", "--noprofile", "--norc"]
-format = "[](fg:blue0 bg:bg_highlight)[ $output ](fg:yellow bg:bg_highlight)[ ](fg:bg_highlight)"
+when         = true # `when` defaults to false, so a require_repo-only module never runs
+command      = '"$HOME/.config/starship/git-segment.sh"'
+shell        = ["bash", "--noprofile", "--norc"]
+format       = "[](fg:blue0 bg:bg_highlight)[ $output ](bg:bg_highlight)[ ](fg:bg_highlight)"
 
 # not in a git repo: just close the directory segment
 [custom.git_none]

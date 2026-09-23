@@ -34,7 +34,7 @@ The repo is expected to live at `~/projects/conf` — `.tmux.conf` hardcodes `~/
 | `cgdb/` | `~/.cgdb/` | cgdb debugger |
 | `picard/` | `~/.config/MusicBrainz/` | MusicBrainz Picard |
 | `presenterm/` | `~/.config/presenterm/` | presenterm terminal slides |
-| `starship/` | `~/.config/starship.toml` | Starship prompt config |
+| `starship/` | `~/.config/starship.toml`, `~/.config/starship/` | Starship prompt config + the git segment's helper script |
 
 A config for a new tool *foo* goes in `foo/.config/foo/…`, never at the repo root.
 
@@ -125,7 +125,8 @@ Tokyo Night is used consistently across all tools:
 - fzf: Tokyo Night color palette in `$FZF_DEFAULT_OPTS`
 - kitty: themed via `current-theme.conf` (gitignored, set by kitty's theme switcher)
 - presenterm: `theme: tokyonight-night`
-- starship: the palette is named -- `[palettes.tokyonight]` in `starship.toml`, selected with `palette = "tokyonight"`, and referenced by name (`fg:green bg:blue0`) rather than by hex. Its colour names deliberately shadow the ANSI ones, so modules left at their defaults pick up the theme too. The git segment is a set of `custom.git_*` modules (p10k rainbow port: green = clean, yellow = modified), not the built-in `git_branch`/`git_status`
+- starship: the palette is named -- `[palettes.tokyonight]` in `starship.toml`, selected with `palette = "tokyonight"`, and referenced by name (`fg:green bg:blue0`) rather than by hex. Its colour names deliberately shadow the ANSI ones, so modules left at their defaults pick up the theme too. The git segment is `custom.git` (p10k rainbow port: green = clean, yellow = modified), not the built-in `git_branch`/`git_status`
+- the one place hex is still written out is `starship/.config/starship/git-segment.sh`, which emits its own SGR escape because starship cannot interpolate the palette into a custom module's output -- keep those two values in sync with the palette
 - `tokyonight.tmTheme` for TextMate-grammar consumers
 
 When adding new tool configs, use Tokyo Night where the tool supports theming.
