@@ -1,6 +1,6 @@
 return {
     {
-        "pohlrabi404/compile.nvim",
+        "leissa/compile.nvim", -- fork of pohlrabi404/compile.nvim
         -- This event makes sure the plugin loads lazily. You can
         -- use any event you like, such as `ft` for file types or `autocmds`.
         event = "VeryLazy",
@@ -17,27 +17,11 @@ return {
                 -- Shadow it with the plain file:row:col pattern (duplicates get deduplicated).
                 Makefile = { "(%S+%.%a+):(%d+):(%d+)", "123" },
             },
-        },
-        config = function(_, opts)
-            local compile = require("compile")
-            compile.setup(opts)
-            -- compile.nvim maps its terminal-global keys (<localleader>cr/cq) on the terminal's
-            -- BufCreate, but renaming that buffer fires BufDelete, whose cleanup removes them right
-            -- away (and would also remove our own mappings with the same lhs). Drop them and map them
-            -- ourselves below. Both callbacks read this table lazily, so emptying it after setup works.
-            compile.opts.keys.term.global = {}
-        end,
-        keys = {
-            {
-                "<localleader>cr",
-                function()
-                    -- clear() would open an empty terminal if there is none
-                    local compile = require("compile")
-                    if vim.api.nvim_buf_is_valid(compile.term.state.buf) then compile.clear() end
-                end,
-                desc = "Clear compile terminal",
+            -- Save all buffers before (re)compiling, like 'autowrite' does for :make
+            keys = {
+                global = { n = { ["<localleader>cc"] = "vim.cmd('silent! wall') require('compile').compile()" } },
+                term = { buffer = { n = { c = "vim.cmd('silent! wall') require('compile').compile()" } } },
             },
-            { "<localleader>cq", function() require("compile").destroy() end, desc = "Close compile terminal" },
         },
     },
     -- compile.nvim sets its keymaps without desc; label them for which-key
@@ -52,6 +36,8 @@ return {
                 { "<localleader>cf", desc = "First error" },
                 { "<localleader>cl", desc = "Last error" },
                 { "<localleader>cj", desc = "Jump to compile terminal" },
+                { "<localleader>cr", desc = "Clear compile terminal" },
+                { "<localleader>cq", desc = "Close compile terminal" },
             },
         },
     },

@@ -7,10 +7,6 @@ local del = vim.keymap.del
 map("n", "<C-l>", "<cmd>nohlsearch<cr>", { silent = true, desc = "clear search highlighting" })
 map("n", "Q", "@q")
 
--- make
-map('n', '<F11>',   ':make! -j $(nproc)<CR>')
-map('n', '<S-F11>',   ':make!<CR>')
-
 -- Alternative for Home, Middle, Low
 map({ "n", "v" }, "gh", "<S-h>", { desc = "Go Home" })
 map({ "n", "v" }, "gm", "<S-m>", { desc = "Go Middle" })
@@ -33,8 +29,3 @@ map("n", "<M-l>", "<cmd>BufferLineMoveNext<cr>", { desc = "Move Buffer Next" })
 -- remove LazyVim's "better indenting"
 del("v", "<")
 del("v", ">")
-
--- remove preset for quickfix/loclist and subistute later with quicker
--- del("n", "<leader>xq")
--- del("n", "<leader>xl")
-

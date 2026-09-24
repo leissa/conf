@@ -1,5 +1,10 @@
 {
   "model": "opus[1m]",
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/starship-statusline.sh",
+    "padding": 0
+  },
   "enabledPlugins": {
     "pyright-lsp@claude-plugins-official": true,
     "clangd-lsp@claude-plugins-official": true,
@@ -8,10 +13,5 @@
   },
   "theme": "dark",
   "editorMode": "vim",
-  "agentPushNotifEnabled": true,
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/starship-statusline.sh",
-    "padding": 0
-  }
+  "agentPushNotifEnabled": true
 }
