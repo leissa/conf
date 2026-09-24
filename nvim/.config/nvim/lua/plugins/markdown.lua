@@ -1,18 +1,28 @@
 return {
     {
-        "iamcco/markdown-preview.nvim",
+        "the-mayankjha/fk_markdown.nvim",
+        ft = "markdown",
         keys = {
-            { "<leader>cp", false, ft = "markdown" },
-            { "<localleader>p", ft = "markdown", "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown Preview" },
+            { "<localleader>p", "<cmd>FkPreviewToggle<cr>", ft = "markdown", desc = "Markdown Preview" },
         },
+        config = function()
+            require("fk_markdown").setup({})
+        end,
     },
-    {
-        "MeanderingProgrammer/render-markdown.nvim",
-        keys = {
-            { "<leader>um", false, ft = "markdown" },
-            { "<localleader>r", "<cmd>RenderMarkdown toggle<cr>", ft = "markdown" },
-        },
-    },
+    -- {
+    --     "iamcco/markdown-preview.nvim",
+    --     keys = {
+    --         { "<leader>cp", false, ft = "markdown" },
+    --         { "<localleader>p", ft = "markdown", "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown Preview" },
+    --     },
+    -- },
+    -- {
+    --     "MeanderingProgrammer/render-markdown.nvim",
+    --     keys = {
+    --         { "<leader>um", false, ft = "markdown" },
+    --         { "<localleader>r", "<cmd>RenderMarkdown toggle<cr>", ft = "markdown" },
+    --     },
+    -- },
     {
         "mfussenegger/nvim-lint",
         opts = function()
