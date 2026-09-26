@@ -169,9 +169,6 @@ min_time          = 2000
 show_milliseconds = false
 style             = "fg:yellow bg:bar_bg"
 format            = "[ 󰔛 $duration]($style)"
-# desktop notification when a long command finishes while you are in another window
-show_notifications = true
-min_time_to_notify = 45000
 
 [jobs]
 symbol_threshold = 1
