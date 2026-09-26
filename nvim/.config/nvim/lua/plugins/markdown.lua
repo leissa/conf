@@ -16,13 +16,13 @@ return {
     --         { "<localleader>p", ft = "markdown", "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown Preview" },
     --     },
     -- },
-    -- {
-    --     "MeanderingProgrammer/render-markdown.nvim",
-    --     keys = {
-    --         { "<leader>um", false, ft = "markdown" },
-    --         { "<localleader>r", "<cmd>RenderMarkdown toggle<cr>", ft = "markdown" },
-    --     },
-    -- },
+    {
+        "MeanderingProgrammer/render-markdown.nvim",
+        keys = {
+            { "<leader>um", false, ft = "markdown" },
+            { "<localleader>r", "<cmd>RenderMarkdown toggle<cr>", ft = "markdown" },
+        },
+    },
     {
         "mfussenegger/nvim-lint",
         opts = function()
