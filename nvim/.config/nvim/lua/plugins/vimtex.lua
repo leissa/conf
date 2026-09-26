@@ -1,5 +1,8 @@
 return {
     "lervag/vimtex",
+    -- Replaced by ~/projects/nvim-tex, see nvim-tex.lua.  Kept around so the
+    -- settings below are one `enabled = true` away if the switch doesn't stick.
+    enabled = false,
     lazy = false, -- lazy-loading will disable inverse search
     keys = {
         { "<localleader>l", ft = "tex", "<cmd>VimtexCompile<cr>", desc = "vimtex-compile)" },

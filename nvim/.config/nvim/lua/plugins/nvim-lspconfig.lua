@@ -1,5 +1,9 @@
 return {
     "neovim/nvim-lspconfig",
+    -- Commented out with the vimtex -> nvim-tex switch: nvim-tex drives texlab
+    -- itself (build.onSave off), so it may no longer set diagnostics on unloaded
+    -- buffers.  Re-enable if "Index out of bounds" from diagnostic.lua returns.
+    --[[
     init = function()
         -- Workaround (nvim 0.12.4): vim.diagnostic's underline handler is the only one that
         -- doesn't clamp to the buffer, so a diagnostic past EOF makes nvim_buf_get_lines throw
@@ -33,6 +37,7 @@ return {
             end,
         }
     end,
+]]
     opts = {
         inlay_hints = { enabled = false },
         diagnostics = { virtual_text = false },

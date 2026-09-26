@@ -1,8 +1,11 @@
 return {
     "nvim-treesitter",
     opts = {
-        ignore_install = { "latex" },
-        ensure_installed = { "mim" },
+        -- The latex parser used to be skipped because vimtex brought its own
+        -- syntax; nvim-tex gets all its structure from the parse tree, so it's
+        -- now required.
+        -- ignore_install = { "latex" },
+        ensure_installed = { "mim", "latex" },
     },
     init = function()
         -- Mim, the front-end language of MimIR.  The grammar is not (yet) in nvim-treesitter's

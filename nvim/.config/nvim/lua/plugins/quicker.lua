@@ -1,7 +1,7 @@
 return {
     "stevearc/quicker.nvim",
     event = "FileType qf",
-    enabled = false, -- currently causing trouble with vimtex
+    -- was disabled because of vimtex; nvim-tex builds its own quickfix list
     ---@module "quicker"
     ---@type quicker.SetupOptions
     opts = {},
