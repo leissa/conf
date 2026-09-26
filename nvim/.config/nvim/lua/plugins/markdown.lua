@@ -6,7 +6,9 @@ return {
             { "<localleader>p", "<cmd>FkPreviewToggle<cr>", ft = "markdown", desc = "Markdown Preview" },
         },
         config = function()
-            require("fk_markdown").setup({})
+            require("fk_markdown").setup({
+                sign = { enabled = false },
+            })
         end,
     },
     -- {
