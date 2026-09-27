@@ -9,7 +9,7 @@ This is a personal dotfiles repository managed with [GNU Stow](https://www.gnu.o
 ## Deployment
 
 ```bash
-make        # init missing submodules, then stow all packages (create symlinks in $HOME)
+make        # init missing submodules, stow all packages (create symlinks in $HOME), rebuild bat's theme cache if a theme changed
 make check  # dry run: show what `make` would do, including conflicts
 make delete # unstow all packages (remove symlinks)
 ```
@@ -18,13 +18,13 @@ These invoke `stow --restow */`, `stow --no --restow */` and `stow --delete */`.
 
 `make` only runs `git submodule update --init --recursive` when a submodule is still uninitialized; it never resets submodules that are already checked out.
 
-**Only directories are stowed** — every top-level directory except `old/` (see below). A new file added at the repo root is *not* deployed.
+**Only directories are stowed** — every top-level directory except `stuff/` (see below). A new file added at the repo root is *not* deployed.
 
 Stow silently skips a few names in every package by default, notably `.gitignore`, `.gitmodules`, `README*` and `LICENSE*`. A file with one of those names inside a package is never linked, so use an alternative path (e.g. the global gitignore lives at `git/.config/git/ignore`, git's XDG default).
 
 There is no build, no test suite and no linter. "Correct" means: the file is valid for its tool, and the package layout still maps to the right place in `$HOME`.
 
-The repo is expected to live at `~/projects/conf` — `old/.tmux.conf` hardcodes `~/projects/conf/tpm_install.sh`.
+The repo is expected to live at `~/projects/conf`.
 
 ## Repository Structure
 
@@ -35,6 +35,7 @@ The repo is expected to live at `~/projects/conf` — `old/.tmux.conf` hardcodes
 | `kitty/` | `~/.config/kitty/` | Kitty terminal config |
 | `git/` | `~/.gitconfig`, `~/.config/git/ignore` | Git global config + global ignore (read by default, no `excludesfile`) |
 | `env/` | `~/.config/environment.d/` | Systemd user env vars |
+| `bat/` | `~/.config/bat/` | bat custom themes (`tokyonight.tmTheme`); `make` runs `bat cache --build` when a theme is newer than bat's cache |
 | `broot/` | `~/.config/broot/` | broot file manager |
 | `cgdb/` | `~/.cgdb/` | cgdb debugger |
 | `picard/` | `~/.config/MusicBrainz/` | MusicBrainz Picard |
@@ -44,13 +45,9 @@ The repo is expected to live at `~/projects/conf` — `old/.tmux.conf` hardcodes
 
 A config for a new tool *foo* goes in `foo/.config/foo/…`, never at the repo root.
 
-### Unstowed root-level files
+### Unstowed files
 
-Not part of any package; managed by hand (link/copy them into place yourself):
-`tokyonight.tmTheme` and the helper scripts
-`tpm_install.sh`, `ssh-agent-startup.sh`, `ssh-agent-logout.sh`, `linediff.sh`, `24-bit-color.sh`, `trucolor-test.sh`.
-
-`old/` holds unused leftovers (`.bashrc`, `.tmux.conf`) that are kept but not deployed; the Makefile filters it out of the package list. Stowing it would clash with the machine's real `~/.bashrc`.
+`stuff/` holds standalone helper scripts (`linediff.sh`, `24-bit-color.sh`, `trucolor-test.sh`) that are kept but not deployed; the Makefile filters it out of the package list. Run them from the repo.
 
 `.ignore` (repo-local, read by rg/fd and everything built on them) whitelists dot entries (`!.*`, minus `.git`) so searches descend into the packages' `.config/` etc. instead of skipping them as hidden.
 
@@ -139,23 +136,15 @@ Only those two files are stowed; the rest of `~/.claude/` is machine-local state
 Note that Claude Code rewrites `settings.json` itself when you change the model or
 theme from inside the app, so expect that file to pick up edits you did not make.
 
-## tmux Configuration
-
-- TPM (tmux Plugin Manager) — installed via `~/projects/conf/tpm_install.sh`
-- Prefix: `C-Space` (not default `C-b`)
-- Theme: `fabioluciano/tmux-tokyo-night` (night variant)
-
 ## Theming Convention
 
 Tokyo Night is used consistently across all tools:
 - Neovim: `tokyonight` colorscheme
-- tmux: `tmux-tokyo-night`
-- bat: `$BAT_THEME=tokyonight`
+- bat: `$BAT_THEME=tokyonight`, which names `bat/.config/bat/themes/tokyonight.tmTheme` -- bat has no built-in Tokyo Night, so the theme only exists after `bat cache --build` (done by `make`)
 - fzf: Tokyo Night color palette in `$FZF_DEFAULT_OPTS`
 - kitty: themed via `current-theme.conf` (gitignored, set by kitty's theme switcher)
 - presenterm: `theme: tokyonight-night`
 - starship: the palette is named -- `[palettes.tokyonight]` in `starship.toml`, selected with `palette = "tokyonight"`, and referenced by name (`fg:green bg:blue0`) rather than by hex. Its colour names deliberately shadow the ANSI ones, so modules left at their defaults pick up the theme too. The git segment is `custom.git` (p10k rainbow port: green = clean, yellow = modified), not the built-in `git_branch`/`git_status`
 - the one place hex is still written out is `starship/.config/starship/git-segment.sh`, which emits its own SGR escape because starship cannot interpolate the palette into a custom module's output -- keep those two values in sync with the palette
-- `tokyonight.tmTheme` for TextMate-grammar consumers
 
 When adding new tool configs, use Tokyo Night where the tool supports theming.
