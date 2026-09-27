@@ -31,10 +31,7 @@ return {
                 "empty school",
             },
         },
-
-        -- Was `vim.g.vimtex_view_enabled = false`; nvim-tex's viewer + SyncTeX is
-        -- the reason to switch, so it stays on.  Uncomment to go back to no viewer.
-        -- view = { enabled = false },
+        imaps = { leader = 'ö' },
     },
 
     -- Was in the vimtex spec to kill vimtex's indentexpr.  nvim-tex ships no
