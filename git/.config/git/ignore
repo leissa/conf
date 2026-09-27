@@ -1,0 +1,4 @@
+.env
+.dotenv
+compile_commands.json
+**/.claude/settings.local.json

@@ -1,8 +1,6 @@
 [user]
 	name = Roland Leißa
 	email = roland.leissa@cs.uni-goettingen.de
-[core]
-    excludesfile = ~/.gitignore
 [push]
     default = tracking
 [alias]

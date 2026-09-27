@@ -9,17 +9,22 @@ This is a personal dotfiles repository managed with [GNU Stow](https://www.gnu.o
 ## Deployment
 
 ```bash
-make        # stow all packages (create symlinks in $HOME)
+make        # init missing submodules, then stow all packages (create symlinks in $HOME)
+make check  # dry run: show what `make` would do, including conflicts
 make delete # unstow all packages (remove symlinks)
 ```
 
-These invoke `stow --verbose --target=$HOME --restow */` and `--delete */` respectively.
+These invoke `stow --restow */`, `stow --no --restow */` and `stow --delete */`. The flags `--target=~ --verbose` come from `.stowrc` in the repo root, so a single package can be (un)stowed from the repo with a bare `stow nvim` / `stow -D kitty`.
 
-Note the trailing `*/`: **only directories are stowed**. A new file added at the repo root is *not* deployed.
+`make` only runs `git submodule update --init --recursive` when a submodule is still uninitialized; it never resets submodules that are already checked out.
+
+**Only directories are stowed** — every top-level directory except `old/` (see below). A new file added at the repo root is *not* deployed.
+
+Stow silently skips a few names in every package by default, notably `.gitignore`, `.gitmodules`, `README*` and `LICENSE*`. A file with one of those names inside a package is never linked, so use an alternative path (e.g. the global gitignore lives at `git/.config/git/ignore`, git's XDG default).
 
 There is no build, no test suite and no linter. "Correct" means: the file is valid for its tool, and the package layout still maps to the right place in `$HOME`.
 
-The repo is expected to live at `~/projects/conf` — `.tmux.conf` hardcodes `~/projects/conf/tpm_install.sh`.
+The repo is expected to live at `~/projects/conf` — `old/.tmux.conf` hardcodes `~/projects/conf/tpm_install.sh`.
 
 ## Repository Structure
 
@@ -28,7 +33,7 @@ The repo is expected to live at `~/projects/conf` — `.tmux.conf` hardcodes `~/
 | `nvim/` | `~/.config/nvim/` | Neovim config (LazyVim-based) |
 | `zsh/` | `~/.config/zsh/` + `~/.zshrc` | Zsh + oh-my-zsh config |
 | `kitty/` | `~/.config/kitty/` | Kitty terminal config |
-| `git/` | `~/.gitconfig`, `~/.gitignore` | Git global config |
+| `git/` | `~/.gitconfig`, `~/.config/git/ignore` | Git global config + global ignore (read by default, no `excludesfile`) |
 | `env/` | `~/.config/environment.d/` | Systemd user env vars |
 | `broot/` | `~/.config/broot/` | broot file manager |
 | `cgdb/` | `~/.cgdb/` | cgdb debugger |
@@ -42,8 +47,10 @@ A config for a new tool *foo* goes in `foo/.config/foo/…`, never at the repo r
 ### Unstowed root-level files
 
 Not part of any package; managed by hand (link/copy them into place yourself):
-`.bashrc`, `.tmux.conf`, `tokyonight.tmTheme`, `typst.lua`, and the helper scripts
+`tokyonight.tmTheme` and the helper scripts
 `tpm_install.sh`, `ssh-agent-startup.sh`, `ssh-agent-logout.sh`, `linediff.sh`, `24-bit-color.sh`, `trucolor-test.sh`.
+
+`old/` holds unused leftovers (`.bashrc`, `.tmux.conf`) that are kept but not deployed; the Makefile filters it out of the package list. Stowing it would clash with the machine's real `~/.bashrc`.
 
 `.ignore` (repo-local, read by rg/fd and everything built on them) whitelists dot entries (`!.*`, minus `.git`) so searches descend into the packages' `.config/` etc. instead of skipping them as hidden.
 
