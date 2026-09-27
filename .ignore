@@ -1,0 +1,6 @@
+# This repo is mostly dotfiles (stow packages mirror $HOME), so rg/fd (and
+# everything built on them: snacks/fzf pickers, live grep, ...) would skip
+# nearly all of it as "hidden". Whitelisting dot entries here overrides that
+# hidden filter; .gitignore'd files stay ignored.
+!.*
+.git

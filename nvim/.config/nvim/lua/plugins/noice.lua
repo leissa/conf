@@ -7,5 +7,9 @@ return {
             --     enabled = false,
             -- },
         },
+        keys = {
+            -- one place for everything: noice history is a superset of the snacks notification history
+            { "<leader>n", function() require("noice").cmd("history") end, desc = "Message History (Noice)" },
+        },
     },
 }

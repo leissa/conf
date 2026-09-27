@@ -9,7 +9,7 @@ return {
         },
     },
     keys = {
-        { "<leader><space>", false }, -- do not clash with hop
+        { "<leader>n", false },       -- noice history instead (see noice.lua)
         { "<leader>sC", false },
         { "<leader>sR", false },      -- do not clash with grug-far
         { "<leader>sr", function() Snacks.picker.resume() end, desc = "Resume" },

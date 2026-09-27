@@ -45,6 +45,8 @@ Not part of any package; managed by hand (link/copy them into place yourself):
 `.bashrc`, `.tmux.conf`, `tokyonight.tmTheme`, `typst.lua`, and the helper scripts
 `tpm_install.sh`, `ssh-agent-startup.sh`, `ssh-agent-logout.sh`, `linediff.sh`, `24-bit-color.sh`, `trucolor-test.sh`.
 
+`.ignore` (repo-local, read by rg/fd and everything built on them) whitelists dot entries (`!.*`, minus `.git`) so searches descend into the packages' `.config/` etc. instead of skipping them as hidden.
+
 ### Machine-local files
 
 Present in the working tree but gitignored — never commit them and don't try to "restore" them:
