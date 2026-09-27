@@ -1,6 +1,6 @@
 return {
-    -- Local checkout at ~/projects/nvim-tex -- the VimTeX replacement.
-    dir = vim.fn.expand("~/projects/nvim-tex"),
+    'leissa/nvim-tex',
+    -- dir = vim.fn.expand("~/projects/nvim-tex"),
     name = "nvim-tex",
     ft = { "tex", "plaintex", "latex" },
     opts = {
@@ -21,6 +21,14 @@ return {
                 "Size substitutions",
                 "Some font shapes",
                 "Columns might not be balanced",
+                "Some images may lack description",
+                "ACM keywords are mandatory",
+                "ACM reference format is mandatory",
+                "CCS concepts are mandatory",
+                "empty address in",
+                "empty publisher in",
+                "page numbers missing",
+                "empty school",
             },
         },
 
