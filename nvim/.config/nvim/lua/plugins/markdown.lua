@@ -4,27 +4,18 @@ return {
         ft = "markdown",
         keys = {
             { "<localleader>p", "<cmd>FkPreviewToggle<cr>", ft = "markdown", desc = "Markdown Preview" },
+            { "<localleader>r", "<cmd>RenderMarkdown toggle<cr>", ft = "markdown", desc = "Render Markdown" },
         },
         config = function()
             require("fk_markdown").setup({
                 sign = { enabled = false },
+                latex = { enabled = Snacks.image.config.math.enabled }, -- follows <leader>um (see keymaps.lua)
             })
         end,
     },
-    -- {
-    --     "iamcco/markdown-preview.nvim",
-    --     keys = {
-    --         { "<leader>cp", false, ft = "markdown" },
-    --         { "<localleader>p", ft = "markdown", "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown Preview" },
-    --     },
-    -- },
-    {
-        "MeanderingProgrammer/render-markdown.nvim",
-        keys = {
-            { "<leader>um", false, ft = "markdown" },
-            { "<localleader>r", "<cmd>RenderMarkdown toggle<cr>", ft = "markdown" },
-        },
-    },
+    -- fk_markdown replaces LazyVim's markdown preview + rendering (lang.markdown extra)
+    { "iamcco/markdown-preview.nvim", enabled = false },
+    { "MeanderingProgrammer/render-markdown.nvim", enabled = false },
     {
         "mfussenegger/nvim-lint",
         opts = function()
