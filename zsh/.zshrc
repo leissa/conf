@@ -22,7 +22,8 @@ VI_MODE_SET_CURSOR=true
 zstyle ':omz:plugins:eza' 'dirs-first'  yes
 zstyle ':omz:plugins:eza' 'git-status'  yes
 zstyle ':omz:plugins:eza' 'header'      no
-zstyle ':omz:plugins:eza' 'hyperlink'   yes
+# hyperlink is added below: the plugin's bare `--hyperlink` swallows a following path
+zstyle ':omz:plugins:eza' 'hyperlink'   no
 zstyle ':omz:plugins:eza' 'icons'       yes
 zstyle ':omz:plugins:eza' 'size-prefix' binary
 
@@ -82,6 +83,12 @@ _comp_options+=(globdots)
 
 alias icat="kitten icat"
 alias picard="picard -s"
+
+# eza: add hyperlinks to the plugin's aliases (see the zstyle above)
+for _a in ${(k)aliases}; do
+  [[ $aliases[$_a] == eza\ * ]] && aliases[$_a]+=" --hyperlink=auto"
+done
+unset _a
 
 #
 # fzf
