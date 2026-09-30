@@ -1,143 +1,5 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path cargo
-export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$HOME/bin:$HOME/projects/pintos/src/utils/bin:$HOME/projects/pintos/src/utils:$PATH"
+export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
 export DEBUGINFOD_URLS="https://debuginfod.archlinux.org https://debuginfod.elfutils.org"
-
-# The prompt comes from starship (initialized at the bottom of this file),
-# so oh-my-zsh must not install a theme of its own.
-ZSH_THEME=""
-
-# eza
-
-zstyle ':omz:plugins:eza' 'hyperlink'   yes
-zstyle ':omz:plugins:eza' 'dirs-first'  yes
-zstyle ':omz:plugins:eza' 'git-status'  yes
-zstyle ':omz:plugins:eza' 'header'      no
-zstyle ':omz:plugins:eza' 'hyperlink'   yes
-zstyle ':omz:plugins:eza' 'icons'       yes
-zstyle ':omz:plugins:eza' 'size-prefix' binary
-
-## fzf-tab
-#
-## disable sort when completing `git checkout`
-#zstyle ':completion:*:git-checkout:*' sort false
-#
-## set descriptions format to enable group support
-## note: don't use escape sequences (like '%F{red}%d%f') here, fzf-tab will ignore them
-#zstyle ':completion:*:descriptions' format '[%d]'
-#
-## set list-colors to enable filename colorizing
-#zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-#
-## force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
-#zstyle ':completion:*' menu no
-#
-## preview directory's content with eza when completing cd/zoxide
-#zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-#zstyle ':fzf-tab:complete:z:*'  fzf-preview 'eza -1 --color=always $realpath'
-#
-## switch group using `<` and `>`
-#zstyle ':fzf-tab:*' switch-group '<' '>'
-#
-#zstyle ':fzf-tab:*' fzf-flags --bind 'one:accept'
-#zstyle ':fzf-tab:*' use-fzf-default-opts yes
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-    #alias-tips
-    aliases
-    archlinux
-    #colored-man-pages
-    colorize
-    dotenv
-    eza
-    #fzf-tab
-    git
-    kitty
-    procs
-    tmux
-    zoxide
-    vi-mode
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-)
-
-#ENABLE_CORRECTION="true"
-VI_MODE_SET_CURSOR=true
-
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.config/zsh/oh-my-zsh"
-export ZSH_CUSTOM="$HOME/.config/zsh/custom"
-source $ZSH/oh-my-zsh.sh
-source "$HOME/.elan/env"
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
 
 export EDITOR='nvim'
 export VISUAL='nvim'
@@ -145,90 +7,176 @@ export PAGER="nvimpager"
 export CMAKE_EXPORT_COMPILE_COMMANDS=1
 export BAT_THEME=tokyonight
 
+#
+# oh-my-zsh
+#
+
+# The prompt comes from starship (initialized at the bottom of this file),
+# so oh-my-zsh must not install a theme of its own.
+ZSH_THEME=""
+
+VI_MODE_SET_CURSOR=true
+
+# eza
+
+zstyle ':omz:plugins:eza' 'dirs-first'  yes
+zstyle ':omz:plugins:eza' 'git-status'  yes
+zstyle ':omz:plugins:eza' 'header'      no
+zstyle ':omz:plugins:eza' 'hyperlink'   yes
+zstyle ':omz:plugins:eza' 'icons'       yes
+zstyle ':omz:plugins:eza' 'size-prefix' binary
+
+# fzf-tab
+
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+
+# set descriptions format to enable group support
+# note: don't use escape sequences (like '%F{red}%d%f') here, fzf-tab will ignore them
+zstyle ':completion:*:descriptions' format '[%d]'
+
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+
+# preview directory's content with eza when completing cd/zoxide
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:z:*'  fzf-preview 'eza -1 --color=always $realpath'
+
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
+zstyle ':fzf-tab:*' fzf-flags --bind 'one:accept'
+zstyle ':fzf-tab:*' use-fzf-default-opts yes
+
+# pick up newly installed binaries without `rehash`
 zstyle ':completion:*' rehash true
 
+plugins=(
+    aliases
+    archlinux
+    colorize
+    dotenv
+    eza
+    fzf-tab
+    git
+    kitty
+    zoxide
+    vi-mode
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+)
+
+export ZSH="$HOME/.config/zsh/oh-my-zsh"
+export ZSH_CUSTOM="$HOME/.config/zsh/custom"
+source $ZSH/oh-my-zsh.sh
+
+# complete dotfiles without typing the leading `.`; otherwise `git add <TAB>`
+# inside a stow package (where every path is .zshrc, .config/...) finds nothing
+_comp_options+=(globdots)
+
+#
 # aliases
+#
 
 alias icat="kitten icat"
 alias picard="picard -s"
 
+#
 # fzf
+#
 
 eval "$(fzf --zsh)"
 
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
-    --highlight-line \
-    --info=inline-right \
-    --ansi \
-    --layout=reverse \
-    --border=none \
-    --color=bg+:#283457 \
-    --color=border:#27a1b9 \
-    --color=fg:#c0caf5 \
-    --color=gutter:#16161e \
-    --color=header:#ff9e64 \
-    --color=hl+:#2ac3de \
-    --color=hl:#2ac3de \
-    --color=info:#545c7e \
-    --color=marker:#ff007c \
-    --color=pointer:#ff007c \
-    --color=prompt:#2ac3de \
-    --color=query:#c0caf5:regular \
-    --color=scrollbar:#27a1b9 \
-    --color=separator:#ff9e64 \
-    --color=spinner:#ff007c \
+export FZF_DEFAULT_OPTS="
+    --highlight-line
+    --info=inline-right
+    --ansi
+    --layout=reverse
+    --border=none
+    --color=bg+:#283457
+    --color=border:#27a1b9
+    --color=fg:#c0caf5
+    --color=gutter:#16161e
+    --color=header:#ff9e64
+    --color=hl+:#2ac3de
+    --color=hl:#2ac3de
+    --color=info:#545c7e
+    --color=marker:#ff007c
+    --color=pointer:#ff007c
+    --color=prompt:#2ac3de
+    --color=query:#c0caf5:regular
+    --color=scrollbar:#27a1b9
+    --color=separator:#ff9e64
+    --color=spinner:#ff007c
 "
-#  --color=bg:#16161e \
+
+# List files/dirs with fd: respects .gitignore (fzf's built-in walker doesn't)
+_fzf_fd="fd --hidden --follow --exclude .git --exclude node_modules --exclude target"
+export FZF_CTRL_T_COMMAND="$_fzf_fd --type f"
+export FZF_ALT_C_COMMAND="$_fzf_fd --type d"
+# `**<TAB>` without a path prefix passes "."; list relative to cwd without "./"
+_fzf_compgen_path() { [[ $1 == . ]] && eval "$_fzf_fd --strip-cwd-prefix"         || eval "$_fzf_fd . ${(q)1}" }
+_fzf_compgen_dir()  { [[ $1 == . ]] && eval "$_fzf_fd --strip-cwd-prefix --type d" || eval "$_fzf_fd --type d . ${(q)1}" }
+
+# fzf reads FZF_DEFAULT_OPTS on its own; the per-widget opts below only add to it
 
 # Preview file content using bat (https://github.com/sharkdp/bat)
-export FZF_CTRL_T_OPTS="$FZF_DEFAULT_OPTS \
-    --walker-skip .git,node_modules,target
+export FZF_CTRL_T_OPTS="
     --preview 'bat -n --color=always {}'
     --bind 'ctrl-/:change-preview-window(down|hidden|)'"
 
 # CTRL-/ to toggle small preview window to see the full command
-# CTRL-Y to copy the command into clipboard using pbcopy
-export FZF_CTRL_R_OPTS="$FZF_DEFAULT_OPTS \
+# CTRL-Y to copy the command into clipboard using wl-copy
+export FZF_CTRL_R_OPTS="
     --preview 'echo {}' --preview-window up:3:hidden:wrap
     --bind 'ctrl-/:toggle-preview'
-    --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+    --bind 'ctrl-y:execute-silent(echo -n {2..} | wl-copy)+abort'
     --header 'Press CTRL-Y to copy command into clipboard'"
-    #--color header:italic
 
 # Print tree structure in the preview window
-export FZF_ALT_C_OPTS="$FZF_DEFAULT_OPTS \
-    --walker-skip .git,node_modules,target
+export FZF_ALT_C_OPTS="
     --preview 'tree -C {}'"
 
+# `**<TAB>` completion ignores FZF_CTRL_T_OPTS; add previews per command here
+_fzf_comprun() {
+    local command=$1
+    shift
+    case "$command" in
+        cd)           fzf --preview 'tree -C {} | head -200' "$@" ;;
+        export|unset) fzf --preview "eval 'echo \$'{}"       "$@" ;;
+        ssh|telnet)   fzf "$@" ;;
+        *)            fzf --preview '[[ -d {} ]] && tree -C {} | head -200 || bat -n --color=always {}' \
+                          --bind 'ctrl-/:change-preview-window(down|hidden|)' "$@" ;;
+    esac
+}
+
+# live ripgrep: type to search, preview the hit, <Enter> opens it in nvim at that line
+rgf() {
+    fzf --disabled --ansi --query "$*" \
+        --bind 'start,change:reload:rg --column --line-number --no-heading --color=always --smart-case -- {q} || true' \
+        --delimiter : \
+        --preview 'bat --color=always {1} --highlight-line {2}' \
+        --preview-window 'up,60%,+{2}+3/3' \
+        --bind 'enter:become(nvim {1} +{2})'
+}
+
+# git pickers (https://github.com/junegunn/fzf-git.sh):
+# CTRL-G CTRL-{F,B,T,R,H,S,E,L,W} for files, branches, tags, remotes, hashes, stashes, each-ref, reflog, worktrees
+source "$ZSH_CUSTOM/fzf-git/fzf-git.sh"
+
 #
-# other
+# toolchains
 #
 
-# # Install packages using yay (change to pacman/AUR helper of your choice)
-# function in() {
-#     yay -Slq | fzf --multi --preview 'cat <(pacman -Si {1}) <(pacman -Fl {1} | awk "{print \$2}")' | xargs -ro yay -S
-#     # yay -Slq | fzf -q "$1" -m --preview 'yay -Si {1}'| xargs -ro yay -S
-# }
-# # Remove installed packages (change to pacman/AUR helper of your choice)
-# function re() {
-#     yay -Qq | fzf -q "$1" -m --preview 'yay -Qi {1}' | xargs -ro yay -Rns
-# }
+source "$HOME/.elan/env"
+[[ ! -r $HOME/.opam/opam-init/init.zsh ]] || source $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null
+source $HOME/.config/broot/launcher/bash/br
 
-# opam configuration
-[[ ! -r /home/roland/.opam/opam-init/init.zsh ]] || source /home/roland/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
-
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
-# broot
-
-source /home/roland/.config/broot/launcher/bash/br
-
-#neofetch
-
-# starship prompt -- config in ~/.config/starship.toml
+#
+# prompt: starship -- config in ~/.config/starship.toml
+#
 
 ZLE_RPROMPT_INDENT=0  # flush right prompt against the terminal edge (like p10k)
 eval "$(starship init zsh)"

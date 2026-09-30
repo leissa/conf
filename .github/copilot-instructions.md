@@ -72,8 +72,12 @@ Submodules live under `zsh/.config/zsh/`:
 - `custom/plugins/zsh-autosuggestions`
 - `custom/plugins/zsh-syntax-highlighting`
 - `custom/plugins/alias-tips`
+- `custom/plugins/fzf-tab` — fzf-driven `<Tab>` completion menu
+- `custom/fzf-git` — [fzf-git.sh](https://github.com/junegunn/fzf-git.sh), sourced directly from `zsh/.zshrc` (it is not an oh-my-zsh plugin)
 
 Never edit files inside a submodule to change behaviour — override via `zsh/.zshrc` or `custom/`.
+
+oh-my-zsh sources every `custom/*.zsh` automatically. `custom/git-files.zsh` is such an override: a fixed copy of `__git_files` from zsh's own `_git` completion (its pathspec quoting is broken, so `git add ../foo/<TAB>` from a subdirectory found nothing).
 
 ## Neovim Configuration
 
