@@ -84,9 +84,44 @@ _comp_options+=(globdots)
 alias icat="kitten icat"
 alias picard="picard -s"
 
-# eza: add hyperlinks to the plugin's aliases (see the zstyle above)
+# eza: translate ls-style flags in short-option clusters (`ls -ltr`, `l -lS`):
+#   t → -s modified, S → -s size (ls sorts these descending, eza ascending, so -r flips)
+#   h → dropped (eza sizes are human-readable anyway; its -h adds a header)
+# eza's own `-t FIELD`/`-s FIELD`/... still work since value-taking options end a cluster
+function _eza_ls() {
+  local -a args
+  local arg rest c kept sort
+  integer reverse=0
+  while (( $# )); do
+    arg=$1; shift
+    if [[ $arg == -- ]]; then args+=(-- "$@"); break; fi
+    if [[ $arg != -[^-]* ]]; then args+=($arg); continue; fi
+    rest=${arg#-} kept=
+    while [[ -n $rest ]]; do
+      c=${rest[1]} rest=${rest:1}
+      case $c in
+        t) if [[ $rest == (modified|changed|accessed|created) ]] ||
+              [[ -z $rest && $1 == (modified|changed|accessed|created) ]]; then
+             kept+=t$rest; break
+           fi
+           sort=modified ;;
+        S) sort=size ;;
+        r) (( reverse ^= 1 )) ;;
+        h) ;;
+        [sLwIF]) kept+=$c$rest; break ;;
+        *) kept+=$c ;;
+      esac
+    done
+    [[ -n $kept ]] && args+=(-$kept)
+  done
+  [[ -n $sort ]] && { args+=(-s $sort); (( reverse ^= 1 )) }
+  (( reverse )) && args+=(-r)
+  eza "${args[@]}"
+}
+
+# eza: route the plugin's aliases through _eza_ls and add hyperlinks (see the zstyle above)
 for _a in ${(k)aliases}; do
-  [[ $aliases[$_a] == eza\ * ]] && aliases[$_a]+=" --hyperlink=auto"
+  [[ $aliases[$_a] == eza\ * ]] && aliases[$_a]="_eza_ls ${aliases[$_a]#eza } --hyperlink=auto"
 done
 unset _a
 
