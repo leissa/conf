@@ -9,7 +9,11 @@ return {
         config = function()
             require("fk_markdown").setup({
                 sign = { enabled = false },
-                latex = { enabled = Snacks.image.config.math.enabled }, -- follows <leader>um (see keymaps.lua)
+                -- Without a `code` table, fk_markdown keeps left_pad = 0 but still draws its `│` border at
+                -- col 0, covering the first char. Passing one makes it pad by 1. It would also force
+                -- bg = #181825 here, so we hand back the colorscheme's own RenderMarkdownCode bg instead.
+                code = { background = { color = "RenderMarkdownCode" } },
+                latex ={ enabled = Snacks.image.config.math.enabled }, -- follows <leader>um (see keymaps.lua)
             })
         end,
     },
