@@ -105,6 +105,8 @@ function _eza_ls() {
   (( reverse )) && args+=(-r)
   eza "${args[@]}"
 }
+# complete like eza; otherwise compsys' `_*` pattern maps any `_`-prefixed command to _compadd
+compdef _eza _eza_ls
 
 # eza: route the plugin's aliases through _eza_ls and add hyperlinks (see the zstyle above)
 for _a in ${(k)aliases}; do
