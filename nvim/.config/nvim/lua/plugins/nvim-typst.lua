@@ -7,5 +7,8 @@ return {
                 out_dir = "build",
             },
         },
+        indent = {
+            width = 4,
+        },
     },
 }
