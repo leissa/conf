@@ -38,7 +38,7 @@ The repo is expected to live at `~/projects/conf`.
 | `bat/` | `~/.config/bat/` | bat custom themes (`tokyonight.tmTheme`); `make` runs `bat cache --build` when a theme is newer than bat's cache |
 | `broot/` | `~/.config/broot/` | broot file manager |
 | `cgdb/` | `~/.cgdb/` | cgdb debugger |
-| `picard/` | `~/.config/MusicBrainz/` | MusicBrainz Picard |
+| `picard/` | `~/.config/MusicBrainz/`, `~/.local/share/MusicBrainz/Picard/plugins3/` | MusicBrainz Picard + own Picard 3 plugin `cover_from_release` (cover art from another release of the same release group) |
 | `presenterm/` | `~/.config/presenterm/` | presenterm terminal slides |
 | `starship/` | `~/.config/starship.toml`, `~/.config/starship/` | Starship prompt config + the git segment's helper script |
 | `claude/` | `~/.claude/` | Claude Code settings + its starship statusline wrapper |
@@ -56,7 +56,10 @@ A config for a new tool *foo* goes in `foo/.config/foo/…`, never at the repo r
 Present in the working tree but gitignored — never commit them and don't try to "restore" them:
 `nvim/.config/nvim/lazy-lock.json`, `nvim/.config/nvim/lazyvim.json`,
 `kitty/.config/kitty/current-theme.conf` (written by kitty's theme switcher),
-`picard/.config/MusicBrainz/Picard.ini`, `cgdb/.cgdb/logs/`.
+`picard/.config/MusicBrainz/Picard.ini` and `.Picard.ini.synclock`,
+`picard/.config/MusicBrainz/Picard-*.ini` (old-version backups Picard writes when migrating its config),
+`picard/.config/MusicBrainz/Picard/sessions/` (autosave session), `picard/.local/share/MusicBrainz/Picard/plugins3/*/__pycache__/`,
+`cgdb/.cgdb/logs/`.
 
 ## Git Submodules
 

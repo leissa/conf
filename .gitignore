@@ -6,3 +6,6 @@ kitty/.config/kitty/current-theme.conf
 kitty/.config/kitty/*.bak
 picard/.config/MusicBrainz/Picard.ini
 picard/.config/MusicBrainz/.Picard.ini.synclock
+picard/.local/share/MusicBrainz/Picard/plugins3/*/__pycache__/
+picard/.config/MusicBrainz/Picard-*.ini
+picard/.config/MusicBrainz/Picard/sessions/

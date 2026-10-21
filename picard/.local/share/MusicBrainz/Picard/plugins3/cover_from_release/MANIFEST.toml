@@ -1,0 +1,13 @@
+uuid = "ea38fcfb-95db-4f34-8038-1444ff974c1e"
+name = "Cover Art from Another Release"
+description = "Use the Cover Art Archive images of a different release (e.g. the US edition) for an album."
+long_description = """
+Right-click an album and choose "Use cover art from another release…" to pick
+a sibling release from the same release group (or paste any release URL/MBID).
+The choice is remembered per release; the "Cover Art Archive: Chosen Release"
+provider then fetches the cover from the chosen release instead.
+"""
+api = ["3.0"]
+authors = ["Roland Leißa"]
+license = "GPL-2.0-or-later"
+categories = ["coverart"]

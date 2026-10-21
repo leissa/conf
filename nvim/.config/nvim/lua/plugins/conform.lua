@@ -9,6 +9,13 @@ return {
             -- texlab at latexindent, so tex buffers format via the LSP again.
             -- tex = { "tex-fmt" },
             -- plaintex = { "tex-fmt" },
+            -- The typst extra prefers tinymist's LSP formatting, which can't do
+            -- --wrap-text=sentence, so run the typstyle CLI instead.
+            typst = { "typstyle", lsp_format = "fallback" },
+        },
+        formatters = {
+            -- 4-space indent, one sentence per line, no column limit
+            typstyle = { prepend_args = { "-t", "4", "-l", "10000", "--wrap-text=sentence" } },
         },
     },
 }
