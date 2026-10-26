@@ -23,7 +23,7 @@ opt.wildmode = "list:longest,full"
 
 -- misc
 g.maplocalleader = "ö"
-g.root_spec = { ".git", "lsp", "cwd" }
+g.root_spec = { { ".git", ".clangd", "CMakePresets.json" }, "lsp", "cwd" } -- nearest marker wins
 g.autoformat = false -- no autoformat on write
 
 -- set to `true` to follow the main branch

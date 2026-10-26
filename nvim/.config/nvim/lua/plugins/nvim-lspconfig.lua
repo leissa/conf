@@ -38,8 +38,13 @@ return {
         }
     end,
 ]]
-    opts = {
-        inlay_hints = { enabled = false },
-        diagnostics = { virtual_text = false },
-    },
+    opts = function(_, opts)
+        opts.inlay_hints = vim.tbl_deep_extend("force", opts.inlay_hints or {}, { enabled = false })
+        opts.diagnostics = vim.tbl_deep_extend("force", opts.diagnostics or {}, { virtual_text = false })
+        -- prefer the nearest .clangd/CMakePresets.json over .git (e.g. cgray inside the cg repo)
+        local clangd = opts.servers and opts.servers.clangd
+        if clangd and clangd.root_markers then
+            clangd.root_markers = vim.list_extend({ ".clangd", "CMakePresets.json" }, clangd.root_markers)
+        end
+    end,
 }
