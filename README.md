@@ -35,7 +35,6 @@ The repo is expected to live at `~/projects/conf`.
 | `bat`         | bat with a Tokyo Night theme                                        |
 | `broot`       | broot file manager                                                  |
 | `cgdb`        | cgdb debugger                                                       |
-| `presenterm`  | presenterm terminal slides                                          |
 | `picard`      | MusicBrainz Picard + a small `cover_from_release` plugin            |
 | `claude`      | Claude Code settings + a starship-based status line                 |
 
