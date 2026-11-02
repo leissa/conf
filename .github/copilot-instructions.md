@@ -49,6 +49,8 @@ A config for a new tool *foo* goes in `foo/.config/foo/…`, never at the repo r
 
 `stuff/` holds standalone helper scripts (`linediff.sh`, `24-bit-color.sh`, `trucolor-test.sh`) that are kept but not deployed; the Makefile filters it out of the package list. Run them from the repo.
 
+`README.md` is the human-facing overview (install steps, package list); keep it in sync when adding or removing a package.
+
 `.ignore` (repo-local, read by rg/fd and everything built on them) whitelists dot entries (`!.*`, minus `.git`) so searches descend into the packages' `.config/` etc. instead of skipping them as hidden.
 
 ### Machine-local files
